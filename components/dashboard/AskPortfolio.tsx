@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
 import { Panel, TerminalChrome } from "@/components/ui/Panel";
 import { EqualizerBars } from "./EqualizerBars";
+import { useTurnstile } from "./useTurnstile";
 
 const SUGGESTIONS = [
   "What does João do at SEDUC?",
@@ -22,6 +23,7 @@ export function AskPortfolio({ className = "" }: { className?: string }) {
   const [streaming, setStreaming] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const turnstile = useTurnstile();
 
   const send = async (text: string) => {
     const question = text.trim();
@@ -40,7 +42,10 @@ export function AskPortfolio({ className = "" }: { className?: string }) {
       const res = await fetch("/api/ask", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: question }),
+        body: JSON.stringify({
+          message: question,
+          turnstileToken: turnstile.getToken(),
+        }),
       });
 
       if (!res.ok || !res.body) {
@@ -173,6 +178,10 @@ export function AskPortfolio({ className = "" }: { className?: string }) {
                 send
               </button>
             </div>
+            {/* Cloudflare Turnstile widget — only renders when configured */}
+            {turnstile.enabled ? (
+              <div ref={turnstile.containerRef} className="mt-2" />
+            ) : null}
             <p className="mt-1.5 font-mono text-[10px] text-comment">
               rate-limited · max 300 tokens · no SIMF / gov data
             </p>

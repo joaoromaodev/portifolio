@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { SYSTEM_PROMPT } from "@/lib/persona";
 import { checkRateLimit, clientIp } from "@/lib/ratelimit";
+import { isSameOrigin, verifyTurnstile } from "@/lib/security";
 
 // "Ask my portfolio" chatbot (DESIGN.md §6). Streams Claude Haiku 4.5
 // (claude-haiku-4-5 — chosen for cost) behind this Route Handler so the
@@ -19,8 +20,15 @@ export async function POST(req: Request) {
     );
   }
 
-  // Abuse protections (DESIGN.md §6).
-  const rate = checkRateLimit(clientIp(req));
+  // Abuse protections (DESIGN.md §6), cheapest first.
+  // 1. Same-origin check — block cross-site browser callers.
+  if (!isSameOrigin(req)) {
+    return Response.json({ error: "Forbidden." }, { status: 403 });
+  }
+
+  // 2. Rate limit per IP + global daily cap (before any external call).
+  const ip = clientIp(req);
+  const rate = checkRateLimit(ip);
   if (!rate.ok) {
     const msg =
       rate.scope === "global"
@@ -30,9 +38,12 @@ export async function POST(req: Request) {
   }
 
   let message: string;
+  let turnstileToken: string | undefined;
   try {
     const body = await req.json();
     message = typeof body?.message === "string" ? body.message.trim() : "";
+    turnstileToken =
+      typeof body?.turnstileToken === "string" ? body.turnstileToken : undefined;
   } catch {
     return Response.json({ error: "Invalid request." }, { status: 400 });
   }
@@ -42,6 +53,14 @@ export async function POST(req: Request) {
   }
   if (message.length > MAX_INPUT_CHARS) {
     message = message.slice(0, MAX_INPUT_CHARS);
+  }
+
+  // 3. Turnstile (anti-bot) — no-op when TURNSTILE_SECRET_KEY is unset.
+  if (!(await verifyTurnstile(turnstileToken, ip))) {
+    return Response.json(
+      { error: "Couldn't verify you're human — please refresh and try again." },
+      { status: 403 },
+    );
   }
 
   const client = new Anthropic();
