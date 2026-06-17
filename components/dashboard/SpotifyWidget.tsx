@@ -1,6 +1,6 @@
 "use client";
 
-import { WidgetShell, SkeletonLine, useFakeLoad } from "./WidgetShell";
+import { WidgetShell, SkeletonLine, useLiveWidget } from "./WidgetShell";
 import { EqualizerBars } from "./EqualizerBars";
 
 // Fallback until Spotify OAuth (refresh token) + /api/spotify are wired.
@@ -12,7 +12,9 @@ const FALLBACK = {
 };
 
 export function SpotifyWidget() {
-  const { status, data } = useFakeLoad(FALLBACK, 1100);
+  const { status, data } = useLiveWidget("/api/spotify", FALLBACK, {
+    refreshMs: 45000,
+  });
 
   return (
     <WidgetShell

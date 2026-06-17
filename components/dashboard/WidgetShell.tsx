@@ -69,13 +69,53 @@ export function SkeletonLine({ w = "100%", h = 10 }: { w?: string; h?: number })
   );
 }
 
-// Simulates an async load until the real Route Handler is wired in.
-// Swap the body for `fetch('/api/...')` later — the shape stays the same.
-export function useFakeLoad<T>(value: T, delay = 900): { status: WidgetStatus; data: T } {
-  const [status, setStatus] = useState<WidgetStatus>("loading");
+type Envelope<T> =
+  | { ok: true; data: T }
+  | { ok: false; reason: "unconfigured" | "error" | "empty" };
+
+// Fetches a widget's Route Handler and maps the envelope to a status.
+// Live data → "ready"; unset key → "empty" (idle); failure → "error" (offline).
+// In every non-live case it returns the static `fallback` so the tile is never
+// blank — the widget renders `data` identically whether live or fallback.
+export function useLiveWidget<T>(
+  endpoint: string,
+  fallback: T,
+  opts?: { refreshMs?: number },
+): { status: WidgetStatus; data: T } {
+  const [state, setState] = useState<{ status: WidgetStatus; data: T }>({
+    status: "loading",
+    data: fallback,
+  });
+
   useEffect(() => {
-    const id = setTimeout(() => setStatus("ready"), delay);
-    return () => clearTimeout(id);
-  }, [delay]);
-  return { status, data: value };
+    let cancelled = false;
+
+    const run = async () => {
+      try {
+        const res = await fetch(endpoint);
+        const json = (await res.json()) as Envelope<T>;
+        if (cancelled) return;
+        if (json.ok) {
+          setState({ status: "ready", data: json.data });
+        } else {
+          setState({
+            status: json.reason === "unconfigured" ? "empty" : "error",
+            data: fallback,
+          });
+        }
+      } catch {
+        if (!cancelled) setState({ status: "error", data: fallback });
+      }
+    };
+
+    run();
+    const id = opts?.refreshMs ? setInterval(run, opts.refreshMs) : undefined;
+    return () => {
+      cancelled = true;
+      if (id) clearInterval(id);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endpoint]);
+
+  return state;
 }

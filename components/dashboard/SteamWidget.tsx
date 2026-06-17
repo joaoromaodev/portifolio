@@ -1,6 +1,6 @@
 "use client";
 
-import { WidgetShell, SkeletonLine, useFakeLoad } from "./WidgetShell";
+import { WidgetShell, SkeletonLine, useLiveWidget } from "./WidgetShell";
 
 // Fallback until STEAM_API_KEY + STEAM_ID + /api/steam are wired.
 // Falls back gracefully if the profile is private (DESIGN.md §4).
@@ -13,7 +13,7 @@ const FALLBACK = {
 };
 
 export function SteamWidget() {
-  const { status, data } = useFakeLoad(FALLBACK, 1300);
+  const { status, data } = useLiveWidget("/api/steam", FALLBACK);
 
   return (
     <WidgetShell

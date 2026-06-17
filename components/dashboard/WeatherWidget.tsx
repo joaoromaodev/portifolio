@@ -1,6 +1,6 @@
 "use client";
 
-import { WidgetShell, SkeletonLine, useFakeLoad } from "./WidgetShell";
+import { WidgetShell, SkeletonLine, useLiveWidget } from "./WidgetShell";
 
 // Open-Meteo needs no key — this will call /api/weather (cache ~1h) once wired.
 // Belém is tropical: warm + humid year-round, frequent afternoon rain.
@@ -12,7 +12,7 @@ const FALLBACK = {
 };
 
 export function WeatherWidget() {
-  const { status, data } = useFakeLoad(FALLBACK, 850);
+  const { status, data } = useLiveWidget("/api/weather", FALLBACK);
 
   return (
     <WidgetShell

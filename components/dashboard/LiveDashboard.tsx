@@ -19,7 +19,7 @@ export function LiveDashboard() {
       <SectionHeader
         id="live"
         title="A dashboard that's actually alive"
-        subtitle="Every tile is a real widget — GitHub, Spotify, weather, Steam, an Amazon map and an AI assistant. Each one has its own loading and fallback state, so it never looks broken. (API keys land next; shown with snapshots for now.)"
+        subtitle="Every tile is a real widget — GitHub, Spotify, weather, Steam, an Amazon map and an AI assistant — each served by its own Next.js Route Handler so the API keys never touch the browser. Tiles fall back to a static snapshot whenever a key is unset, so nothing ever looks broken."
       />
 
       <motion.div
