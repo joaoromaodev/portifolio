@@ -20,7 +20,7 @@ export function SectionHeader({
       className="mb-8 md:mb-10"
     >
       <p className="font-mono text-sm text-comment">{`// ${id}`}</p>
-      <h2 className="mt-1 font-mono text-2xl font-semibold tracking-tight text-fg md:text-3xl">
+      <h2 className="mt-2 text-3xl font-semibold tracking-tight text-fg md:text-4xl">
         {title}
       </h2>
       {subtitle ? (
