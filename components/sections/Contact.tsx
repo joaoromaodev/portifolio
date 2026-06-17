@@ -7,6 +7,7 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { fadeUp } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
 import { profile } from "@/lib/site";
+import { LocationCard } from "@/components/location/LocationCard";
 
 export function Contact() {
   // Assemble the address at runtime so it isn't sitting in the static HTML
@@ -34,6 +35,10 @@ export function Contact() {
         title="Let's talk"
         subtitle="Open to remote roles and relocation. The fastest way to reach me is email or LinkedIn."
       />
+
+      <div className="mb-4">
+        <LocationCard />
+      </div>
 
       <motion.div variants={fadeUp}>
         <Panel className="p-6 md:p-8">

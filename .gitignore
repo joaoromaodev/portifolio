@@ -43,3 +43,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw geo source (only the built lib/geo/*.json is committed)
+scripts/_countries-50m.json
