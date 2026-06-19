@@ -33,10 +33,16 @@ export const about = {
     "As a kid I built games; as a teenager I moved into design and launched one venture after another (and failed at plenty of them). That same drive still shows up everywhere: restoring an SG guitar, running @magomercador (my tabletop-RPG accessories shop), gaming when I can, and trying to move my body more often.",
     "My long-term goal is simple: to build a life abroad with my wife — somewhere with real quality of life, and the financial and physical freedom to enjoy it.",
   ],
+  // Short, tag-style — rendered as a compact chip strip, not prose.
   beyondCode: [
-    "Rock, from classic to metal (seen Slipknot and Guns N' Roses live)",
-    "Puzzles, anime, series and films",
-    "Rotating hyperfocuses: guitar, Mago Mercador, games, training",
+    "Rock & metal",
+    "Slipknot & GN'R, live",
+    "Puzzles",
+    "Anime & film",
+    "Guitar",
+    "Mago Mercador",
+    "Gaming",
+    "Training",
   ],
 } as const;
 
