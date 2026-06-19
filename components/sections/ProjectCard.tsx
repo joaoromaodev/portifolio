@@ -35,7 +35,7 @@ export function ProjectCard({
           </span>
         </div>
 
-        <p className="mt-3 text-sm leading-relaxed text-muted">
+        <p className="mt-3 text-base leading-relaxed text-muted">
           {project.summary}
         </p>
 
@@ -58,7 +58,7 @@ export function ProjectCard({
           ))}
         </ul>
 
-        <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-border pt-3">
+        <div className="mt-auto flex flex-wrap items-center gap-3 border-t border-border pt-3">
           {project.links?.map((l) => (
             <a
               key={l.href}

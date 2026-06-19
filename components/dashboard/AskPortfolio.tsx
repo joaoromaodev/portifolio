@@ -168,7 +168,7 @@ export function AskPortfolio({ className = "" }: { className?: string }) {
                 disabled={streaming}
                 maxLength={500}
                 placeholder={streaming ? "Thinking…" : "Type a question…"}
-                className="flex-1 bg-transparent font-mono text-sm text-fg placeholder:text-comment focus:outline-none disabled:cursor-not-allowed"
+                className="flex-1 bg-transparent font-mono text-sm text-fg placeholder:text-comment disabled:cursor-not-allowed"
               />
               <button
                 type="submit"

@@ -44,6 +44,24 @@
   section[id] {
     scroll-margin-top: 5rem;
   }
+
+  /* One keyboard-focus style for every interactive element, site-wide —
+     replaces per-component focus rings (and the removed input outline). */
+  a,
+  button,
+  input,
+  [tabindex]:not([tabindex="-1"]) {
+    outline-offset: 3px;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--color-green);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
 }
 
 /* ── Motion (DESIGN.md §9 — one curve, degrade on reduced-motion) ──────── */

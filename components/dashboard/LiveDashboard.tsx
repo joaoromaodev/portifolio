@@ -2,34 +2,38 @@
 
 import { motion } from "framer-motion";
 import { stagger, inView } from "@/lib/motion";
+import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { GitHubWidget } from "./GitHubWidget";
 import { SpotifyWidget } from "./SpotifyWidget";
 import { SteamWidget } from "./SteamWidget";
-import { AskPortfolio } from "./AskPortfolio";
 
+// Live panels are coming back one at a time — GitHub, Spotify and Steam are
+// wired today. The AI assistant returns to this section once it gets its own
+// polish pass (see components/dashboard/AskPortfolio.tsx).
 export function LiveDashboard() {
   return (
-    <section
-      id="dashboard"
-      className="mx-auto w-full max-w-6xl px-5 py-20 md:px-8 md:py-28"
-    >
+    <Section id="dashboard">
       <SectionHeader
         id="live"
         title="A dashboard that's actually alive"
-        subtitle="Every tile is a real widget — GitHub, Spotify, weather, Steam, an Amazon map and an AI assistant — each served by its own Next.js Route Handler so the API keys never touch the browser. Tiles fall back to a static snapshot whenever a key is unset, so nothing ever looks broken."
+        subtitle="Three live tiles now — GitHub activity, Spotify and Steam — each served by its own Next.js Route Handler so the keys never touch the browser. The AI assistant is coming back online next."
       />
 
-      <motion.div
-        variants={stagger}
-        {...inView}
-        className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
-      >
+      <motion.div variants={stagger} {...inView} className="space-y-4">
+        {/* GitHub is the only widget with a wide-format visual (the heatmap),
+            so it gets a full-width row instead of being squeezed into a
+            3-up grid. */}
         <GitHubWidget />
-        <SpotifyWidget />
-        <SteamWidget />
-        <AskPortfolio className="sm:col-span-2 lg:col-span-1" />
+
+        {/* Spotify and Steam are both compact "currently doing X" tiles —
+            similar content density, so a plain 2-up split keeps their
+            heights matched without manual balancing. */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <SpotifyWidget />
+          <SteamWidget />
+        </div>
       </motion.div>
-    </section>
+    </Section>
   );
 }

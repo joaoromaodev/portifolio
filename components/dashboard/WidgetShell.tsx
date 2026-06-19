@@ -37,7 +37,9 @@ export function WidgetShell({
   children: ReactNode;
 }) {
   return (
-    <motion.div variants={fadeUp} className={className}>
+    // min-w-0 keeps truncated text from blowing out a CSS grid track when
+    // this widget sits in a multi-column dashboard grid.
+    <motion.div variants={fadeUp} className={`min-w-0 ${className}`}>
       <Panel interactive className="flex h-full flex-col overflow-hidden">
         <div className="flex items-center justify-between border-b border-border px-4 py-2.5">
           <span className="font-mono text-xs font-medium text-fg">{title}</span>

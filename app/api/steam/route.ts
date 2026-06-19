@@ -26,6 +26,7 @@ export async function GET() {
             hours: Math.round(((g.playtime_2weeks ?? 0) / 60) * 10) / 10,
           }),
         ),
+        profileUrl: `https://steamcommunity.com/profiles/${steamId}`,
       },
       revalidate,
     );

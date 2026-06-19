@@ -4,7 +4,13 @@ import { ok, fail } from "@/lib/api";
 // OAuth refresh-token flow — secrets stay server-side. Short cache (~30s).
 export const revalidate = 30;
 
-type Track = { playing: boolean; track: string; artist: string; album: string };
+type Track = {
+  playing: boolean;
+  track: string;
+  artist: string;
+  album: string;
+  url?: string;
+};
 
 async function getAccessToken(): Promise<string | null> {
   const id = process.env.SPOTIFY_CLIENT_ID;
@@ -33,12 +39,14 @@ function toTrack(item: {
   name: string;
   artists?: { name: string }[];
   album?: { name: string };
+  external_urls?: { spotify?: string };
 }, playing: boolean): Track {
   return {
     playing,
     track: item.name,
     artist: (item.artists ?? []).map((a) => a.name).join(", "),
     album: item.album?.name ?? "",
+    url: item.external_urls?.spotify,
   };
 }
 

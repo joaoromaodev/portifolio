@@ -37,13 +37,23 @@ export function Projects() {
         {"// more projects"}
       </motion.p>
 
+      {/*
+        5 cards don't divide evenly into 2 or 3 columns — a plain grid would
+        leave a hole at the end of the last row. Flex-wrap + justify-center
+        centers that incomplete row instead of leaving it ragged-left.
+      */}
       <motion.div
         variants={stagger}
         {...inView}
-        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        className="flex flex-wrap justify-center gap-4"
       >
         {secondary.map((p) => (
-          <ProjectCard key={p.slug} project={p} />
+          <div
+            key={p.slug}
+            className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.667rem)]"
+          >
+            <ProjectCard project={p} />
+          </div>
         ))}
       </motion.div>
     </Section>

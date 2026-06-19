@@ -19,17 +19,19 @@ export function About() {
           ))}
         </motion.div>
 
-        <motion.div variants={fadeUp}>
-          <Panel className="p-5">
+        <motion.div variants={fadeUp} className="h-full">
+          <Panel className="flex h-full flex-col p-5">
             <p className="font-mono text-sm text-comment">{"// beyond code"}</p>
-            <ul className="mt-3 space-y-3">
-              {about.beyondCode.map((item) => (
-                <li key={item} className="flex gap-2.5 text-sm text-muted">
-                  <span className="mt-1 size-1.5 flex-none rounded-full bg-purple" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="flex flex-1 flex-col justify-center">
+              <ul className="space-y-4">
+                {about.beyondCode.map((item) => (
+                  <li key={item} className="flex gap-2.5 text-sm text-muted">
+                    <span className="mt-1 size-1.5 flex-none rounded-full bg-purple" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Panel>
         </motion.div>
       </div>
