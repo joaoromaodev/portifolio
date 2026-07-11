@@ -125,9 +125,6 @@
   .sonar-sweep {
     animation: none;
   }
-  .sonar-sweep line:not(:first-child) {
-    display: none;
-  }
   .sonar-blip {
     animation: none;
     opacity: 1;
