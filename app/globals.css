@@ -87,9 +87,14 @@
   }
 }
 
-/* Sonar sweep on the location map — a radar hand rotating clockwise around
-   Belém; the blip only lights up as the hand sweeps back past it. */
-@keyframes sonar-sweep {
+/* Globe radar (LocationMap) — the sweep hand rotates clockwise around the
+   globe center; the Belém blip is phase-locked via a negative animation-delay
+   (computed in the component) so it flashes red exactly as the hand passes. */
+:root {
+  --radar-period: 6s; /* must match PERIOD_S in LocationMap.tsx */
+}
+
+@keyframes radar-sweep {
   from {
     transform: rotate(0deg);
   }
@@ -97,38 +102,63 @@
     transform: rotate(360deg);
   }
 }
-.sonar-sweep {
-  transform-origin: center;
+.radar-sweep {
+  /* fill-box is a full circle centered on the pivot (see LocationMap), so
+     `center` resolves to the globe center in every browser. */
   transform-box: fill-box;
-  animation: sonar-sweep 4s linear infinite;
+  transform-origin: center;
+  animation: radar-sweep var(--radar-period) linear infinite;
 }
 
-@keyframes sonar-blip {
+@keyframes radar-blip {
   0%,
-  100% {
+  5% {
     opacity: 1;
-    transform: scale(1.3);
+    transform: scale(1.4);
   }
-  8%,
-  92% {
+  16%,
+  100% {
     opacity: 0.3;
     transform: scale(1);
   }
 }
-.sonar-blip {
-  transform-origin: center;
+.radar-blip {
   transform-box: fill-box;
-  animation: sonar-blip 4s linear infinite;
+  transform-origin: center;
+  opacity: 0.3;
+  animation: radar-blip var(--radar-period) linear infinite;
+}
+
+@keyframes radar-ping {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  22%,
+  100% {
+    opacity: 0;
+    transform: scale(3.2);
+  }
+}
+.radar-ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: radar-ping var(--radar-period) linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sonar-sweep {
+  .radar-sweep {
     animation: none;
   }
-  .sonar-blip {
+  .radar-blip {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+  .radar-ping {
+    animation: none;
+    opacity: 0;
   }
 }
 

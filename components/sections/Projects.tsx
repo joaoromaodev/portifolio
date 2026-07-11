@@ -19,11 +19,10 @@ export function Projects() {
         subtitle="Real systems, mostly in production. Strongest first. Government work is shown as a case study only — no real data, no private code."
       />
 
-      <motion.div
-        variants={stagger}
-        {...inView}
-        className="grid gap-4 md:grid-cols-3"
-      >
+      {/* Featured — full-width case-study rows, strongest first. Stacked
+          rows give each anchor project room to state problem → solution →
+          impact without ballooning into tall columns. */}
+      <motion.div variants={stagger} {...inView} className="space-y-4">
         {featured.map((p) => (
           <ProjectCard key={p.slug} project={p} featured />
         ))}
@@ -37,23 +36,14 @@ export function Projects() {
         {"// more projects"}
       </motion.p>
 
-      {/*
-        5 cards don't divide evenly into 2 or 3 columns — a plain grid would
-        leave a hole at the end of the last row. Flex-wrap + justify-center
-        centers that incomplete row instead of leaving it ragged-left.
-      */}
+      {/* Secondary — 4 compact tiles, an even 2×2. */}
       <motion.div
         variants={stagger}
         {...inView}
-        className="flex flex-wrap justify-center gap-4"
+        className="grid gap-4 sm:grid-cols-2"
       >
         {secondary.map((p) => (
-          <div
-            key={p.slug}
-            className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.667rem)]"
-          >
-            <ProjectCard project={p} />
-          </div>
+          <ProjectCard key={p.slug} project={p} />
         ))}
       </motion.div>
     </Section>

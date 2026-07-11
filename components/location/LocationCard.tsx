@@ -69,8 +69,8 @@ export function LocationCard() {
           </p>
         </div>
 
-        {/* Right: the map */}
-        <div className="relative min-h-[260px] border-t border-border bg-bg/40 md:border-l md:border-t-0">
+        {/* Right: the globe radar */}
+        <div className="relative min-h-[300px] border-t border-border bg-bg/40 md:border-l md:border-t-0">
           <LocationMap className="absolute inset-0 h-full w-full p-4" />
         </div>
       </Panel>

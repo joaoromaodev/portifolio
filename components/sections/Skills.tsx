@@ -7,24 +7,22 @@ import { fadeUp } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
 import { skills } from "@/lib/site";
 
+// One quiet panel, one row per domain — reads like a config file, not five
+// competing cards. The section is an index, not a headline.
 export function Skills() {
   return (
     <Section id="skills">
       <SectionHeader id="skills" title="Toolbox" />
 
-      {/* 5 groups don't divide evenly into 2 or 3 columns — same fix as the
-          secondary project cards: flex-wrap + justify-center centers the
-          incomplete last row instead of leaving an empty grid cell. */}
-      <div className="flex flex-wrap justify-center gap-4">
-        {skills.map((group) => (
-          <motion.div
-            key={group.group}
-            variants={fadeUp}
-            className="w-full sm:w-[calc(50%-0.5rem)] lg:w-[calc(33.333%-0.667rem)]"
-          >
-            <Panel className="flex h-full flex-col p-5">
+      <motion.div variants={fadeUp}>
+        <Panel className="divide-y divide-border">
+          {skills.map((group) => (
+            <div
+              key={group.group}
+              className="grid gap-x-6 gap-y-2 px-5 py-4 sm:grid-cols-[11rem_1fr] sm:items-baseline"
+            >
               <h3 className="font-mono text-sm text-purple">{group.group}</h3>
-              <ul className="mt-3 flex flex-1 flex-wrap content-center gap-1.5">
+              <ul className="flex flex-wrap gap-1.5">
                 {group.items.map((item) => (
                   <li
                     key={item}
@@ -34,10 +32,10 @@ export function Skills() {
                   </li>
                 ))}
               </ul>
-            </Panel>
-          </motion.div>
-        ))}
-      </div>
+            </div>
+          ))}
+        </Panel>
+      </motion.div>
     </Section>
   );
 }

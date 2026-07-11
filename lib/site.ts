@@ -36,7 +36,6 @@ export const about = {
   // Short, tag-style — rendered as a compact chip strip, not prose.
   beyondCode: [
     "Rock & metal",
-    "Slipknot & GN'R, live",
     "Puzzles",
     "Anime & film",
     "Guitar",
@@ -176,19 +175,10 @@ export const projects: Project[] = [
     problem: "Building a real brand and storefront for a niche audience.",
     solution: "An e-commerce venture spanning product, branding and social media.",
     stack: ["E-commerce", "Branding", "Social"],
-    links: [{ label: "Store", href: "https://magomercador.com.br" }],
-  },
-  {
-    slug: "career-ops",
-    title: "Career-ops",
-    kicker: "Career automation",
-    flag: "side",
-    featured: false,
-    summary:
-      "A tool that scores résumé ↔ job-posting compatibility for the international market. Meta, but it demonstrates the goal it serves.",
-    problem: "Matching a résumé to international postings is slow and subjective.",
-    solution: "A Python tool that scores compatibility between a résumé and a posting.",
-    stack: ["Python"],
+    links: [
+      { label: "Store", href: "https://magomercador.com.br" },
+      { label: "Instagram", href: "https://www.instagram.com/magomercador/" },
+    ],
   },
   {
     slug: "cherry-bomb",

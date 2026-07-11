@@ -18,8 +18,10 @@ const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const PORT = 8888;
 const REDIRECT_URI = `http://127.0.0.1:${PORT}/callback`;
-// read-only scopes the widget needs
-const SCOPES = "user-read-currently-playing user-read-recently-played";
+// read-only scopes the widget needs (user-top-read powers the "top tracks"
+// expander — re-run this script if your token predates that scope)
+const SCOPES =
+  "user-read-currently-playing user-read-recently-played user-top-read";
 
 if (!CLIENT_ID || !CLIENT_SECRET) {
   console.error(

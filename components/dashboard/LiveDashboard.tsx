@@ -17,22 +17,21 @@ export function LiveDashboard() {
       <SectionHeader
         id="live"
         title="A dashboard that's actually alive"
-        subtitle="Three live tiles now — GitHub activity, Spotify and Steam — each served by its own Next.js Route Handler so the keys never touch the browser. The AI assistant is coming back online next."
+        subtitle="Live tiles fed by real APIs — GitHub, Steam and Spotify — each proxied through its own Next.js Route Handler, so the keys never touch the browser."
       />
 
-      <motion.div variants={stagger} {...inView} className="space-y-8 md:space-y-10">
-        {/* GitHub is the only widget with a wide-format visual (the heatmap),
-            so it gets a full-width row instead of being squeezed into a
-            3-up grid. */}
-        <GitHubWidget />
-
-        {/* Spotify carries richer content (track + artist + album + equalizer)
-            than Steam's short list, so the split is weighted rather than a
-            mechanical 50/50 — echoes the 1.4fr/1fr ratio used inside GitHub. */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-[1.3fr_1fr] md:gap-8">
-          <SpotifyWidget />
+      <motion.div variants={stagger} {...inView} className="space-y-4 md:space-y-5">
+        {/* GitHub carries the densest visual (the heatmap) → 2/3 of the row;
+            Steam's short list fits the remaining third. */}
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5">
+          <GitHubWidget className="md:col-span-2" />
           <SteamWidget />
         </div>
+
+        {/* Spotify is deliberately a slim status strip, not a tile — music is
+            flavor, not a headline. Its "top tracks" expander is the
+            interactive bit. */}
+        <SpotifyWidget />
       </motion.div>
     </Section>
   );
