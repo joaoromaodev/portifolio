@@ -173,16 +173,13 @@ filmes; e os hiperfocos rotativos (guitarra, Mago Mercador, games, treino).
 - Loja de dados e acessórios para RPG de mesa. magomercador.com.br · @magomercador (IG/TikTok).
   Mostra empreendedorismo, produto, marca e social. Card "side project".
 
-### G. Career-ops — Career automation
-- Ferramenta que pontua compatibilidade currículo↔vaga para o mercado internacional. Python.
-  Card secundário (meta, demonstra interesse pelo próprio objetivo de imigração).
-
-### H. Cherry Bomb Vending Machine — UI / branding
+### G. Cherry Bomb Vending Machine — UI / branding
 - UI mobile-first neobrutalista (vermelho/preto/branco) + lógica de pagamento Pix para uma
   máquina de vendas de itens artesanais. Card de design (opcional; mostra senso visual).
 
-**Curadoria sugerida:** destacar **A, B, C** no topo (os mais fortes); **D** como award;
-**E, F, G, H** como cards secundários/"more projects". Decidir a ordem final com o João.
+**Curadoria (atual no site):** **A, B, C** em destaque (case-study rows full-width); **D, E, F, G**
+como cards compactos num grid 2×2 em "more projects".
+(Career-ops foi removido do site a pedido do João em jul/2026.)
 
 ---
 

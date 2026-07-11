@@ -53,15 +53,17 @@ loading e fallback — o site nunca pode parecer quebrado.
 do Next.js (`/app/api/...`); o client chama o *próprio* endpoint, nunca a chave. Cache/ISR p/
 evitar rate limit e custo.
 
-## 5. Painel de localização — mapa estilizado da Amazônia
+## 5. Painel de localização — globo radar (versão atual)
 
-- **SVG estilizado** destacando a bacia amazônica e o Pará, com a malha dos rios e um **pin
-  animado em Belém** (perto da foz). Base escura, verde-canopy (conversa com o verde de syntax).
-- **Interativo:** hover/tap abre card → "Belém, Pará — gateway to the Amazon · hora local HH:MM
-  · clima X · open to remote / relocation" (puxa o relógio + clima).
-- Sem 3D pesado. Performático. Animações sutis (pin pulsando, rio "fluindo" devagar), respeitando
-  `prefers-reduced-motion`.
-- Explorar o estilo visual exato (contorno topográfico vs. canopy preenchido) no Claude Design.
+- **Globo ortográfico em SVG** (hemisfério do Atlântico: América do Sul à esquerda, África à
+  direita, Belém fora do centro), pré-projetado em build time (`scripts/build-geo.mjs`, d3-geo
+  só no build) — nenhuma lib de mapa chega ao browser.
+- **O globo inteiro é a tela de radar:** graticule como grade, anéis de alcance, varredura
+  girando em sentido horário sobre o hemisfério. Ao passar sobre Belém, um **blip vermelho
+  pisca** — sincronizado por `animation-delay` negativo calculado do bearing do pin
+  (única exceção permitida ao "vermelho só para erro": é um "alvo" de radar, 1 lugar só).
+- Vive no painel de Contact junto do relógio de Belém + clima (Open-Meteo) + status.
+- Sem 3D pesado. Performático. `prefers-reduced-motion`: varredura parada, blip estático aceso.
 
 ## 6. "Ask my portfolio" — chatbot IA (Claude)
 
