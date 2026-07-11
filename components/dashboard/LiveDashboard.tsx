@@ -20,16 +20,16 @@ export function LiveDashboard() {
         subtitle="Three live tiles now — GitHub activity, Spotify and Steam — each served by its own Next.js Route Handler so the keys never touch the browser. The AI assistant is coming back online next."
       />
 
-      <motion.div variants={stagger} {...inView} className="space-y-4">
+      <motion.div variants={stagger} {...inView} className="space-y-8 md:space-y-10">
         {/* GitHub is the only widget with a wide-format visual (the heatmap),
             so it gets a full-width row instead of being squeezed into a
             3-up grid. */}
         <GitHubWidget />
 
-        {/* Spotify and Steam are both compact "currently doing X" tiles —
-            similar content density, so a plain 2-up split keeps their
-            heights matched without manual balancing. */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        {/* Spotify carries richer content (track + artist + album + equalizer)
+            than Steam's short list, so the split is weighted rather than a
+            mechanical 50/50 — echoes the 1.4fr/1fr ratio used inside GitHub. */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-[1.3fr_1fr] md:gap-8">
           <SpotifyWidget />
           <SteamWidget />
         </div>

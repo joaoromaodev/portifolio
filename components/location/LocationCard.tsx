@@ -15,9 +15,8 @@ const WEATHER_FALLBACK = {
   glyph: "⛈️",
 };
 
-// Location cluster: real map + Belém clock + inline weather + status.
-// Replaces the old hand-drawn "Amazon blob" and the oversized weather card,
-// placed contextually next to Contact (DESIGN.md §5, refactored).
+// Location cluster: GPS-styled world map + Belém clock + inline weather +
+// status, placed contextually next to Contact (DESIGN.md §5, refactored).
 export function LocationCard() {
   const time = useBelemTime();
   const { data: weather } = useLiveWidget("/api/weather", WEATHER_FALLBACK, {
@@ -35,6 +34,9 @@ export function LocationCard() {
               Belém, Pará
             </h3>
             <p className="text-muted">{profile.location} · gateway to the Amazon</p>
+            <p className="mt-1 font-mono text-xs text-comment">
+              01°27&apos;21&quot;S · 48°29&apos;25&quot;W
+            </p>
           </div>
 
           <dl className="grid grid-cols-2 gap-4">

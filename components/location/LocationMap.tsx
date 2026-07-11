@@ -1,57 +1,82 @@
 "use client";
 
-import geo from "@/lib/geo/brazil-paths.json";
+import geo from "@/lib/geo/world-paths.json";
 
-// Real geographic map of Brazil (+ faint neighbours) with an animated pin on
-// Belém. Geometry is pre-projected at build time (scripts/build-geo.mjs) — the
+// World map, GPS-panel styling: faint lat/long graticule, a dim landmass, and
+// a locked-on reticle over Belém with a radar-ping pulse and DMS coordinates.
+// Geometry is pre-projected at build time (scripts/build-geo.mjs) — the
 // browser only renders SVG paths, no map library or topojson at runtime.
 export function LocationMap({ className = "" }: { className?: string }) {
-  const { viewBox, brazil, others, belem } = geo;
+  const { viewBox, land, graticule, outline, belem, coords } = geo;
 
   return (
     <svg
       viewBox={viewBox}
       className={className}
       role="img"
-      aria-label="Map of Brazil with a pin marking Belém, Pará"
+      aria-label={`World map with a GPS pin locked on Belém, Pará — ${coords.lat} ${coords.lng}`}
       preserveAspectRatio="xMidYMid meet"
     >
-      {/* neighbouring countries — faint context */}
-      <g fill="var(--color-surface)" stroke="var(--color-border)" strokeWidth="0.5">
-        {others.map((d, i) => (
-          <path key={i} d={d} opacity={0.5} />
-        ))}
-      </g>
+      <path d={outline} fill="var(--color-bg)" opacity={0.4} />
 
-      {/* Brazil — highlighted */}
+      {/* lat/long grid — the "GPS" read */}
       <path
-        d={brazil}
-        fill="color-mix(in srgb, var(--color-green) 12%, transparent)"
-        stroke="color-mix(in srgb, var(--color-green) 45%, transparent)"
-        strokeWidth="0.8"
+        d={graticule}
+        fill="none"
+        stroke="var(--color-border)"
+        strokeWidth="0.5"
+      />
+
+      {/* landmass */}
+      <path
+        d={land}
+        fill="color-mix(in srgb, var(--color-green) 10%, transparent)"
+        stroke="color-mix(in srgb, var(--color-green) 35%, transparent)"
+        strokeWidth="0.6"
         strokeLinejoin="round"
       />
 
-      {/* Belém pin */}
+      <path
+        d={outline}
+        fill="none"
+        stroke="var(--color-border)"
+        strokeWidth="0.8"
+      />
+
+      {/* Belém — sonar sweep: a clock-hand line rotating clockwise around the
+          pin, trailed by a fading afterimage; the blip brightens once per
+          revolution as the hand sweeps back over it. */}
       <g transform={`translate(${belem.x} ${belem.y})`}>
-        <circle r="7" className="loc-ping" fill="var(--color-green)" />
-        <circle r="3.4" fill="var(--color-green)" />
-        <circle r="3.4" fill="none" stroke="var(--color-bg)" strokeWidth="1.2" />
-        <text
-          x="9"
-          y="3.5"
-          fontSize="11"
-          className="font-mono"
-          fill="var(--color-fg)"
-        >
+        <g className="sonar-sweep">
+          {[0, -8, -16, -24, -32].map((deg, i) => {
+            const rad = (deg * Math.PI) / 180;
+            const r = 13;
+            return (
+              <line
+                key={deg}
+                x1="0"
+                y1="0"
+                x2={Math.sin(rad) * r}
+                y2={-Math.cos(rad) * r}
+                stroke="var(--color-red)"
+                strokeWidth="0.9"
+                strokeLinecap="round"
+                opacity={[1, 0.55, 0.32, 0.16, 0.06][i]}
+              />
+            );
+          })}
+        </g>
+
+        <circle r="2.2" className="sonar-blip" fill="var(--color-red)" />
+        <circle r="2.2" fill="none" stroke="var(--color-bg)" strokeWidth="0.8" />
+
+        <text x="10" y="-2" fontSize="9" className="font-mono" fill="var(--color-fg)">
           Belém
         </text>
+        <text x="10" y="7.5" fontSize="6" className="font-mono" fill="var(--color-comment)">
+          {coords.lat} {coords.lng}
+        </text>
       </g>
-
-      <style>{`
-        .loc-ping { transform-origin: center; animation: pin-pulse 2.4s ease-out infinite; }
-        @media (prefers-reduced-motion: reduce) { .loc-ping { animation: none; opacity: 0; } }
-      `}</style>
     </svg>
   );
 }
