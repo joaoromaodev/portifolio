@@ -88,7 +88,8 @@ export async function POST(req: Request) {
         });
         await llm.finalMessage();
         controller.close();
-      } catch {
+      } catch (err) {
+        console.error("[api/ask] Anthropic call failed:", err);
         controller.enqueue(
           encoder.encode(
             "Sorry — the assistant is briefly unavailable. Reach João at joaoromaodev@gmail.com.",

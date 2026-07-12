@@ -7,17 +7,15 @@ import { SectionHeader } from "@/components/ui/SectionHeader";
 import { GitHubWidget } from "./GitHubWidget";
 import { SpotifyWidget } from "./SpotifyWidget";
 import { SteamWidget } from "./SteamWidget";
+import { AskPortfolio } from "./AskPortfolio";
 
-// Live panels are coming back one at a time — GitHub, Spotify and Steam are
-// wired today. The AI assistant returns to this section once it gets its own
-// polish pass (see components/dashboard/AskPortfolio.tsx).
 export function LiveDashboard() {
   return (
     <Section id="dashboard">
       <SectionHeader
         id="live"
         title="A dashboard that's actually alive"
-        subtitle="Live tiles fed by real APIs — GitHub, Steam and Spotify — each proxied through its own Next.js Route Handler, so the keys never touch the browser."
+        subtitle="Live tiles fed by real APIs — GitHub, Steam and Spotify — each proxied through its own Next.js Route Handler, so the keys never touch the browser. Ask the assistant below anything about the work."
       />
 
       <motion.div variants={stagger} {...inView} className="space-y-4 md:space-y-5">
@@ -32,6 +30,12 @@ export function LiveDashboard() {
             flavor, not a headline. Its "top tracks" expander is the
             interactive bit. */}
         <SpotifyWidget />
+
+        {/* The AI assistant closes the dashboard — the most interactive
+            panel gets the most room. Degrades to a "not connected yet"
+            message with no ANTHROPIC_API_KEY, same fallback discipline as
+            every other widget. */}
+        <AskPortfolio className="h-[440px]" />
       </motion.div>
     </Section>
   );

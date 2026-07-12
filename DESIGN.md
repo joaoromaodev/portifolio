@@ -130,7 +130,8 @@ Acentos só em **acento** (rótulos, links, tags, números) — nunca em parágr
 - Lib: **Framer Motion**. Uma curva de easing e uma escala de duração para tudo.
 - Hero: efeito "digitando" (typewriter). Scroll: reveals sutis e rápidos (200–300ms), com stagger
   nos grids. Métricas: contadores que sobem (a das 9 VMs). Spotify: barrinhas de equalizer.
-  Mapa: pin pulsando. Hover de card: leve elevação/realce de borda.
+  Mapa: varredura de radar girando + blip vermelho piscando em Belém (§5). Hover de card: leve
+  elevação/realce de borda.
 - **`prefers-reduced-motion` obrigatório:** tudo degrada para estados estáticos.
 
 ## 10. Motivos terminal/IDE (acento)

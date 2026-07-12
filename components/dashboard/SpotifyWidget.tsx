@@ -47,6 +47,13 @@ const STATUS_DOT: Record<WidgetStatus, string> = {
   error: "bg-red",
 };
 
+const STATUS_LABEL: Record<WidgetStatus, string> = {
+  loading: "fetching",
+  ready: "live",
+  empty: "idle",
+  error: "offline",
+};
+
 // Deliberately quieter than the dashboard tiles: a slim status-bar strip —
 // what's on right now — with a "top tracks" expander that unfolds the actual
 // most-played list from the Spotify API (user-top-read).
@@ -56,7 +63,18 @@ export function SpotifyWidget() {
   });
   const [open, setOpen] = useState(false);
   const listId = useId();
-  const top = data.top?.length ? data.top : FALLBACK.top;
+
+  // "ready" is the only status backed by a real API response. Everything
+  // else — including a ready-but-scope-missing 403 that degrades to an empty
+  // top[] (app/api/spotify/route.ts) — falls back to illustrative data, and
+  // every label here says so instead of claiming it's live.
+  const isLive = status === "ready";
+  const hasLiveTop = isLive && data.top.length > 0;
+  const top = hasLiveTop ? data.top : FALLBACK.top;
+  // Only hide the expander in the pathological case: a live connection that
+  // came back with zero top tracks. Every other state still shows the
+  // illustrative fallback list, clearly labeled as such below.
+  const showExpander = hasLiveTop || !isLive;
 
   return (
     <motion.div variants={fadeUp} className="min-w-0">
@@ -71,7 +89,13 @@ export function SpotifyWidget() {
 
           <p className="min-w-0 flex-1 truncate text-sm">
             <span className="font-mono text-[11px] uppercase tracking-wide text-comment">
-              {data.playing ? "now playing" : "last played"}
+              {status === "loading"
+                ? "loading"
+                : isLive
+                  ? data.playing
+                    ? "now playing"
+                    : "last played"
+                  : "example track"}
             </span>{" "}
             <span className="text-fg">
               {status === "loading" ? "…" : data.track}
@@ -93,28 +117,31 @@ export function SpotifyWidget() {
             </a>
           ) : null}
 
-          <button
-            type="button"
-            aria-expanded={open}
-            aria-controls={listId}
-            onClick={() => setOpen((v) => !v)}
-            className="flex-none rounded border border-border px-2 py-1 font-mono text-xs text-muted transition-colors hover:border-green/50 hover:text-green"
-          >
-            top tracks {open ? "▴" : "▾"}
-          </button>
+          {showExpander ? (
+            <button
+              type="button"
+              aria-expanded={open}
+              aria-controls={open ? listId : undefined}
+              onClick={() => setOpen((v) => !v)}
+              className="flex-none rounded border border-border px-2 py-1 font-mono text-xs text-muted transition-colors hover:border-green/50 hover:text-green"
+            >
+              top tracks {open ? "▴" : "▾"}
+            </button>
+          ) : null}
 
           <span
             aria-hidden="true"
             className={`size-1.5 flex-none rounded-full ${STATUS_DOT[status]} ${
               status === "loading" ? "animate-pulse" : ""
             }`}
-            title={`Spotify Web API · ${status}`}
           />
+          <span className="sr-only">Spotify {STATUS_LABEL[status]}</span>
         </div>
 
-        {/* Expanded — the most-played list, straight from the API */}
+        {/* Expanded — the most-played list, straight from the API when live,
+            an honestly-labeled illustrative list otherwise. */}
         <AnimatePresence initial={false}>
-          {open ? (
+          {open && showExpander ? (
             <motion.div
               id={listId}
               initial={{ height: 0, opacity: 0 }}
@@ -125,7 +152,9 @@ export function SpotifyWidget() {
             >
               <div className="border-t border-border px-4 py-3">
                 <p className="font-mono text-xs text-comment">
-                  {"// most played · last ~6 months"}
+                  {hasLiveTop
+                    ? "// most played · last ~6 months"
+                    : "// example — connect Spotify to show real top tracks"}
                 </p>
                 <ol className="mt-2.5 space-y-1.5">
                   {top.map((t) => (
@@ -142,7 +171,7 @@ export function SpotifyWidget() {
                           · {t.artist}
                         </span>
                       </span>
-                      {t.url ? (
+                      {hasLiveTop && t.url ? (
                         <a
                           href={t.url}
                           target="_blank"
@@ -156,7 +185,9 @@ export function SpotifyWidget() {
                   ))}
                 </ol>
                 <p className="mt-3 font-mono text-[10px] text-comment">
-                  source: Spotify Web API · top tracks
+                  {hasLiveTop
+                    ? "source: Spotify Web API · top tracks"
+                    : "source: static fallback (Spotify API not connected)"}
                 </p>
               </div>
             </motion.div>

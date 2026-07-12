@@ -78,7 +78,6 @@ export function GitHubWidget({ className = "" }: { className?: string }) {
                   key={i}
                   aria-hidden="true"
                   className={`size-3 rounded-[3px] ${LEVEL_BG[lvl] ?? LEVEL_BG[0]}`}
-                  title={`${lvl} contributions`}
                 />
               ))}
             </div>

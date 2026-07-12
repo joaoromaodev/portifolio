@@ -64,7 +64,7 @@ function CardLinks({ project }: { project: Project }) {
         </a>
       ))}
       {project.privateNote ? (
-        <p className="font-mono text-[11px] text-comment">
+        <p className="font-mono text-[11px] text-muted">
           <span className="text-amber">●</span> {project.privateNote}
         </p>
       ) : null}
