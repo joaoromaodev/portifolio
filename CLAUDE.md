@@ -125,6 +125,15 @@ filmes; e os hiperfocos rotativos (guitarra, Mago Mercador, games, treino).
 
 > ⚠️ **Flags de publicação importam.** Respeitar rigorosamente o que é publicável vs. privado.
 
+> 📝 **Onde os projetos vivem:** `content/projects.json` (schema em
+> `content/projects.schema.json`), carregado e tipado por `lib/projects.ts`. O João
+> edita pelo painel local em `/admin` (só existe em `npm run dev` — em produção
+> `/admin` e `/api/admin/*` retornam 404). Cada projeto tem `featured` (★ vira
+> case-study row full-width) e `published` (◌ vira rascunho, some do site).
+> Salvar grava o JSON; **commitar o arquivo** publica. Esta seção continua sendo
+> a fonte de verdade *editorial* (o que pode ou não aparecer) — o JSON é o
+> armazenamento.
+
 ### A. SIMF — Internal Financial Management System  ⭐ projeto-âncora
 - **O quê:** plataforma web interna de monitoramento da execução orçamentária/financeira da
   SAPF/SEDUC-PA. João é **tech lead e product owner** (não gestor de pessoas — decisor técnico).
@@ -178,7 +187,8 @@ filmes; e os hiperfocos rotativos (guitarra, Mago Mercador, games, treino).
   máquina de vendas de itens artesanais. Card de design (opcional; mostra senso visual).
 
 **Curadoria (atual no site):** **A, B, C** em destaque (case-study rows full-width); **D, E, F, G**
-como cards compactos num grid 2×2 em "more projects".
+como cards compactos no grid "more projects". Isso agora é controlado pelas flags
+`featured`/`order` no `content/projects.json`, não por código.
 (Career-ops foi removido do site a pedido do João em jul/2026.)
 
 ---

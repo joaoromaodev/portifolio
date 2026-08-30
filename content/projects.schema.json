@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Portfolio projects",
+  "description": "Project catalogue rendered by the Projects section. Edit through /admin (npm run dev) or by hand — editors that honour $schema will autocomplete and validate this file.",
+  "type": "object",
+  "required": ["projects"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "projects": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/project" }
+    }
+  },
+  "definitions": {
+    "project": {
+      "type": "object",
+      "required": ["slug", "title", "flag", "featured", "published", "summary"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Unique url-safe id."
+        },
+        "title": { "type": "string", "minLength": 1 },
+        "kicker": {
+          "type": "string",
+          "description": "One-line subtitle under the title."
+        },
+        "flag": {
+          "enum": ["case-study", "live", "building", "award", "side"],
+          "description": "Badge shown on the card."
+        },
+        "featured": {
+          "type": "boolean",
+          "description": "true renders a full-width case-study row; false a compact tile."
+        },
+        "published": {
+          "type": "boolean",
+          "description": "false keeps the project in this file but hides it from the site."
+        },
+        "order": {
+          "type": "integer",
+          "description": "Display order, lowest first. Rewritten from list position on every admin save."
+        },
+        "summary": {
+          "type": "string",
+          "description": "The pitch — shown on every card."
+        },
+        "problem": { "type": "string", "description": "Featured cards only." },
+        "solution": { "type": "string", "description": "Featured cards only." },
+        "impact": {
+          "type": "string",
+          "description": "Optional. The result, rendered with emphasis."
+        },
+        "stack": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Technology chips."
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "href"],
+            "additionalProperties": false,
+            "properties": {
+              "label": { "type": "string", "minLength": 1 },
+              "href": { "type": "string", "format": "uri" }
+            }
+          }
+        },
+        "privateNote": {
+          "type": "string",
+          "description": "Shown instead of a repo link when the code can't be published (gov systems, course projects)."
+        },
+        "image": {
+          "type": "string",
+          "pattern": "^/",
+          "description": "Screenshot path under public/, e.g. /projects/simf.png"
+        },
+        "imageAlt": {
+          "type": "string",
+          "description": "Alt text. Required whenever image is set."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,158 @@
+{
+  "$schema": "./projects.schema.json",
+  "projects": [
+    {
+      "slug": "simf",
+      "title": "SIMF",
+      "kicker": "Internal Financial Management System",
+      "flag": "case-study",
+      "featured": true,
+      "published": true,
+      "order": 1,
+      "summary": "Internal web platform that monitors budget & financial execution for the Pará State Department of Education. Anchor project — I'm the tech lead and product owner.",
+      "problem": "Budget and financial execution were tracked across scattered tools, with no single real-time view for the directors who answer for it.",
+      "solution": "A role-based web platform that reads SIAFE data in real time, with modules for budget execution, settlements, payments and bank accounts — in active use by DFIN and DPPC.",
+      "impact": "In active production use, serving SAPF. Deployed on an Ubuntu VM (Nginx + PM2) behind internal DNS with SSL.",
+      "stack": [
+        "Next.js 15",
+        "React",
+        "Tailwind",
+        "Supabase",
+        "PostgreSQL"
+      ],
+      "links": [],
+      "privateNote": "Private gov system — case study only, with fictional-data screenshots. No code or real data is published."
+    },
+    {
+      "slug": "pete-peae",
+      "title": "Monitor PETE/PEAE",
+      "kicker": "Financial automation",
+      "flag": "live",
+      "featured": true,
+      "published": true,
+      "order": 2,
+      "summary": "Production system that tracks daily installments paid to municipalities under two state programs — school transport (PETE) and school meals (PEAE).",
+      "problem": "Tracking lived in two Google Sheets + AppScripts that hid a real failure mode: a second payment order on the same installment went unnoticed.",
+      "solution": "An end-to-end pipeline from raw SIAFE report to WhatsApp message + PDFs sent to the Secretary, with anomaly detection and an interactive per-municipality dashboard.",
+      "impact": "Replaced 2 Google Sheets + AppScripts and surfaced anomalies the old system hid, improving correction and reliability.",
+      "stack": [
+        "Python",
+        "Streamlit",
+        "SQLite",
+        "Selenium",
+        "Google Sheets"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/joaoromaodev"
+        }
+      ]
+    },
+    {
+      "slug": "rootlab",
+      "title": "RootLab",
+      "kicker": "Root-Cause Analysis platform",
+      "flag": "building",
+      "featured": true,
+      "published": true,
+      "order": 3,
+      "summary": "Local-first tool that chains Ishikawa → GUT Matrix → 5 Whys → 5W2H into a single, auditable cascade with PDF export. Runs offline in the browser.",
+      "problem": "Root-cause analysis is usually scattered across disconnected templates, so the reasoning behind a fix is hard to audit.",
+      "solution": "A cascading flow where each step's output feeds the next — built offline-first with no server. Aimed at quality (ISO 9001 / IATF 16949), production and Scrum teams.",
+      "stack": [
+        "React",
+        "TypeScript",
+        "Vite",
+        "Tailwind",
+        "Zustand",
+        "Dexie",
+        "Vitest"
+      ],
+      "links": [],
+      "privateNote": "Pre-MVP, in active development — co-developed with a colleague (name may change before launch)."
+    },
+    {
+      "slug": "ecopredict",
+      "title": "EcoPredict",
+      "kicker": "AI for Sustainability",
+      "flag": "award",
+      "featured": false,
+      "published": true,
+      "order": 4,
+      "summary": "AI + sustainability project in the I2A2 \"AI for Sustainable Projects — Towards COP 30\" program. Top 7 globally, \"Outstanding Achievement\" (Dec 2025).",
+      "problem": "Applying ML and sustainability metrics to a real local context — Belém and the Amazon.",
+      "solution": "Co-led the project as data analyst, building the ML models and sustainability metrics.",
+      "impact": "Top 7 projects · Outstanding Achievement (Dec 2025).",
+      "stack": [
+        "Python",
+        "Machine Learning",
+        "Data Analysis"
+      ],
+      "links": [],
+      "privateNote": "Course project — recognised as an award highlight; not published."
+    },
+    {
+      "slug": "diarias",
+      "title": "Diárias",
+      "kicker": "Financial automation (gov)",
+      "flag": "live",
+      "featured": false,
+      "published": true,
+      "order": 5,
+      "summary": "Sibling of PETE/PEAE: generates the monthly standardized load file that HR uploads into ERGON, SEDUC's legacy system.",
+      "problem": "A manual, error-prone monthly export feeding a legacy system.",
+      "solution": "Automated generation of the standardized ERGON load file.",
+      "stack": [
+        "Python",
+        "Automation"
+      ],
+      "links": []
+    },
+    {
+      "slug": "mago-mercador",
+      "title": "Mago Mercador",
+      "kicker": "E-commerce / personal venture",
+      "flag": "side",
+      "featured": false,
+      "published": true,
+      "order": 6,
+      "summary": "My tabletop-RPG dice & accessories shop — product, brand and social. magomercador.com.br · @magomercador.",
+      "problem": "Building a real brand and storefront for a niche audience.",
+      "solution": "An e-commerce venture spanning product, branding and social media.",
+      "stack": [
+        "E-commerce",
+        "Branding",
+        "Social"
+      ],
+      "links": [
+        {
+          "label": "Store",
+          "href": "https://magomercador.com.br"
+        },
+        {
+          "label": "Instagram",
+          "href": "https://www.instagram.com/magomercador/"
+        }
+      ]
+    },
+    {
+      "slug": "cherry-bomb",
+      "title": "Cherry Bomb Vending Machine",
+      "kicker": "UI / branding",
+      "flag": "side",
+      "featured": false,
+      "published": true,
+      "order": 7,
+      "summary": "Mobile-first neobrutalist UI (red/black/white) with Pix payment logic for a handmade-goods vending machine.",
+      "problem": "A vending machine for handmade goods needed a bold, simple buy flow.",
+      "solution": "A mobile-first neobrutalist UI with Pix payment logic.",
+      "stack": [
+        "UI Design",
+        "Branding",
+        "Pix"
+      ],
+      "links": []
+    }
+  ]
+}
