@@ -40,8 +40,118 @@
         "en": "Private gov system — case study only, with fictional-data screenshots. No code or real data is published.",
         "pt": "Sistema de governo privado — apenas estudo de caso, com capturas de tela de dados fictícios. Nenhum código ou dado real é publicado."
       },
-      "highlights": [],
-      "gallery": []
+      "highlights": [
+        {
+          "title": {
+            "en": "One question the institution couldn't answer",
+            "pt": "Uma pergunta que a instituição não sabia responder"
+          },
+          "body": {
+            "en": "Budget execution lived across scattered spreadsheets and SIAFE exports, so \"how much is actually committed and still unpaid?\" took days and produced different answers depending on who asked. The modules exist to make that one number reachable in a click, from the same source, for everyone.",
+            "pt": "A execução orçamentária vivia espalhada em planilhas e exportações do SIAFE, então \"quanto está de fato empenhado e ainda não pago?\" levava dias e dava respostas diferentes dependendo de quem perguntava. Os módulos existem para tornar esse número alcançável em um clique, da mesma fonte, para todo mundo."
+          }
+        },
+        {
+          "title": {
+            "en": "Following the money, not the screens",
+            "pt": "Seguir o dinheiro, não as telas"
+          },
+          "body": {
+            "en": "The modules mirror the actual lifecycle of public spending — commitment, settlement, payment, bank reconciliation — so a document can be traced end to end: a commitment note to its settlement to the payment order that cleared it. That shape came from the domain, not from a menu structure.",
+            "pt": "Os módulos espelham o ciclo real do gasto público — empenho, liquidação, pagamento, conciliação bancária — então um documento dá para rastrear de ponta a ponta: da nota de empenho à liquidação e à ordem bancária que a quitou. Esse formato veio do domínio, não de uma estrutura de menu."
+          }
+        },
+        {
+          "title": {
+            "en": "Ingesting a system that wasn't built to be read",
+            "pt": "Ingerir um sistema que não foi feito para ser lido"
+          },
+          "body": {
+            "en": "SIAFE exports are CSVs with inconsistent number formats, null sentinels and columns that change between report types. The import layer normalises and validates them against schemas before anything reaches the database, and reconciles the three related exports so the figures agree with each other.",
+            "pt": "As exportações do SIAFE são CSVs com formatos numéricos inconsistentes, sentinelas de nulo e colunas que mudam entre tipos de relatório. A camada de importação normaliza e valida contra schemas antes de qualquer coisa chegar ao banco, e reconcilia as três exportações relacionadas para que os números fechem entre si."
+          }
+        },
+        {
+          "title": {
+            "en": "Access control that survives an audit",
+            "pt": "Controle de acesso que sobrevive a uma auditoria"
+          },
+          "body": {
+            "en": "Roles are enforced on the server, not by hiding menu items: each directorate reaches its own modules, administrative operations run with service privileges, and every one of them is written to an audit log. In a government system the question is never only \"did it work\" but \"who did it, and when\".",
+            "pt": "Os papéis são garantidos no servidor, não escondendo itens de menu: cada diretoria alcança os próprios módulos, as operações administrativas rodam com privilégio de serviço, e cada uma delas é gravada num log de auditoria. Em sistema de governo a pergunta nunca é só \"funcionou\", é \"quem fez, e quando\"."
+          }
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/projects/simf/ceo.webp",
+          "alt": {
+            "en": "CEO module: budget-execution dashboard with committed total, settled-payable and bank balance, over a filterable table of commitments showing supplier, process, original value and outstanding balance.",
+            "pt": "Módulo CEO: dashboard de execução orçamentária com empenhado total, liquidado a pagar e saldo bancário, sobre uma tabela filtrável de empenhos com credor, processo, valor original e saldo a liquidar."
+          },
+          "caption": {
+            "en": "Budget execution — the number the directorate is asked for most.",
+            "pt": "Execução orçamentária — o número que mais pedem à diretoria."
+          }
+        },
+        {
+          "src": "/projects/simf/cliq.webp",
+          "alt": {
+            "en": "CLIQ module: settlement control, with figures for amounts in settlement and payable, and a table linking each settlement document to its commitment note, funding source and outstanding balance.",
+            "pt": "Módulo CLIQ: controle de liquidações, com os valores em liquidação e a pagar, e uma tabela ligando cada documento de liquidação à sua nota de empenho, fonte de recurso e saldo a pagar."
+          },
+          "caption": {
+            "en": "Settlements, tied back to the commitment that generated them.",
+            "pt": "Liquidações, amarradas ao empenho que as gerou."
+          }
+        },
+        {
+          "src": "/projects/simf/cpag.webp",
+          "alt": {
+            "en": "CPAG module: payment control showing payment orders issued and settled, total paid for the year, and a table linking each payment order to its settlement document.",
+            "pt": "Módulo CPAG: controle de pagamentos mostrando ordens bancárias emitidas e quitadas, total pago no exercício, e uma tabela ligando cada ordem bancária ao seu documento de liquidação."
+          },
+          "caption": {
+            "en": "Payments — the last link in the chain, and the one auditors ask about.",
+            "pt": "Pagamentos — o último elo da cadeia, e o que a auditoria pergunta."
+          }
+        },
+        {
+          "src": "/projects/simf/acont.webp",
+          "alt": {
+            "en": "ACONT module: bank account cards for three institutions with available balance and committed amount, a reconciliation status of zero divergences, and a recent statement listing payment orders.",
+            "pt": "Módulo ACONT: cartões de contas bancárias de três instituições com saldo disponível e valor comprometido, status de conciliação com zero divergências, e um extrato recente listando ordens bancárias."
+          },
+          "caption": {
+            "en": "The cash underneath the accounting, reconciled against SIAFE.",
+            "pt": "O dinheiro por baixo da contabilidade, conciliado contra o SIAFE."
+          }
+        },
+        {
+          "src": "/projects/simf/admin.webp",
+          "alt": {
+            "en": "User management: a table of accounts with role badges and creation dates, above a notice that operations on the page run with service privileges and are recorded in the audit log.",
+            "pt": "Gestão de usuários: uma tabela de contas com selos de perfil e datas de criação, sob um aviso de que as operações da página rodam com privilégio de serviço e são registradas no log de auditoria."
+          },
+          "caption": {
+            "en": "Roles and the audit trail — the part that matters in a government system.",
+            "pt": "Papéis e a trilha de auditoria — a parte que importa num sistema de governo."
+          }
+        }
+      ],
+      "image": "/projects/simf/ceo.webp",
+      "imageAlt": {
+        "en": "SIMF budget-execution dashboard: committed, settled-payable and bank-balance figures above a table of commitments by supplier and process.",
+        "pt": "Dashboard de execução orçamentária do SIMF: empenhado, liquidado a pagar e saldo bancário sobre uma tabela de empenhos por credor e processo."
+      },
+      "role": {
+        "en": "Tech lead and product owner — the technical decision-maker, not a people manager. Data model, modules, access control and the production deployment.",
+        "pt": "Tech lead e product owner — o decisor técnico, não gestor de pessoas. Modelo de dados, módulos, controle de acesso e a publicação em produção."
+      },
+      "overview": {
+        "en": "SIMF reads SIAFE, the state's financial system, and turns it into something the directors who answer for the budget can actually read. Four modules follow the money in the order it moves: CEO for budget execution, CLIQ for settlements, CPAG for payments, and ACONT for the bank accounts underneath.\n\nAccess is scoped by directorate — DFIN sees its modules, DPPC sees its own — and administrative actions run with service privileges and land in an audit log. It runs on an Ubuntu VM behind Nginx and PM2, on internal DNS with SSL, inside the corporate network.",
+        "pt": "O SIMF lê o SIAFE, o sistema financeiro do estado, e transforma isso em algo que os diretores que respondem pelo orçamento conseguem de fato ler. Quatro módulos acompanham o dinheiro na ordem em que ele anda: CEO para execução orçamentária, CLIQ para liquidações, CPAG para pagamentos e ACONT para as contas bancárias por baixo de tudo.\n\nO acesso é recortado por diretoria — a DFIN vê os módulos dela, a DPPC os seus — e as ações administrativas rodam com privilégio de serviço e caem num log de auditoria. Roda em VM Ubuntu atrás de Nginx e PM2, em DNS interno com SSL, dentro da rede corporativa."
+      }
     },
     {
       "slug": "pete-peae",
