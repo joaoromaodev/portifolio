@@ -98,8 +98,8 @@
       "published": true,
       "order": 3,
       "summary": {
-        "en": "Full-stack platform that schedules ~110 schools into 200 in-person slots and turns every session into tamper-evident documentary proof for federal oversight bodies. Built and shipped to production single-handedly.",
-        "pt": "Plataforma full-stack que organiza o agendamento de ~110 escolas em 200 vagas presenciais e transforma cada atendimento em prova documental auditável para órgãos de controle. Construída e publicada em produção sozinho."
+        "en": "Full-stack platform that schedules ~110 schools into 200 in-person slots and turns every session into tamper-evident proof for federal oversight bodies. Built and shipped solo.",
+        "pt": "Plataforma full-stack que agenda ~110 escolas em 200 vagas presenciais e transforma cada atendimento em prova auditável para órgãos de controle. Construída e publicada sozinho."
       },
       "problem": {
         "en": "Schools told oversight bodies they were never trained on how to account for federal funds; the department said it did train them. Neither side could prove it.",

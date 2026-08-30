@@ -38,7 +38,11 @@ export function ProjectTile({ project }: { project: Project }) {
           </span>
         </div>
 
-        <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-muted">
+        {/* Clamped only in the two-column grid, where tiles sit side by side
+            and uneven text would misalign them. In one column there is nothing
+            to align against, so the pitch runs in full — no ellipsis, and no
+            fighting the fact that Portuguese runs ~20% longer than English. */}
+        <p className="mt-3 text-sm leading-relaxed text-muted sm:line-clamp-4">
           {tx(project.summary)}
         </p>
 
