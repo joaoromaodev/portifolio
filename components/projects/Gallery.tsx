@@ -112,9 +112,6 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
                   fill
                   sizes="(min-width: 640px) 45vw, 92vw"
                   className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
-                  // GIFs are passed through untouched — the optimizer would
-                  // flatten the animation to a still frame.
-                  unoptimized={item.src.endsWith(".gif")}
                 />
               </span>
               {item.caption ? (
@@ -178,7 +175,6 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
                   height={900}
                   sizes="(min-width: 1024px) 1024px, 92vw"
                   className="h-auto w-full"
-                  unoptimized={current.src.endsWith(".gif")}
                   priority
                 />
               </div>

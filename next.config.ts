@@ -52,10 +52,18 @@ const nextConfig: NextConfig = {
   // Don't advertise the framework version.
   poweredByHeader: false,
   images: {
-    // Project screenshots are local files in public/ — no remote loaders, and
-    // SVG stays off (it can carry script).
+    // Vercel's image optimizer is a metered feature: on the Hobby plan its
+    // quota runs out and /_next/image starts returning 402, which silently
+    // breaks every <Image> on the site (it happened — the project gallery
+    // went blank while the one unoptimized GIF kept working).
+    //
+    // The source files are committed as lossless WebP instead, so they are
+    // already small (the eight gallery screens total ~368KB, down from
+    // ~836KB as PNG/GIF) and are served straight from public/ as static
+    // assets. No quota, no bill, nothing to break.
+    unoptimized: true,
+    // Local files only — no remote loaders. SVG stays off (it can carry script).
     dangerouslyAllowSVG: false,
-    formats: ["image/avif", "image/webp"],
   },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
