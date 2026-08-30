@@ -26,6 +26,12 @@ export function projectPath(locale: Locale, slug: string): string {
   return locale === "pt" ? `/pt/projetos/${slug}` : `/projects/${slug}`;
 }
 
+/** The "all projects" index, per locale. */
+export const PROJECTS_INDEX: Record<Locale, string> = {
+  en: "/projects",
+  pt: "/pt/projetos",
+};
+
 /** The `hreflang` map both pages advertise, so each points at the other. */
 export const LANGUAGE_ALTERNATES: Record<string, string> = {
   "en-US": "/",

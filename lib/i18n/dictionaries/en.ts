@@ -187,6 +187,14 @@ export const en = {
     subtitle:
       "Real systems, mostly in production. Strongest first. Government work is shown as a case study only — no real data, no private code.",
     more: "more projects",
+    seeAll: "See all projects",
+    /** The /projects index page. */
+    indexTitle: "Everything I've built",
+    indexSubtitle:
+      "Every project, newest and strongest first — including the smaller ones that don't make the front page.",
+    indexSlug: "all projects",
+    /** `{n}` is the project count. */
+    count: "{n} projects",
     terms: {
       problem: "problem",
       solution: "solution",

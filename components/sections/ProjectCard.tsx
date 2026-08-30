@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
@@ -50,24 +49,6 @@ function StackChips({ stack }: { stack: readonly string[] }) {
         </li>
       ))}
     </ul>
-  );
-}
-
-// Screenshot band. Optional everywhere — a project with no image simply
-// renders without one, so the grid never shows a broken/placeholder frame.
-function Shot({ project }: { project: Project }) {
-  const { tx } = useI18n();
-  if (!project.image) return null;
-  return (
-    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg border border-border bg-bg">
-      <Image
-        src={project.image}
-        alt={tx(project.imageAlt) || `${project.title} — ${tx(project.kicker)}`}
-        fill
-        sizes="(min-width: 768px) 720px, 100vw"
-        className="object-cover"
-      />
-    </div>
   );
 }
 
@@ -131,12 +112,6 @@ function FeaturedCard({ project }: { project: Project }) {
         interactive
         className="grid gap-x-8 gap-y-5 p-6 md:grid-cols-[1fr_1.4fr]"
       >
-        {project.image ? (
-          <div className="md:col-span-2">
-            <Shot project={project} />
-          </div>
-        ) : null}
-
         {/* Identity — who this project is */}
         <div className="flex min-w-0 flex-col gap-4">
           <div>
@@ -176,12 +151,6 @@ function CompactCard({ project }: { project: Project }) {
   return (
     <motion.div variants={fadeUp} className="h-full">
       <Panel as="article" interactive className="flex h-full flex-col p-5">
-        {project.image ? (
-          <div className="mb-4">
-            <Shot project={project} />
-          </div>
-        ) : null}
-
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <h3 className="font-mono text-base font-semibold text-fg">

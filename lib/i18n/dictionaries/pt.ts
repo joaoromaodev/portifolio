@@ -189,6 +189,12 @@ export const pt: Dictionary = {
     subtitle:
       "Sistemas reais, a maioria em produção. Os mais fortes primeiro. Trabalho de governo aparece só como estudo de caso — sem dado real, sem código privado.",
     more: "outros projetos",
+    seeAll: "Ver todos os projetos",
+    indexTitle: "Tudo que eu construí",
+    indexSubtitle:
+      "Todos os projetos, os mais fortes primeiro — inclusive os menores, que não aparecem na página inicial.",
+    indexSlug: "todos os projetos",
+    count: "{n} projetos",
     terms: {
       problem: "problema",
       solution: "solução",

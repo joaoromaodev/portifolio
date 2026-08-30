@@ -1,15 +1,20 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { stagger, inView } from "@/lib/motion";
-import { featuredProjects, secondaryProjects } from "@/lib/site";
+import { stagger, inView, fadeUp } from "@/lib/motion";
+import { featuredProjects, projects } from "@/lib/site";
+import { PROJECTS_INDEX } from "@/lib/i18n/config";
 import { useI18n } from "@/components/i18n/LocaleProvider";
-import { ProjectCard } from "./ProjectCard";
+import { ProjectTile } from "./ProjectTile";
 
+// The front page shows the featured work only, as an even grid — enough to
+// judge the range at a glance without three screens of scrolling. The full
+// list, with the problem → solution → impact reasoning, is one click away.
 export function Projects() {
-  const { dict } = useI18n();
+  const { dict, locale } = useI18n();
 
   return (
     <Section id="projects">
@@ -19,37 +24,28 @@ export function Projects() {
         subtitle={dict.projects.subtitle}
       />
 
-      {/* Featured — full-width case-study rows, strongest first. Stacked
-          rows give each anchor project room to state problem → solution →
-          impact without ballooning into tall columns. */}
-      <motion.div variants={stagger} {...inView} className="space-y-4">
+      <motion.div
+        variants={stagger}
+        {...inView}
+        className="grid gap-4 sm:grid-cols-2"
+      >
         {featuredProjects.map((p) => (
-          <ProjectCard key={p.slug} project={p} featured />
+          <ProjectTile key={p.slug} project={p} />
         ))}
       </motion.div>
 
-      {secondaryProjects.length > 0 ? (
-        <>
-          <motion.p
-            variants={stagger}
-            {...inView}
-            className="mb-4 mt-12 font-mono text-sm text-comment"
-          >
-            {`// ${dict.projects.more}`}
-          </motion.p>
-
-          {/* Secondary — compact tiles in a two-column grid. */}
-          <motion.div
-            variants={stagger}
-            {...inView}
-            className="grid gap-4 sm:grid-cols-2"
-          >
-            {secondaryProjects.map((p) => (
-              <ProjectCard key={p.slug} project={p} />
-            ))}
-          </motion.div>
-        </>
-      ) : null}
+      <motion.div variants={fadeUp} {...inView} className="mt-8">
+        <Link
+          href={PROJECTS_INDEX[locale]}
+          className="inline-flex items-center gap-2 rounded-lg border border-green/40 px-5 py-2.5 font-mono text-sm text-green transition-colors hover:bg-green/10"
+        >
+          {dict.projects.seeAll}
+          <span className="text-comment">
+            ({dict.projects.count.replace("{n}", String(projects.length))})
+          </span>
+          →
+        </Link>
+      </motion.div>
     </Section>
   );
 }
