@@ -68,7 +68,10 @@ export function ProjectTile({ project }: { project: Project }) {
   );
 
   return (
-    <motion.div variants={fadeUp} className="h-full">
+    // min-w-0: a grid item defaults to min-width:auto, so the kicker's
+    // `truncate` (white-space: nowrap) sets a min-content floor wider than the
+    // track and pushes the whole page into horizontal scroll on mobile.
+    <motion.div variants={fadeUp} className="h-full min-w-0">
       {href ? (
         // The whole tile is the link when there's a page to go to.
         <Link href={href} className="group block h-full">
