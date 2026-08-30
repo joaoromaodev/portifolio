@@ -1,10 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
 import { flagColor, type Project } from "@/lib/site";
+import { hasDetailPage } from "@/lib/projects";
+import { projectPath } from "@/lib/i18n/config";
 import { useI18n } from "@/components/i18n/LocaleProvider";
 
 // Two shapes, one card language: featured projects are full-width horizontal
@@ -68,11 +71,35 @@ function Shot({ project }: { project: Project }) {
   );
 }
 
+// The title is the link to the case study — but only for projects that have
+// one, so a card never promises a page that doesn't exist.
+function ProjectTitleLink({ project }: { project: Project }) {
+  const { locale } = useI18n();
+  if (!hasDetailPage(project)) return <>{project.title}</>;
+  return (
+    <Link
+      href={projectPath(locale, project.slug)}
+      className="transition-colors hover:text-green"
+    >
+      {project.title}
+    </Link>
+  );
+}
+
 function CardLinks({ project }: { project: Project }) {
-  const { tx } = useI18n();
-  if (!project.links?.length && !project.privateNote) return null;
+  const { dict, locale, tx } = useI18n();
+  const detail = hasDetailPage(project);
+  if (!detail && !project.links?.length && !project.privateNote) return null;
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+      {detail ? (
+        <Link
+          href={projectPath(locale, project.slug)}
+          className="font-mono text-xs text-cyan transition-colors hover:underline"
+        >
+          {dict.projectDetail.caseStudy} →
+        </Link>
+      ) : null}
       {project.links?.map((l) => (
         <a
           key={l.href}
@@ -115,7 +142,7 @@ function FeaturedCard({ project }: { project: Project }) {
           <div>
             <div className="flex items-start justify-between gap-3">
               <h3 className="font-mono text-xl font-semibold text-fg">
-                {project.title}
+                <ProjectTitleLink project={project} />
               </h3>
               <FlagChip project={project} />
             </div>
@@ -158,7 +185,7 @@ function CompactCard({ project }: { project: Project }) {
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <h3 className="font-mono text-base font-semibold text-fg">
-              {project.title}
+              <ProjectTitleLink project={project} />
             </h3>
             <p className="font-mono text-xs text-comment">{tx(project.kicker)}</p>
           </div>

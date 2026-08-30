@@ -17,6 +17,15 @@ export function localePath(locale: Locale): string {
   return locale === DEFAULT_LOCALE ? "/" : `/${locale}`;
 }
 
+/**
+ * Per-project detail page. The path segment is translated too — the folders are
+ * separate routes anyway (app/projects vs app/pt/projetos), so a Portuguese URL
+ * costs nothing and reads properly to a Brazilian visitor.
+ */
+export function projectPath(locale: Locale, slug: string): string {
+  return locale === "pt" ? `/pt/projetos/${slug}` : `/projects/${slug}`;
+}
+
 /** The `hreflang` map both pages advertise, so each points at the other. */
 export const LANGUAGE_ALTERNATES: Record<string, string> = {
   "en-US": "/",

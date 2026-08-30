@@ -23,6 +23,12 @@ que quiser ativar. Copie `.env.example` → `.env.local` e cole os valores.
   o `content/projects.json`**. O painel não existe em produção (404). Cada campo
   de texto tem caixa **EN** e **PT**: o inglês é obrigatório, o português é
   opcional e cai pro inglês se ficar vazio (o painel mostra quantos faltam).
+- **Página de estudo de caso** — um projeto ganha página própria
+  (`/projects/<slug>` e `/pt/projetos/<slug>`) assim que tiver `overview`,
+  `highlights` (notas de engenharia) ou `gallery`. Sem isso, o card não linka
+  pra lugar nenhum — o site nunca promete uma página que não existe. As imagens
+  da galeria vão em `public/projects/<projeto>/`; `.gif` é servido sem
+  otimização pra continuar animando, e toda imagem precisa de alt.
 - **Idiomas** — inglês em `/` e português em `/pt`, com botão PT/EN na navbar.
   Textos de interface ficam em `lib/i18n/dictionaries/{en,pt}.ts`.
 - **Tema** — claro/escuro seguindo o sistema, com toggle na navbar. As cores

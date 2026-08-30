@@ -203,6 +203,23 @@ export const pt: Dictionary = {
     },
   },
 
+  projectDetail: {
+    back: "Todos os projetos",
+    caseStudy: "Estudo de caso",
+    theCase: "o caso",
+    role: "meu papel",
+    overview: "visão geral",
+    highlights: "notas de engenharia",
+    gallery: "telas",
+    stack: "stack",
+    metaTitle: "{title} — estudo de caso",
+    close: "Fechar",
+    previous: "Tela anterior",
+    next: "Próxima tela",
+    counter: "{n} de {total}",
+    openImage: "Ampliar",
+  },
+
   skills: {
     slug: "skills",
     title: "Caixa de ferramentas",

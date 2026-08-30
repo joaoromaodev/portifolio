@@ -39,7 +39,9 @@
       "privateNote": {
         "en": "Private gov system — case study only, with fictional-data screenshots. No code or real data is published.",
         "pt": "Sistema de governo privado — apenas estudo de caso, com capturas de tela de dados fictícios. Nenhum código ou dado real é publicado."
-      }
+      },
+      "highlights": [],
+      "gallery": []
     },
     {
       "slug": "pete-peae",
@@ -80,7 +82,9 @@
           "label": "GitHub",
           "href": "https://github.com/joaoromaodev"
         }
-      ]
+      ],
+      "highlights": [],
+      "gallery": []
     },
     {
       "slug": "balcao-atendimento",
@@ -127,11 +131,147 @@
         "en": "Public repo is a demo build with fictional data — the production instance is internal.",
         "pt": "O repositório público é uma versão de demonstração com dados fictícios — a instância de produção é interna."
       },
-      "image": "/projects/balcao-atendimento.png",
+      "image": "/projects/balcao/painel.png",
       "imageAlt": {
         "en": "Balcão de Atendimento coordination dashboard, showing scheduled schools, slot occupancy per day and outstanding invitations.",
         "pt": "Painel da coordenação do Balcão de Atendimento, mostrando escolas agendadas, ocupação de vagas por dia e convocações pendentes."
-      }
+      },
+      "role": {
+        "en": "Sole developer — from requirements gathering and data modelling through to production deployment, including working with the department's database and infrastructure teams.",
+        "pt": "Desenvolvedor único — do levantamento de requisitos e da modelagem de dados até a publicação em produção, incluindo a integração com as equipes de banco de dados e de infraestrutura do órgão."
+      },
+      "overview": {
+        "en": "Three roles share one system. Coordination runs the drive; analysts work the desk day to day; schools book through their own link — no password, because the signed token in the URL already identifies them. A single screen covers booking, tracking, rescheduling, cancelling and downloading the session report.\n\nThe work went end to end: data modelling, business rules, the public portal, server-side PDF generation for the attendance slip and the session report, and the deployment itself — onto a shared corporate database, behind a reverse proxy, on infrastructure I had no control over.",
+        "pt": "Três perfis dividem o mesmo sistema. A coordenação administra o mutirão; as analistas conduzem o balcão do dia a dia; as escolas agendam por um link próprio — sem senha, porque o token assinado na URL já as identifica. Uma única tela cobre agendar, acompanhar, remarcar, cancelar e baixar o relatório do atendimento.\n\nO trabalho foi de ponta a ponta: modelagem de dados, regras de negócio, portal público, geração de PDF no servidor para o termo de comparecimento e o relatório do atendimento, e a publicação em si — em um banco corporativo compartilhado, atrás de um proxy reverso, numa infraestrutura que eu não controlava."
+      },
+      "highlights": [
+        {
+          "title": {
+            "en": "Integrity as evidence",
+            "pt": "Integridade como prova"
+          },
+          "body": {
+            "en": "The rules that matter live in the database, not only in the application: partial unique indexes make a double-booked slot — or one school holding two active bookings — impossible rather than merely unlikely. A completed record is immutable; a correction is an addendum signed with its author and date.",
+            "pt": "As regras que importam moram no banco, não só na aplicação: índices únicos parciais tornam uma vaga dobrada — ou uma escola com dois agendamentos ativos — impossível, não apenas improvável. Registro concluído é imutável; a correção entra como adendo assinado com autor e data."
+          }
+        },
+        {
+          "title": {
+            "en": "Public access without passwords",
+            "pt": "Acesso público sem senha"
+          },
+          "body": {
+            "en": "A school's link is an HMAC carrying its own validity window and purpose. No account to create, no password to lose — and no way to enumerate schools by name or CNPJ.",
+            "pt": "O link da escola é um HMAC que carrega a própria validade e finalidade. Sem conta para criar, sem senha para perder — e sem como enumerar escolas por nome ou CNPJ."
+          }
+        },
+        {
+          "title": {
+            "en": "Shipping into infrastructure I didn't control",
+            "pt": "Publicar numa infraestrutura que eu não controlava"
+          },
+          "body": {
+            "en": "The app reads its database from a single variable and resolves the schema through search_path; it runs under a basePath when served from a subpath; and it handles LATIN1 databases by converting the typographic punctuation the encoding would reject. Every one of those decisions only surfaced at deploy time, behind a corporate reverse proxy.",
+            "pt": "A aplicação lê o banco de uma única variável e resolve o schema por search_path; roda sob basePath quando servida em subcaminho; e trata bancos em LATIN1 convertendo a pontuação tipográfica que o encoding recusaria. Cada uma dessas decisões só apareceu na hora de publicar, atrás de um proxy reverso corporativo."
+          }
+        },
+        {
+          "title": {
+            "en": "Documentation as part of the delivery",
+            "pt": "Documentação como parte da entrega"
+          },
+          "body": {
+            "en": "Stack, user flow, business rules and the database diagram are versioned alongside the code — so the next person to touch it doesn't have to reverse-engineer the reasoning.",
+            "pt": "Stack, fluxo do usuário, regras de negócio e diagrama do banco são versionados junto ao código — para que a próxima pessoa a mexer nele não precise fazer engenharia reversa do raciocínio."
+          }
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/projects/balcao/portal-agendamento.gif",
+          "alt": {
+            "en": "Animated walkthrough of a school booking a slot: picking a day, then a time, then the topics to be covered, then confirming.",
+            "pt": "Demonstração animada de uma escola agendando: escolhendo o dia, depois o horário, depois os temas a tratar, e confirmando."
+          },
+          "caption": {
+            "en": "The school's booking flow, start to finish — day, time, topics, confirmation.",
+            "pt": "O fluxo de agendamento da escola, do início ao fim — dia, horário, temas, confirmação."
+          }
+        },
+        {
+          "src": "/projects/balcao/painel.png",
+          "alt": {
+            "en": "Coordination dashboard showing how many invited schools have booked, slot occupancy per day, and a warning card counting the schools still to schedule.",
+            "pt": "Painel da coordenação mostrando quantas escolas convocadas já agendaram, a ocupação de vagas por dia, e um card de alerta contando as escolas que ainda faltam agendar."
+          },
+          "caption": {
+            "en": "Coordination dashboard — who has booked, which days are filling, who still hasn't.",
+            "pt": "Painel da coordenação — quem já agendou, quais dias estão enchendo, quem ainda falta."
+          }
+        },
+        {
+          "src": "/projects/balcao/atendimento.png",
+          "alt": {
+            "en": "The day's service desk: a month calendar on the left with a booking count under each day, and the day's queue on the right listing each school, its protocol code, the assigned analyst and the topic to be covered.",
+            "pt": "O balcão do dia: um calendário do mês à esquerda com a contagem de agendamentos sob cada dia, e a fila do dia à direita listando cada escola, seu código de protocolo, a analista responsável e o tema a tratar."
+          },
+          "caption": {
+            "en": "The desk view an analyst works from, one day at a time.",
+            "pt": "A tela do balcão que a analista usa, um dia de cada vez."
+          }
+        },
+        {
+          "src": "/projects/balcao/portal-escola.png",
+          "alt": {
+            "en": "The school's own portal, reached by signed-token link: the booked date and time, protocol code, representative, topics, what to bring on the day, and buttons to reschedule or cancel.",
+            "pt": "O portal da própria escola, acessado por link com token assinado: data e hora agendadas, código de protocolo, responsável, temas, o que levar no dia, e botões para remarcar ou cancelar."
+          },
+          "caption": {
+            "en": "Everything a school needs, on one passwordless page.",
+            "pt": "Tudo que a escola precisa, em uma página só e sem senha."
+          }
+        },
+        {
+          "src": "/projects/balcao/agendamentos.png",
+          "alt": {
+            "en": "Full appointment list across all analysts, with search by school, representative, protocol code, CNPJ or INEP, a status filter, and a per-row analyst assignment dropdown.",
+            "pt": "Lista completa de agendamentos de todas as analistas, com busca por escola, responsável, código, CNPJ ou INEP, filtro de status, e um seletor de analista em cada linha."
+          },
+          "caption": {
+            "en": "Coordination's view of every booking, searchable and reassignable.",
+            "pt": "A visão da coordenação sobre todos os agendamentos, com busca e reatribuição."
+          }
+        },
+        {
+          "src": "/projects/balcao/escolas.png",
+          "alt": {
+            "en": "School registry listing name, INEP code, council CNPJ, director and e-mail, phone, whether the school was invited, and its scheduling status — with quick filters for schools yet to book, without a representative, or without an e-mail.",
+            "pt": "Cadastro de escolas listando nome, código INEP, CNPJ do conselho, diretor e e-mail, telefone, se a escola foi convocada, e sua situação de agendamento — com filtros rápidos para escolas que faltam agendar, sem representante, ou sem e-mail."
+          },
+          "caption": {
+            "en": "The registry the whole drive is built on — and the filters that find the gaps.",
+            "pt": "O cadastro sobre o qual o mutirão inteiro se apoia — e os filtros que acham as lacunas."
+          }
+        },
+        {
+          "src": "/projects/balcao/configuracoes.png",
+          "alt": {
+            "en": "Settings for the drive: project name, coordination contact, venue, a master switch for whether schools can book, opening and closing dates, minimum notice in days, and the cancellation cut-off in hours.",
+            "pt": "Configurações do mutirão: nome do projeto, contato da coordenadoria, local do atendimento, uma chave geral para liberar ou não o agendamento, datas de abertura e fechamento, antecedência mínima em dias, e o limite de cancelamento em horas."
+          },
+          "caption": {
+            "en": "The knobs coordination turns without needing a developer.",
+            "pt": "Os controles que a coordenação ajusta sem precisar de um desenvolvedor."
+          }
+        },
+        {
+          "src": "/projects/balcao/login.png",
+          "alt": {
+            "en": "Sign-in screen for the coordination team, with e-mail and password fields.",
+            "pt": "Tela de login da equipe da coordenadoria, com campos de e-mail e senha."
+          }
+        }
+      ]
     },
     {
       "slug": "rootlab",
@@ -169,7 +309,9 @@
       "privateNote": {
         "en": "Pre-MVP, in active development — co-developed with a colleague (name may change before launch).",
         "pt": "Pré-MVP, em desenvolvimento ativo — codesenvolvido com um colega (o nome pode mudar antes do lançamento)."
-      }
+      },
+      "highlights": [],
+      "gallery": []
     },
     {
       "slug": "ecopredict",
@@ -207,7 +349,9 @@
       "privateNote": {
         "en": "Course project — recognised as an award highlight; not published.",
         "pt": "Projeto de curso — destacado como premiação; não publicado."
-      }
+      },
+      "highlights": [],
+      "gallery": []
     },
     {
       "slug": "diarias",
@@ -236,7 +380,9 @@
         "Python",
         "Automation"
       ],
-      "links": []
+      "links": [],
+      "highlights": [],
+      "gallery": []
     },
     {
       "slug": "mago-mercador",
@@ -275,7 +421,9 @@
           "label": "Instagram",
           "href": "https://www.instagram.com/magomercador/"
         }
-      ]
+      ],
+      "highlights": [],
+      "gallery": []
     },
     {
       "slug": "cherry-bomb",
@@ -305,7 +453,9 @@
         "Branding",
         "Pix"
       ],
-      "links": []
+      "links": [],
+      "highlights": [],
+      "gallery": []
     }
   ]
 }

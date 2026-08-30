@@ -13,6 +13,22 @@ export type ProjectFlag = "case-study" | "live" | "building" | "award" | "side";
 
 export type ProjectLink = { label: string; href: string };
 
+/** One screenshot (or animated GIF) on a project's detail page. */
+export type GalleryItem = {
+  /** Path under /public, e.g. "/projects/balcao/painel.png". */
+  src: string;
+  /** Required — this is what screen readers announce. */
+  alt: LocalizedText;
+  /** Optional caption shown under the image. */
+  caption?: LocalizedText;
+};
+
+/** An engineering decision worth explaining — the interview material. */
+export type ProjectHighlight = {
+  title: LocalizedText;
+  body: LocalizedText;
+};
+
 export type Project = {
   slug: string;
   /** Product name — the same in both languages. */
@@ -38,6 +54,12 @@ export type Project = {
   image?: string;
   /** Alt text for the screenshot — required whenever `image` is set. */
   imageAlt?: LocalizedText;
+  /** What João did on this project, for the detail page. */
+  role?: LocalizedText;
+  /** Longer narrative shown only on the detail page. */
+  overview?: LocalizedText;
+  highlights: ProjectHighlight[];
+  gallery: GalleryItem[];
 };
 
 export const FLAGS: ProjectFlag[] = [
@@ -100,7 +122,46 @@ export function normalizeProject(raw: unknown, index = 0): Project {
     privateNote: optionalLocalized(p.privateNote),
     image: (p.image as string) || undefined,
     imageAlt: optionalLocalized(p.imageAlt),
+    role: optionalLocalized(p.role),
+    overview: optionalLocalized(p.overview),
+    highlights: Array.isArray(p.highlights)
+      ? (p.highlights as unknown[])
+          .map((h) => {
+            const raw = h as Record<string, unknown>;
+            return { title: localized(raw.title), body: localized(raw.body) };
+          })
+          .filter((h) => h.title.en || h.body.en)
+      : [],
+    gallery: Array.isArray(p.gallery)
+      ? (p.gallery as unknown[])
+          .map((g) => {
+            const raw = g as Record<string, unknown>;
+            return {
+              src: (raw.src as string) ?? "",
+              alt: localized(raw.alt),
+              caption: optionalLocalized(raw.caption),
+            };
+          })
+          .filter((g) => g.src)
+      : [],
   };
+}
+
+/**
+ * A project earns its own page only when there's more to show than the card
+ * already says — otherwise linking to it would promise depth that isn't there.
+ */
+export function hasDetailPage(p: Project): boolean {
+  return p.gallery.length > 0 || p.highlights.length > 0 || Boolean(p.overview);
+}
+
+export function projectBySlug(slug: string): Project | undefined {
+  return projects.find((p) => p.slug === slug);
+}
+
+/** Published projects that have a detail page — drives generateStaticParams. */
+export function detailProjects(): Project[] {
+  return projects.filter(hasDetailPage);
 }
 
 /** Every project in the file, drafts included — for the admin panel. */

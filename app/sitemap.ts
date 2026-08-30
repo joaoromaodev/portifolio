@@ -1,21 +1,40 @@
 import type { MetadataRoute } from "next";
 import { siteUrl } from "@/lib/seo";
-import { LOCALES, localePath } from "@/lib/i18n/config";
+import { LOCALES, localePath, projectPath } from "@/lib/i18n/config";
+import { detailProjects } from "@/lib/projects";
 
-// One entry per locale. The sections are anchors, and search engines don't
-// index fragments separately, so each language page is a single URL — with an
-// `alternates.languages` map pointing at its counterpart.
+// Every page in both languages: the two home pages, plus one case-study page
+// per project that has one. Each entry carries the `alternates.languages` map
+// so search engines pair the locales instead of treating them as duplicates.
 export default function sitemap(): MetadataRoute.Sitemap {
   const url = (path: string) => `${siteUrl}${path === "/" ? "" : path}`;
-  const languages = Object.fromEntries(
-    LOCALES.map((l) => [l === "pt" ? "pt-BR" : "en-US", url(localePath(l))]),
-  );
+  const lang = (l: (typeof LOCALES)[number]) => (l === "pt" ? "pt-BR" : "en-US");
 
-  return LOCALES.map((locale) => ({
+  const home: MetadataRoute.Sitemap = LOCALES.map((locale) => ({
     url: url(localePath(locale)),
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: locale === "en" ? 1 : 0.9,
-    alternates: { languages },
+    alternates: {
+      languages: Object.fromEntries(
+        LOCALES.map((l) => [lang(l), url(localePath(l))]),
+      ),
+    },
   }));
+
+  const projects: MetadataRoute.Sitemap = detailProjects().flatMap((project) =>
+    LOCALES.map((locale) => ({
+      url: url(projectPath(locale, project.slug)),
+      lastModified: new Date(),
+      changeFrequency: "monthly" as const,
+      priority: locale === "en" ? 0.8 : 0.7,
+      alternates: {
+        languages: Object.fromEntries(
+          LOCALES.map((l) => [lang(l), url(projectPath(l, project.slug))]),
+        ),
+      },
+    })),
+  );
+
+  return [...home, ...projects];
 }

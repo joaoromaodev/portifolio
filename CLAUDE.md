@@ -87,6 +87,18 @@ O botão **PT/EN** na navbar é um `<Link>` — trocar idioma é navegar, não u
 em `/pt` (um root layout não consegue ler o pathname no servidor). O `ThemeToggle`
 lê o atributo com `useSyncExternalStore`, sem espelhar em state.
 
+**Páginas de estudo de caso.** Um projeto ganha rota própria nos dois idiomas
+(`/projects/<slug>`, `/pt/projetos/<slug>`, ambas estáticas) assim que tiver
+`overview`, `highlights` ou `gallery` — ver `hasDetailPage()` em `lib/projects.ts`.
+Sem isso o card não vira link. O `LocaleProvider` aceita `altPath` pra que o botão
+PT/EN mantenha o visitante na mesma página ao trocar de idioma.
+
+⚠️ **`AnimatePresence` só desmonta um filho direto que seja `motion.*` com `key`.**
+Um `<div>` comum como filho direto deixa a subárvore montada pra sempre — e um
+overlay `fixed inset-0` invisível engole todo clique da página. Já aconteceu duas
+vezes aqui (paleta de comandos e lightbox). Em modal, prefira montar/desmontar
+direto sem animação de saída.
+
 **Textos dos projetos** são bilíngues (`{ en, pt }` em `content/projects.json`).
 `pt` é opcional e cai para `en` — dá pra cadastrar em inglês e traduzir depois;
 o `/admin` mostra quantos campos ainda estão sem português.

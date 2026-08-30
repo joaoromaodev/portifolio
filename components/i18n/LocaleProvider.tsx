@@ -2,13 +2,21 @@
 
 import { createContext, useContext, type ReactNode } from "react";
 import type { Dictionary } from "@/lib/i18n";
-import { t, type Locale, type LocalizedText } from "@/lib/i18n/config";
+import {
+  DEFAULT_LOCALE,
+  localePath,
+  t,
+  type Locale,
+  type LocalizedText,
+} from "@/lib/i18n/config";
 
 type LocaleContextValue = {
   locale: Locale;
   dict: Dictionary;
   /** Resolve a bilingual project field for the current locale. */
   tx: (value: LocalizedText | undefined) => string;
+  /** Where the language toggle goes — this same page in the other locale. */
+  altPath: string;
 };
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
@@ -19,15 +27,29 @@ const LocaleContext = createContext<LocaleContextValue | null>(null);
 export function LocaleProvider({
   locale,
   dict,
+  altPath,
   children,
 }: {
   locale: Locale;
   dict: Dictionary;
+  /**
+   * The counterpart URL for the language toggle. Defaults to the other
+   * locale's home page; pages that exist in both locales (project case
+   * studies) pass their own, so switching language keeps you on the same
+   * content instead of dumping you back at the top.
+   */
+  altPath?: string;
   children: ReactNode;
 }) {
+  const other: Locale = locale === DEFAULT_LOCALE ? "pt" : DEFAULT_LOCALE;
   return (
     <LocaleContext.Provider
-      value={{ locale, dict, tx: (value) => t(value, locale) }}
+      value={{
+        locale,
+        dict,
+        tx: (value) => t(value, locale),
+        altPath: altPath ?? localePath(other),
+      }}
     >
       {children}
     </LocaleContext.Provider>

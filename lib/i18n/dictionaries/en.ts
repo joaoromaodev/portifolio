@@ -201,6 +201,25 @@ export const en = {
     },
   },
 
+  projectDetail: {
+    back: "All projects",
+    caseStudy: "Case study",
+    theCase: "the case",
+    role: "my role",
+    overview: "overview",
+    highlights: "engineering notes",
+    gallery: "screens",
+    stack: "stack",
+    /** `{title}` is the project name. */
+    metaTitle: "{title} — case study",
+    close: "Close",
+    previous: "Previous screen",
+    next: "Next screen",
+    /** `{n}` and `{total}` are the current and total screen numbers. */
+    counter: "{n} of {total}",
+    openImage: "Open larger",
+  },
+
   skills: {
     slug: "skills",
     title: "Toolbox",

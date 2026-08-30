@@ -71,6 +71,18 @@ no login to secure. The file is also plain JSON with a
 and `imageAlt` fields. See [public/projects/README.md](public/projects/README.md)
 — government screenshots must use fictional data.
 
+### Case-study pages
+
+A project gets its own page — `/projects/<slug>` and `/pt/projetos/<slug>`, both
+statically generated — as soon as it has an **overview**, **engineering notes**
+or a **gallery**. Until then its card simply doesn't link anywhere, so the site
+never promises depth that isn't there.
+
+Fill those three in from the same `/admin` panel. Gallery images live in
+`public/projects/<project>/`; a `.gif` is served unoptimized so it keeps
+animating. Every gallery image needs alt text — the panel flags the ones
+missing it.
+
 **CV:** put the PDF at `public/joao-romao-cv.pdf`. The download buttons in the
 hero and contact section appear automatically once the file exists, and stay
 hidden until then.

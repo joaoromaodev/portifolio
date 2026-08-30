@@ -122,6 +122,28 @@
         "imageAlt": {
           "$ref": "#/definitions/localizedText",
           "description": "Alt text. Required whenever image is set."
+        },
+        "role": {
+          "$ref": "#/definitions/localizedText",
+          "description": "What you did on this project. Detail page only."
+        },
+        "overview": {
+          "$ref": "#/definitions/localizedText",
+          "description": "Longer narrative, detail page only. A blank line starts a new paragraph."
+        },
+        "highlights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/highlight"
+          },
+          "description": "Engineering decisions worth explaining - the interview material. Detail page only."
+        },
+        "gallery": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/galleryItem"
+          },
+          "description": "Screens for the case-study page. A project gets its own page as soon as it has a gallery, highlights or an overview."
         }
       }
     },
@@ -139,6 +161,45 @@
         "pt": {
           "type": "string",
           "description": "Brazilian Portuguese — optional; empty falls back to English."
+        }
+      }
+    },
+    "galleryItem": {
+      "type": "object",
+      "required": [
+        "src",
+        "alt"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "src": {
+          "type": "string",
+          "pattern": "^/",
+          "description": "Path under public/, e.g. /projects/balcao/painel.png. A .gif is served unoptimized so it keeps animating."
+        },
+        "alt": {
+          "$ref": "#/definitions/localizedText",
+          "description": "Required - what screen readers announce."
+        },
+        "caption": {
+          "$ref": "#/definitions/localizedText",
+          "description": "Optional caption shown under the image."
+        }
+      }
+    },
+    "highlight": {
+      "type": "object",
+      "required": [
+        "title",
+        "body"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "$ref": "#/definitions/localizedText"
+        },
+        "body": {
+          "$ref": "#/definitions/localizedText"
         }
       }
     }

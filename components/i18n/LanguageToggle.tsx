@@ -2,18 +2,18 @@
 
 import Link from "next/link";
 import { useI18n } from "./LocaleProvider";
-import { DEFAULT_LOCALE, localePath } from "@/lib/i18n/config";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 
 // A link, not a button: each language is a real, indexable, shareable URL, so
 // switching should behave like navigation (middle-click, copy link, back
 // button all work). `hrefLang` also tells crawlers what sits on the other end.
 export function LanguageToggle({ className = "" }: { className?: string }) {
-  const { locale, dict } = useI18n();
+  const { locale, dict, altPath } = useI18n();
   const other = locale === DEFAULT_LOCALE ? "pt" : DEFAULT_LOCALE;
 
   return (
     <Link
-      href={localePath(other)}
+      href={altPath}
       hrefLang={other === "pt" ? "pt-BR" : "en"}
       aria-label={`${dict.language.switchLabel}: ${dict.language.other}`}
       title={`${dict.language.switchLabel}: ${dict.language.other}`}

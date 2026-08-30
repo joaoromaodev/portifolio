@@ -2,7 +2,15 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { FLAGS, flagColor, type Project, type ProjectLink } from "@/lib/projects";
+import {
+  FLAGS,
+  flagColor,
+  hasDetailPage,
+  type GalleryItem,
+  type Project,
+  type ProjectHighlight,
+  type ProjectLink,
+} from "@/lib/projects";
 import type { LocalizedText } from "@/lib/i18n/config";
 import { en } from "@/lib/i18n/dictionaries/en";
 
@@ -29,6 +37,8 @@ const EMPTY: Project = {
   impact: undefined,
   stack: [],
   links: [],
+  highlights: [],
+  gallery: [],
 };
 
 /** A project is "translated" once every field it actually uses has Portuguese. */
@@ -415,6 +425,7 @@ function Editor({
 }) {
   const slugClash = taken.includes(project.slug);
   const needsAlt = Boolean(project.image) && !project.imageAlt?.en?.trim();
+  const detail = hasDetailPage(project);
 
   return (
     <div className="space-y-5 rounded-xl border border-border bg-surface p-5 md:p-6">
@@ -542,6 +553,43 @@ function Editor({
         invalid={needsAlt}
         optional
       />
+
+      <div className="border-t border-border pt-5">
+        <p className="font-mono text-xs text-comment">
+          {"// case-study page"}
+          <span className="ml-2 text-[10px]">
+            {detail
+              ? "— this project has its own page; the card links to it"
+              : "— add an overview, a note or a screen below to give this project its own page"}
+          </span>
+        </p>
+      </div>
+
+      <LocalizedArea
+        label="role"
+        value={project.role}
+        onChange={(v) => onChange({ role: v })}
+        hint="what you did on this project"
+        optional
+      />
+
+      <LocalizedArea
+        label="overview"
+        value={project.overview}
+        onChange={(v) => onChange({ overview: v })}
+        hint="the long version; blank line starts a new paragraph"
+        optional
+      />
+
+      <HighlightsEditor
+        highlights={project.highlights}
+        onChange={(highlights) => onChange({ highlights })}
+      />
+
+      <GalleryEditor
+        gallery={project.gallery}
+        onChange={(gallery) => onChange({ gallery })}
+      />
     </div>
   );
 }
@@ -597,6 +645,198 @@ function LinkEditor({
         Empty rows are dropped on save.
       </p>
     </div>
+  );
+}
+
+/* -- case-study editors --------------------------------------------------- */
+
+// Repeating rows share this frame so "engineering notes" and "screens" look
+// like one control, not two bolted-on lists.
+function RepeaterSection({
+  label,
+  hint,
+  onAdd,
+  addLabel,
+  children,
+}: {
+  label: string;
+  hint: string;
+  onAdd: () => void;
+  addLabel: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <span className="mb-1.5 block font-mono text-xs text-comment">
+        {label}
+        <span className="ml-2 text-[10px]">- {hint}</span>
+      </span>
+      <div className="space-y-3">
+        {children}
+        <button
+          type="button"
+          onClick={onAdd}
+          className="rounded-lg border border-dashed border-border px-3 py-1.5 font-mono text-xs text-muted transition-colors hover:border-green/40 hover:text-green"
+        >
+          {addLabel}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function RepeaterRow({
+  index,
+  onRemove,
+  onMove,
+  total,
+  children,
+}: {
+  index: number;
+  onRemove: () => void;
+  onMove: (delta: -1 | 1) => void;
+  total: number;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-lg border border-border bg-bg p-3">
+      <div className="mb-2 flex items-center justify-between">
+        <span className="font-mono text-[10px] text-comment">#{index + 1}</span>
+        <div className="flex items-center gap-1">
+          <IconBtn
+            label={`Move item ${index + 1} up`}
+            disabled={index === 0}
+            onClick={() => onMove(-1)}
+          >
+            ↑
+          </IconBtn>
+          <IconBtn
+            label={`Move item ${index + 1} down`}
+            disabled={index === total - 1}
+            onClick={() => onMove(1)}
+          >
+            ↓
+          </IconBtn>
+          <IconBtn
+            label={`Remove item ${index + 1}`}
+            onClick={onRemove}
+            className="hover:border-red/50 hover:text-red"
+          >
+            ×
+          </IconBtn>
+        </div>
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function move<T>(list: T[], i: number, delta: -1 | 1): T[] {
+  const j = i + delta;
+  if (j < 0 || j >= list.length) return list;
+  const next = [...list];
+  [next[i], next[j]] = [next[j], next[i]];
+  return next;
+}
+
+function HighlightsEditor({
+  highlights,
+  onChange,
+}: {
+  highlights: ProjectHighlight[];
+  onChange: (v: ProjectHighlight[]) => void;
+}) {
+  const set = (i: number, patch: Partial<ProjectHighlight>) =>
+    onChange(highlights.map((h, j) => (i === j ? { ...h, ...patch } : h)));
+
+  return (
+    <RepeaterSection
+      label="highlights"
+      hint="engineering decisions worth explaining — the interview material"
+      addLabel="+ note"
+      onAdd={() =>
+        onChange([...highlights, { title: { en: "" }, body: { en: "" } }])
+      }
+    >
+      {highlights.map((h, i) => (
+        <RepeaterRow
+          key={i}
+          index={i}
+          total={highlights.length}
+          onMove={(d) => onChange(move(highlights, i, d))}
+          onRemove={() => onChange(highlights.filter((_, j) => j !== i))}
+        >
+          <div className="space-y-3">
+            <LocalizedField
+              label="title"
+              value={h.title}
+              onChange={(v) => set(i, { title: v ?? { en: "" } })}
+            />
+            <LocalizedArea
+              label="body"
+              value={h.body}
+              onChange={(v) => set(i, { body: v ?? { en: "" } })}
+            />
+          </div>
+        </RepeaterRow>
+      ))}
+    </RepeaterSection>
+  );
+}
+
+function GalleryEditor({
+  gallery,
+  onChange,
+}: {
+  gallery: GalleryItem[];
+  onChange: (v: GalleryItem[]) => void;
+}) {
+  const set = (i: number, patch: Partial<GalleryItem>) =>
+    onChange(gallery.map((g, j) => (i === j ? { ...g, ...patch } : g)));
+
+  return (
+    <RepeaterSection
+      label="gallery"
+      hint="screens for the case-study page; files go in public/projects/"
+      addLabel="+ screen"
+      onAdd={() => onChange([...gallery, { src: "", alt: { en: "" } }])}
+    >
+      {gallery.map((g, i) => {
+        const missingAlt = Boolean(g.src) && !g.alt?.en?.trim();
+        return (
+          <RepeaterRow
+            key={i}
+            index={i}
+            total={gallery.length}
+            onMove={(d) => onChange(move(gallery, i, d))}
+            onRemove={() => onChange(gallery.filter((_, j) => j !== i))}
+          >
+            <div className="space-y-3">
+              <Field
+                label="src"
+                value={g.src}
+                onChange={(v) => set(i, { src: v })}
+                hint="e.g. /projects/balcao/painel.png — .gif is served unoptimized so it keeps animating"
+              />
+              <LocalizedField
+                label="alt"
+                value={g.alt}
+                onChange={(v) => set(i, { alt: v ?? { en: "" } })}
+                hint={missingAlt ? "required — this is what screen readers announce" : undefined}
+                invalid={missingAlt}
+              />
+              <LocalizedField
+                label="caption"
+                value={g.caption}
+                onChange={(v) => set(i, { caption: v })}
+                hint="optional, shown under the image"
+                optional
+              />
+            </div>
+          </RepeaterRow>
+        );
+      })}
+    </RepeaterSection>
   );
 }
 
