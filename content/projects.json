@@ -83,6 +83,57 @@
       ]
     },
     {
+      "slug": "balcao-atendimento",
+      "title": "Balcão de Atendimento",
+      "kicker": {
+        "en": "Scheduling & auditable service records",
+        "pt": "Agendamento e prova de atendimento"
+      },
+      "flag": "live",
+      "featured": true,
+      "published": true,
+      "order": 3,
+      "summary": {
+        "en": "Full-stack platform that schedules ~110 schools into 200 in-person slots and turns every session into tamper-evident documentary proof for federal oversight bodies. Built and shipped to production single-handedly.",
+        "pt": "Plataforma full-stack que organiza o agendamento de ~110 escolas em 200 vagas presenciais e transforma cada atendimento em prova documental auditável para órgãos de controle. Construída e publicada em produção sozinho."
+      },
+      "problem": {
+        "en": "Schools told oversight bodies they were never trained on how to account for federal funds; the department said it did train them. Neither side could prove it.",
+        "pt": "As escolas afirmavam aos órgãos de controle que não eram orientadas sobre como prestar contas de recursos federais; a secretaria afirmava que orientava. Faltava prova para os dois lados."
+      },
+      "solution": {
+        "en": "Every session becomes an immutable record with an author and a timestamp — corrections are appended as signed addenda, never overwrites. Schools book through a passwordless signed-token link; coordination and analysts get their own roles.",
+        "pt": "Cada atendimento vira um registro imutável, com autor e data — correções entram como adendo assinado, nunca sobrescrevendo o original. As escolas agendam por um link com token assinado, sem senha; coordenação e analistas têm seus próprios perfis."
+      },
+      "impact": {
+        "en": "In production. The rules that matter live in the database, not just the app: partial unique indexes make a double-booked slot impossible. Shipped onto a shared corporate database behind a reverse proxy I didn't control.",
+        "pt": "Em produção. As regras que importam moram no banco, não só na aplicação: índices únicos parciais tornam impossível uma vaga dobrada. Publicado em um banco corporativo compartilhado, atrás de um proxy reverso que eu não controlava."
+      },
+      "stack": [
+        "Next.js",
+        "TypeScript",
+        "PostgreSQL",
+        "Drizzle ORM",
+        "Tailwind",
+        "Docker"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "href": "https://github.com/joaoromaodev/balcao-atendimento-demo"
+        }
+      ],
+      "privateNote": {
+        "en": "Public repo is a demo build with fictional data — the production instance is internal.",
+        "pt": "O repositório público é uma versão de demonstração com dados fictícios — a instância de produção é interna."
+      },
+      "image": "/projects/balcao-atendimento.png",
+      "imageAlt": {
+        "en": "Balcão de Atendimento coordination dashboard, showing scheduled schools, slot occupancy per day and outstanding invitations.",
+        "pt": "Painel da coordenação do Balcão de Atendimento, mostrando escolas agendadas, ocupação de vagas por dia e convocações pendentes."
+      }
+    },
+    {
       "slug": "rootlab",
       "title": "RootLab",
       "kicker": {
@@ -92,7 +143,7 @@
       "flag": "building",
       "featured": true,
       "published": true,
-      "order": 3,
+      "order": 4,
       "summary": {
         "en": "Local-first tool that chains Ishikawa → GUT Matrix → 5 Whys → 5W2H into a single, auditable cascade with PDF export. Runs offline in the browser.",
         "pt": "Ferramenta local-first que encadeia Ishikawa → Matriz GUT → 5 Porquês → 5W2H em uma cascata única e auditável, com exportação em PDF. Roda offline, no navegador."
@@ -130,7 +181,7 @@
       "flag": "award",
       "featured": false,
       "published": true,
-      "order": 4,
+      "order": 5,
       "summary": {
         "en": "AI + sustainability project in the I2A2 \"AI for Sustainable Projects — Towards COP 30\" program. Top 7 globally, \"Outstanding Achievement\" (Dec 2025).",
         "pt": "Projeto de IA + sustentabilidade no programa I2A2 \"AI for Sustainable Projects — Towards COP 30\". Top 7 mundial, reconhecimento \"Outstanding Achievement\" (dez/2025)."
@@ -168,7 +219,7 @@
       "flag": "live",
       "featured": false,
       "published": true,
-      "order": 5,
+      "order": 6,
       "summary": {
         "en": "Sibling of PETE/PEAE: generates the monthly standardized load file that HR uploads into ERGON, SEDUC's legacy system.",
         "pt": "Irmão do PETE/PEAE: gera mensalmente o arquivo padronizado de carga que o RH sobe no ERGON, o sistema legado da SEDUC."
@@ -197,7 +248,7 @@
       "flag": "side",
       "featured": false,
       "published": true,
-      "order": 6,
+      "order": 7,
       "summary": {
         "en": "My tabletop-RPG dice & accessories shop — product, brand and social. magomercador.com.br · @magomercador.",
         "pt": "Minha loja de dados e acessórios para RPG de mesa — produto, marca e redes sociais. magomercador.com.br · @magomercador."
@@ -236,7 +287,7 @@
       "flag": "side",
       "featured": false,
       "published": true,
-      "order": 7,
+      "order": 8,
       "summary": {
         "en": "Mobile-first neobrutalist UI (red/black/white) with Pix payment logic for a handmade-goods vending machine.",
         "pt": "UI neobrutalista mobile-first (vermelho/preto/branco) com lógica de pagamento por Pix para uma máquina de vendas de produtos artesanais."
