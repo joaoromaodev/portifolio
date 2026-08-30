@@ -6,6 +6,7 @@ import {
   FLAGS,
   flagColor,
   hasDetailPage,
+  HOME_FEATURED_LIMIT,
   type GalleryItem,
   type Project,
   type ProjectHighlight,
@@ -195,6 +196,7 @@ export function AdminClient() {
   const untranslated = projects.filter(
     (p) => p.published && missingPortuguese(p) > 0,
   ).length;
+  const overflowFeatured = Math.max(0, featuredCount - HOME_FEATURED_LIMIT);
 
   return (
     <main className="mx-auto max-w-6xl px-5 py-10 md:px-8">
@@ -207,6 +209,15 @@ export function AdminClient() {
             Edits <span className="text-muted">content/projects.json</span>. Dev-only
             — commit the file to publish. {featuredCount} featured,{" "}
             {projects.length} total
+            {overflowFeatured > 0 ? (
+              <>
+                ,{" "}
+                <span className="text-amber">
+                  {overflowFeatured} past the front page&apos;s first{" "}
+                  {HOME_FEATURED_LIMIT}
+                </span>
+              </>
+            ) : null}
             {untranslated > 0 ? (
               <>
                 ,{" "}

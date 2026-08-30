@@ -87,6 +87,168 @@
       "gallery": []
     },
     {
+      "slug": "clickcontas",
+      "title": "ClickContas",
+      "kicker": {
+        "en": "Modular accounting SaaS",
+        "pt": "SaaS contábil modular"
+      },
+      "flag": "live",
+      "featured": true,
+      "published": true,
+      "order": 3,
+      "summary": {
+        "en": "Multi-tenant platform that digitises an accounting firm's routine: AI reads handwritten timesheets, and a shared cash book lets each client company post its own entries for the accountant to reconcile.",
+        "pt": "Plataforma multiempresa que digitaliza a rotina de um escritório de contabilidade: a IA lê folhas de ponto manuscritas, e um livro caixa compartilhado deixa cada empresa-cliente lançar o próprio movimento para a contadora conciliar."
+      },
+      "problem": {
+        "en": "The firm ran two routines by hand: retyping photographed handwritten timesheets into a spreadsheet, one at a time, and posting each client's cash movements that arrived by WhatsApp or on paper — with no standard and no consolidated view.",
+        "pt": "O escritório tocava duas rotinas no braço: redigitar numa planilha, uma a uma, as folhas de ponto manuscritas que chegavam por foto, e lançar a movimentação de caixa de cada cliente que vinha por WhatsApp ou papel — sem padronização e sem visão consolidada."
+      },
+      "solution": {
+        "en": "Two independent modules on one multi-tenant platform. Gemini reads the photographed timesheet and a side-by-side review screen applies the business rules; the client company posts its own cash entries against a chart of accounts the accountant standardised, and she reconciles and closes the month.",
+        "pt": "Dois módulos independentes numa plataforma multiempresa. O Gemini lê a folha fotografada e uma tela de revisão lado a lado aplica as regras de negócio; a empresa-cliente lança o próprio caixa contra um plano de contas padronizado pela contadora, que concilia e fecha o mês."
+      },
+      "impact": {
+        "en": "In production with real clients. The work that used to be retyping is now review, and the loop closes on itself: the system generates the blank timesheet, the client fills it in by hand, a photo goes back in, and the spreadsheet comes out.",
+        "pt": "Em produção com clientes reais. O que antes era redigitação virou conferência, e o ciclo se fecha sozinho: o sistema gera a folha em branco, o cliente preenche à mão, a foto volta, e a planilha sai pronta."
+      },
+      "stack": [
+        "Next.js",
+        "TypeScript",
+        "React",
+        "Tailwind",
+        "PostgreSQL (Supabase)",
+        "Google Sheets API",
+        "Google Gemini",
+        "Vercel"
+      ],
+      "links": [],
+      "privateNote": {
+        "en": "Private client product — case study only, with fictional-data mockups of the real screens.",
+        "pt": "Produto de cliente privado — apenas estudo de caso, com mockups de dados fictícios das telas reais."
+      },
+      "image": "/projects/clickcontas/livro-caixa.webp",
+      "imageAlt": {
+        "en": "ClickContas cash book: monthly entries with carried balance, income and expense totals, and a running balance column.",
+        "pt": "Livro caixa do ClickContas: lançamentos do mês com saldo transportado, totais de entradas e saídas, e coluna de saldo corrente."
+      },
+      "role": {
+        "en": "Full-stack, solo — product, architecture, front end, back end and deployment.",
+        "pt": "Full-stack, sozinho — produto, arquitetura, front-end, back-end e publicação."
+      },
+      "overview": {
+        "en": "Three roles share the platform, and what each one can reach is decided on the server: a master admin who registers accountants, the accountant who sees only her own companies and the modules she was given, and the client company's admin who reaches nothing but its own cash book. Every client company carries an immutable internal id, so renaming a legal entity or filling in its tax number later breaks no link.\n\nThe two modules don't share a database, on purpose. The cash book is concurrent, relational and needs integrity, so it lives in PostgreSQL. The timesheet data lives in Google Sheets because the accountant already worked in a spreadsheet — meeting the tool where she was, rather than making her migrate to be allowed to use the product.",
+        "pt": "Três perfis dividem a plataforma, e o que cada um alcança é decidido no servidor: um administrador master que cadastra contadores, a contadora que enxerga só as empresas dela e os módulos liberados, e o administrativo da empresa-cliente que não alcança nada além do próprio livro caixa. Cada empresa-cliente carrega um id interno imutável, então renomear a razão social ou preencher o CNPJ depois não quebra nenhum vínculo.\n\nOs dois módulos não dividem o mesmo banco, de propósito. O livro caixa é concorrente, relacional e precisa de integridade, então mora no PostgreSQL. Os dados da folha de ponto ficam no Google Sheets porque a contadora já operava em planilha — encontrar a ferramenta onde ela estava, em vez de obrigá-la a migrar para poder usar o produto."
+      },
+      "highlights": [
+        {
+          "title": {
+            "en": "OCR with a human in the loop",
+            "pt": "OCR com humano no circuito"
+          },
+          "body": {
+            "en": "The model extracts the times; the decision stays with a review screen that applies each company's working hours, holidays, days off and daily balance. Automation that stays auditable — an accountant signs off on numbers she can still see next to the original photo.",
+            "pt": "O modelo extrai os horários; a decisão fica com uma tela de conferência que aplica a jornada de cada empresa, feriados, folgas e saldo diário. Automação que continua auditável — a contadora assina números que ela ainda vê ao lado da foto original."
+          }
+        },
+        {
+          "title": {
+            "en": "Two databases, chosen per access pattern",
+            "pt": "Dois bancos, escolhidos pelo padrão de acesso"
+          },
+          "body": {
+            "en": "PostgreSQL for the cash book, where several companies write at once and referential integrity matters; Google Sheets for the timesheet, read and written through the API. One company id stitches the two together, validated in the application since there can be no foreign key across them.",
+            "pt": "PostgreSQL para o livro caixa, onde várias empresas escrevem ao mesmo tempo e integridade referencial importa; Google Sheets para a folha de ponto, lida e escrita pela API. Um mesmo id de empresa costura os dois, validado na aplicação já que não existe chave estrangeira entre eles."
+          }
+        },
+        {
+          "title": {
+            "en": "Authorisation in depth",
+            "pt": "Autorização em profundidade"
+          },
+          "body": {
+            "en": "Middleware makes the coarse cut by role; every API route then asks the narrower question — may this user touch this company? Sessions are signed cookies (HMAC) and passwords are PBKDF2, both through Web Crypto so they run in the edge runtime. RLS is on with no policies, so the browser's public key reads nothing directly.",
+            "pt": "O middleware faz o recorte grosso por papel; cada rota de API então faz a pergunta mais estreita — este usuário pode mexer nesta empresa? A sessão é cookie assinado (HMAC) e as senhas são PBKDF2, ambos via Web Crypto para rodarem no runtime edge. A RLS está ligada sem policies, então a chave pública do navegador não lê nada direto."
+          }
+        },
+        {
+          "title": {
+            "en": "Migrating a live system",
+            "pt": "Migrar um sistema no ar"
+          },
+          "body": {
+            "en": "Part of the registry was born in Google Sheets and moved to PostgreSQL with the system already in production. Keeping the function signatures identical meant the backend swap touched no call site, and existing data and passwords came across intact.",
+            "pt": "Parte do cadastro nasceu no Google Sheets e foi para o PostgreSQL com o sistema já em produção. Manter as assinaturas de função idênticas fez a troca de backend não tocar nenhum call site, e os dados e senhas existentes atravessaram intactos."
+          }
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/projects/clickcontas/folha-ponto.webp",
+          "alt": {
+            "en": "Timesheet review: the photographed handwritten card on the left, the times the AI extracted on the right, flagged with absence and holiday markers and a note reading 31 days, 2 warnings.",
+            "pt": "Revisão da folha de ponto: o cartão manuscrito fotografado à esquerda, os horários extraídos pela IA à direita, com marcadores de falta e feriado e um aviso de 31 dias, 2 avisos."
+          },
+          "caption": {
+            "en": "The screen the whole OCR module exists for — extraction on one side, the original on the other.",
+            "pt": "A tela pela qual o módulo de OCR inteiro existe — a extração de um lado, o original do outro."
+          }
+        },
+        {
+          "src": "/projects/clickcontas/livro-caixa.webp",
+          "alt": {
+            "en": "Cash book entries for the month: carried balance, income and expense totals, month tabs, and a table of entries with history, account and running balance.",
+            "pt": "Lançamentos do livro caixa no mês: saldo transportado, totais de entradas e saídas, abas de meses, e uma tabela de lançamentos com histórico, conta e saldo corrente."
+          },
+          "caption": {
+            "en": "Where the client company posts and the accountant reconciles, with a banner counting what still needs checking.",
+            "pt": "Onde a empresa-cliente lança e a contadora concilia, com um aviso contando o que ainda falta conferir."
+          }
+        },
+        {
+          "src": "/projects/clickcontas/resumo.webp",
+          "alt": {
+            "en": "Cash book summary with an income-versus-expense chart and consolidated monthly figures.",
+            "pt": "Resumo do livro caixa com gráfico de entradas × saídas e os números consolidados do mês."
+          },
+          "caption": {
+            "en": "The summary the client only sees once the accountant has confirmed the month.",
+            "pt": "O resumo que o cliente só enxerga depois que a contadora confirma o mês."
+          }
+        },
+        {
+          "src": "/projects/clickcontas/cadastro.webp",
+          "alt": {
+            "en": "Registry screen listing client companies with legal name and tax number, and the administrators linked to each one.",
+            "pt": "Tela de cadastro listando empresas-clientes com razão social e CNPJ, e os administradores vinculados a cada uma."
+          },
+          "caption": {
+            "en": "Multi-tenancy as the accountant sees it: her companies, and who may post for each.",
+            "pt": "O multiempresa como a contadora vê: as empresas dela, e quem pode lançar por cada uma."
+          }
+        },
+        {
+          "src": "/projects/clickcontas/arquitetura.webp",
+          "alt": {
+            "en": "Architecture diagram: the three roles feed a Next.js app on Vercel with middleware, front end and API routes; it calls Google Gemini for OCR and persists to PostgreSQL and Google Sheets.",
+            "pt": "Diagrama de arquitetura: os três perfis alimentam uma aplicação Next.js na Vercel com middleware, front-end e rotas de API; ela chama o Google Gemini para o OCR e persiste em PostgreSQL e Google Sheets."
+          },
+          "caption": {
+            "en": "Why there are two databases, on one page.",
+            "pt": "Por que existem dois bancos, em uma página."
+          }
+        },
+        {
+          "src": "/projects/clickcontas/login.webp",
+          "alt": {
+            "en": "Sign-in screen, with the product's teal brand panel on the left and the e-mail and password form on the right.",
+            "pt": "Tela de login, com o painel da marca em petróleo à esquerda e o formulário de e-mail e senha à direita."
+          }
+        }
+      ]
+    },
+    {
       "slug": "balcao-atendimento",
       "title": "Balcão de Atendimento",
       "kicker": {
@@ -96,7 +258,7 @@
       "flag": "live",
       "featured": true,
       "published": true,
-      "order": 3,
+      "order": 4,
       "summary": {
         "en": "Full-stack platform that schedules ~110 schools into 200 in-person slots and turns every session into tamper-evident proof for federal oversight bodies. Built and shipped solo.",
         "pt": "Plataforma full-stack que agenda ~110 escolas em 200 vagas presenciais e transforma cada atendimento em prova auditável para órgãos de controle. Construída e publicada sozinho."
@@ -283,7 +445,7 @@
       "flag": "building",
       "featured": true,
       "published": true,
-      "order": 4,
+      "order": 5,
       "summary": {
         "en": "Local-first tool that chains Ishikawa → GUT Matrix → 5 Whys → 5W2H into a single, auditable cascade with PDF export. Runs offline in the browser.",
         "pt": "Ferramenta local-first que encadeia Ishikawa → Matriz GUT → 5 Porquês → 5W2H em uma cascata única e auditável, com exportação em PDF. Roda offline, no navegador."
@@ -323,7 +485,7 @@
       "flag": "award",
       "featured": false,
       "published": true,
-      "order": 5,
+      "order": 6,
       "summary": {
         "en": "AI + sustainability project in the I2A2 \"AI for Sustainable Projects — Towards COP 30\" program. Top 7 globally, \"Outstanding Achievement\" (Dec 2025).",
         "pt": "Projeto de IA + sustentabilidade no programa I2A2 \"AI for Sustainable Projects — Towards COP 30\". Top 7 mundial, reconhecimento \"Outstanding Achievement\" (dez/2025)."
@@ -363,7 +525,7 @@
       "flag": "live",
       "featured": false,
       "published": true,
-      "order": 6,
+      "order": 7,
       "summary": {
         "en": "Sibling of PETE/PEAE: generates the monthly standardized load file that HR uploads into ERGON, SEDUC's legacy system.",
         "pt": "Irmão do PETE/PEAE: gera mensalmente o arquivo padronizado de carga que o RH sobe no ERGON, o sistema legado da SEDUC."
@@ -394,7 +556,7 @@
       "flag": "side",
       "featured": false,
       "published": true,
-      "order": 7,
+      "order": 8,
       "summary": {
         "en": "My tabletop-RPG dice & accessories shop — product, brand and social. magomercador.com.br · @magomercador.",
         "pt": "Minha loja de dados e acessórios para RPG de mesa — produto, marca e redes sociais. magomercador.com.br · @magomercador."
@@ -435,7 +597,7 @@
       "flag": "side",
       "featured": false,
       "published": true,
-      "order": 8,
+      "order": 9,
       "summary": {
         "en": "Mobile-first neobrutalist UI (red/black/white) with Pix payment logic for a handmade-goods vending machine.",
         "pt": "UI neobrutalista mobile-first (vermelho/preto/branco) com lógica de pagamento por Pix para uma máquina de vendas de produtos artesanais."

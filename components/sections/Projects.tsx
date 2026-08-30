@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { stagger, inView, fadeUp } from "@/lib/motion";
-import { featuredProjects, projects } from "@/lib/site";
+import { homeProjects, projects } from "@/lib/site";
 import { PROJECTS_INDEX } from "@/lib/i18n/config";
 import { useI18n } from "@/components/i18n/LocaleProvider";
 import { ProjectTile } from "./ProjectTile";
@@ -29,7 +29,7 @@ export function Projects() {
         {...inView}
         className="grid gap-4 sm:grid-cols-2"
       >
-        {featuredProjects.map((p) => (
+        {homeProjects.map((p) => (
           <ProjectTile key={p.slug} project={p} />
         ))}
       </motion.div>

@@ -173,4 +173,12 @@ export const allProjects: Project[] = (data.projects as unknown[])
 export const projects: Project[] = allProjects.filter((p) => p.published);
 
 export const featuredProjects = projects.filter((p) => p.featured);
+
+/**
+ * The home page grid is two columns, so an odd number of tiles leaves a
+ * half-empty last row. It shows the first four featured projects; the rest —
+ * featured or not — are on /projects, which stacks rows and doesn't care.
+ */
+export const HOME_FEATURED_LIMIT = 4;
+export const homeProjects = featuredProjects.slice(0, HOME_FEATURED_LIMIT);
 export const secondaryProjects = projects.filter((p) => !p.featured);

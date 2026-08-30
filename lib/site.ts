@@ -26,6 +26,8 @@ export {
   projects,
   allProjects,
   featuredProjects,
+  homeProjects,
+  HOME_FEATURED_LIMIT,
   secondaryProjects,
   flagColor,
   FLAGS,
