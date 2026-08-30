@@ -20,7 +20,14 @@ que quiser ativar. Copie `.env.example` → `.env.local` e cole os valores.
   build; enquanto o arquivo não existir, ficam escondidos.
 - **Projetos** — rode `npm run dev` e abra **http://localhost:3000/admin**.
   Cadastre/edite/reordene, marque ★ destaque e ◉ publicado, salve, e **commite
-  o `content/projects.json`**. O painel não existe em produção (404).
+  o `content/projects.json`**. O painel não existe em produção (404). Cada campo
+  de texto tem caixa **EN** e **PT**: o inglês é obrigatório, o português é
+  opcional e cai pro inglês se ficar vazio (o painel mostra quantos faltam).
+- **Idiomas** — inglês em `/` e português em `/pt`, com botão PT/EN na navbar.
+  Textos de interface ficam em `lib/i18n/dictionaries/{en,pt}.ts`.
+- **Tema** — claro/escuro seguindo o sistema, com toggle na navbar. As cores
+  ficam todas em tokens no `app/globals.css`; nunca escreva hex direto no
+  componente, senão o modo claro quebra sem avisar.
 
 ---
 
@@ -95,7 +102,8 @@ coletam nada.
 - [ ] `NEXT_PUBLIC_SITE_URL` preenchido (se já tiver domínio).
 - [ ] CV em `public/joao-romao-cv.pdf`.
 - [ ] Screenshots dos projetos em `public/projects/` (dados fictícios!).
+- [ ] Traduções dos projetos completas (o `/admin` avisa se faltar alguma).
 - [ ] Cole a URL no https://www.linkedin.com/post-inspector/ pra forçar o
       LinkedIn a buscar o card social novo.
 - [ ] Registre o site no https://search.google.com/search-console e envie o
-      `sitemap.xml`.
+      `sitemap.xml` (ele já lista `/` e `/pt` com hreflang).

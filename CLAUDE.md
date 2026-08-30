@@ -2,7 +2,8 @@
 
 > Arquivo de contexto para o Claude Code. É a **fonte de verdade** do conteúdo/estrutura.
 > **Identidade visual e comportamento dos painéis: ver `DESIGN.md`** (arquivo companheiro).
-> Instruções/notas em português; o **conteúdo do site é em inglês** (público-alvo internacional).
+> Instruções/notas em português. O site é **bilíngue**: inglês em `/` (público-alvo
+> internacional, é o padrão) e português em `/pt`. Ver §3.1.
 > Atualize este arquivo conforme o projeto evoluir.
 
 ---
@@ -57,12 +58,38 @@ O site complementa o currículo (já pronto) e o LinkedIn — não os repete, ap
 `STEAM_API_KEY`, `STEAM_ID`, `ANTHROPIC_API_KEY`. (Clima via Open-Meteo: sem chave.)
 
 **Convenções:**
-- Todo o **conteúdo visível em inglês**. Comentários de código em inglês.
+- **Site bilíngue (en/pt-BR).** Nenhum texto visível fica hardcoded em componente:
+  tudo vem de `lib/i18n/dictionaries/{en,pt}.ts`. O tipo `Dictionary` é inferido do
+  `en.ts`, então **adicionar uma chave em inglês quebra o type-check até traduzir**.
+  Comentários de código sempre em inglês.
+- **Tema claro/escuro.** Nenhuma cor hardcoded em `components/` — tudo resolve por
+  token `--color-*` (`app/globals.css`). Trocar o tema é trocar os tokens; um hex
+  solto num componente quebra o light mode silenciosamente.
 - TypeScript estrito; componentes pequenos e reutilizáveis.
 - Responsivo e mobile-first; acessível (semântica, contraste, alt text).
 - Performance: imagens otimizadas, sem libs desnecessárias.
 - Commits pequenos e descritivos.
 - Antes de gerar qualquer UI, consultar a skill **frontend-design** se disponível.
+
+---
+
+## 3.1. Idiomas e tema
+
+**Idiomas.** Duas rotas estáticas, sem middleware e sem redirect automático:
+`/` (inglês, padrão — é a URL já divulgada) e `/pt` (português). Ambas renderizam
+`components/SiteShell.tsx` com um dicionário diferente. Cada uma declara seu próprio
+`canonical` e o mesmo mapa `hreflang`, então o Google indexa as duas separadamente.
+O botão **PT/EN** na navbar é um `<Link>` — trocar idioma é navegar, não um estado.
+
+**Tema.** `data-theme` no `<html>` é a fonte da verdade. Um script inline no
+`<head>` (`lib/theme.ts`) carimba o tema salvo — ou a preferência do sistema —
+**antes do primeiro paint**, então não há flash. O mesmo script corrige o `lang`
+em `/pt` (um root layout não consegue ler o pathname no servidor). O `ThemeToggle`
+lê o atributo com `useSyncExternalStore`, sem espelhar em state.
+
+**Textos dos projetos** são bilíngues (`{ en, pt }` em `content/projects.json`).
+`pt` é opcional e cai para `en` — dá pra cadastrar em inglês e traduzir depois;
+o `/admin` mostra quantos campos ainda estão sem português.
 
 ---
 

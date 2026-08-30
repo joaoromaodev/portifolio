@@ -11,6 +11,23 @@ piece: a real-time dashboard about its author.
 Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Framer Motion ·
 deployed on Vercel.
 
+## Languages & theme
+
+The site is bilingual and ships two statically generated pages: **English at `/`**
+(the default) and **Portuguese at `/pt`**. There's no middleware and no automatic
+redirect — the **PT/EN** button in the nav is a real link, so each language is a
+shareable, separately indexed URL with `hreflang` pointing at its counterpart.
+
+All visible copy lives in [`lib/i18n/dictionaries/`](lib/i18n). The `Dictionary`
+type is inferred from `en.ts`, so adding an English key fails the type-check until
+the Portuguese translation exists — the two can't drift.
+
+**Light and dark** are both first-class. The theme follows the visitor's OS
+preference until they use the toggle, after which their choice is remembered. An
+inline script in `<head>` applies it before first paint, so there's no flash. Every
+colour in `components/` resolves through a `--color-*` token in `app/globals.css`
+— there are no hardcoded hexes, which is what makes the swap total.
+
 ## What's inside
 
 - **Hero** — terminal-typed intro, synthwave grid, live Belém clock.
@@ -36,6 +53,11 @@ reorder them, edit every field, and toggle two flags per project:
 | --- | --- |
 | ★ **featured** | Renders as a full-width case-study row (problem → solution → impact) instead of a compact tile. |
 | ◉ **published** | Off keeps the project in the file as a draft, hidden from the site. |
+
+Text fields are **bilingual** — each one has an English and a Portuguese box side
+by side. English is required; Portuguese is optional and falls back to English at
+render time, so you can add a project in one language and translate it later. The
+panel shows how many fields still need Portuguese, per project and in total.
 
 Saving writes `content/projects.json`. **Commit that file** and Vercel publishes
 the change. `⌘/Ctrl+S` saves; unsaved edits warn before you close the tab.

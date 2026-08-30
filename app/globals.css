@@ -19,8 +19,49 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
-:root {
+/* ── Theme ──────────────────────────────────────────────────────────────────
+   Dark is the designed identity; light is a full token swap, not a filter.
+   The bootstrap script in app/layout.tsx stamps data-theme on <html> before
+   first paint, so there is no flash. When no explicit choice is stored it
+   stamps the OS preference, which is why the selectors below key off
+   data-theme rather than a prefers-color-scheme media query — an explicit
+   toggle must always win over the system setting.
+
+   Every component colour resolves through these tokens (there is not a single
+   hardcoded hex in components/), so a swap here re-themes the whole site. */
+:root,
+:root[data-theme="dark"] {
   color-scheme: dark;
+
+  /* Synthwave hero grid — glow reads over a dark page. */
+  --synth-line-alpha: 16%;
+  --synth-glow-cyan: 22%;
+  --synth-glow-purple: 18%;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --color-bg: #ffffff;
+  --color-surface: #f6f8fa;
+  --color-border: #d8dee4;
+  --color-fg: #1f2328;
+  --color-muted: #59636e;
+  --color-comment: #6e7781;
+  /* Accents re-picked for contrast on white — the dark palette's neon greens
+     and cyans fail WCAG AA against a light background. All of these clear
+     4.5:1 on #ffffff. */
+  --color-green: #1a7f37;
+  --color-cyan: #0550ae;
+  --color-purple: #8250df;
+  --color-amber: #9a6700;
+  --color-red: #cf222e;
+
+  /* A glow that reads as light on a dark page reads as dirt on a white one,
+     so the grid trades luminous haze for a crisper line. */
+  --synth-line-alpha: 20%;
+  --synth-glow-cyan: 10%;
+  --synth-glow-purple: 8%;
 }
 
 @layer base {
@@ -62,6 +103,19 @@
     outline-offset: 3px;
     border-radius: 4px;
   }
+}
+
+/* Theme toggle icons — swapped in CSS so the right glyph is painted on the
+   first frame, before the toggle component hydrates. With no data-theme (JS
+   disabled) the page is dark, so the moon is the correct default. */
+.theme-icon-light {
+  display: none;
+}
+:root[data-theme="light"] .theme-icon-dark {
+  display: none;
+}
+:root[data-theme="light"] .theme-icon-light {
+  display: block;
 }
 
 /* ── Motion (DESIGN.md §9 — one curve, degrade on reduced-motion) ──────── */

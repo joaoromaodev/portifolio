@@ -3,7 +3,10 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { profile } from "@/lib/site";
-import { OG, siteUrl } from "@/lib/seo";
+import { siteUrl } from "@/lib/seo";
+import { getDictionary } from "@/lib/i18n";
+import { DEFAULT_LOCALE, LANGUAGE_ALTERNATES } from "@/lib/i18n/config";
+import { THEME_BOOTSTRAP } from "@/lib/theme";
 import "./globals.css";
 
 const inter = Inter({
@@ -18,40 +21,21 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const base = getDictionary(DEFAULT_LOCALE);
+
+// Site-wide defaults. Each locale page overrides title/description/OG through
+// lib/i18n/metadata.ts.
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: OG.title,
+    default: base.meta.title,
     template: "%s · João Romão",
   },
-  description:
-    "Portfolio of João Romão — a hybrid Data + Dev profile from Belém, Brazil. Python automation, real-time dashboards and full-stack Next.js. Open to remote / relocation.",
+  description: base.meta.description,
   applicationName: "João Romão — Portfolio",
-  keywords: [
-    "João Romão",
-    "Data Analyst",
-    "Developer",
-    "Python automation",
-    "Next.js",
-    "Belém",
-    "remote",
-  ],
   authors: [{ name: profile.name, url: siteUrl }],
   creator: profile.name,
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: OG.title,
-    description: OG.description,
-    url: siteUrl,
-    siteName: OG.title,
-    type: "website",
-    locale: "en_US",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: OG.title,
-    description: OG.description,
-  },
+  alternates: { canonical: "/", languages: LANGUAGE_ALTERNATES },
   robots: {
     index: true,
     follow: true,
@@ -65,8 +49,8 @@ const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: profile.name,
-  jobTitle: profile.role,
-  description: OG.description,
+  jobTitle: base.profile.role,
+  description: base.meta.ogDescription,
   url: siteUrl,
   email: `mailto:${profile.email}`,
   address: {
@@ -95,17 +79,18 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
+    // suppressHydrationWarning: THEME_BOOTSTRAP rewrites data-theme (and, on
+    // /pt, lang) before React hydrates, which is the whole point — it must run
+    // before first paint. lang="en" is the correct no-JS default for `/`.
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${inter.variable} ${jetbrainsMono.variable} h-full`}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
+      </head>
       <body className="min-h-full">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:border focus:border-green/50 focus:bg-surface focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:text-green"
-        >
-          Skip to content
-        </a>
         {children}
         <script
           type="application/ld+json"
