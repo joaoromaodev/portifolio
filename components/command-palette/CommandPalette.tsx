@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { EASE } from "@/lib/motion";
 import { Panel, TerminalChrome } from "@/components/ui/Panel";
 import { profile } from "@/lib/site";
@@ -242,13 +242,16 @@ export function CommandPalette() {
         </kbd>
       </motion.button>
 
-      <AnimatePresence>
-        {open ? (
+      {/* Mounted and unmounted outright. Wrapped in AnimatePresence this
+          subtree never unmounted — AnimatePresence only tracks an exit on a
+          keyed motion child, and this wrapper is a plain div — so the
+          fixed inset-0 overlay stayed on top of the page at full size after
+          closing, swallowing every click on the site. */}
+      {open ? (
           <div className="fixed inset-0 z-[100] flex items-start justify-center px-4 pt-24 sm:pt-32">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.2, ease: EASE }}
               className="fixed inset-0 bg-bg/80 backdrop-blur-sm"
               onClick={close}
@@ -265,11 +268,6 @@ export function CommandPalette() {
                 scale: shouldReduceMotion ? 1 : 0.98,
               }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{
-                opacity: 0,
-                y: shouldReduceMotion ? 0 : -12,
-                scale: shouldReduceMotion ? 1 : 0.98,
-              }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.2, ease: EASE }}
               className="relative w-full max-w-lg"
             >
@@ -335,8 +333,7 @@ export function CommandPalette() {
               </Panel>
             </motion.div>
           </div>
-        ) : null}
-      </AnimatePresence>
+      ) : null}
     </>
   );
 }
