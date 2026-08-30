@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
-import { SYSTEM_PROMPT } from "@/lib/persona";
+import { systemPrompt } from "@/lib/persona";
+import { isLocale, DEFAULT_LOCALE, type Locale } from "@/lib/i18n/config";
 import { checkRateLimit, clientIp } from "@/lib/ratelimit";
 import { isSameOrigin, verifyTurnstile } from "@/lib/security";
 
@@ -39,9 +40,14 @@ export async function POST(req: Request) {
 
   let message: string;
   let turnstileToken: string | undefined;
+  // The page the widget is embedded in tells us which language to answer in.
+  let locale: Locale = DEFAULT_LOCALE;
   try {
     const body = await req.json();
     message = typeof body?.message === "string" ? body.message.trim() : "";
+    if (typeof body?.locale === "string" && isLocale(body.locale)) {
+      locale = body.locale;
+    }
     turnstileToken =
       typeof body?.turnstileToken === "string" ? body.turnstileToken : undefined;
   } catch {
@@ -76,7 +82,7 @@ export async function POST(req: Request) {
           system: [
             {
               type: "text",
-              text: SYSTEM_PROMPT,
+              text: systemPrompt(locale),
               cache_control: { type: "ephemeral" },
             },
           ],

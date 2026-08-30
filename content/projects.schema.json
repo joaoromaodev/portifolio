@@ -1,20 +1,33 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Portfolio projects",
-  "description": "Project catalogue rendered by the Projects section. Edit through /admin (npm run dev) or by hand — editors that honour $schema will autocomplete and validate this file.",
+  "description": "Project catalogue rendered by the Projects section. Edit through /admin (npm run dev) or by hand. Text fields are bilingual: { en, pt }. `pt` is optional and falls back to `en` at render time, so a project can be added in English and translated later.",
   "type": "object",
-  "required": ["projects"],
+  "required": [
+    "projects"
+  ],
   "properties": {
-    "$schema": { "type": "string" },
+    "$schema": {
+      "type": "string"
+    },
     "projects": {
       "type": "array",
-      "items": { "$ref": "#/definitions/project" }
+      "items": {
+        "$ref": "#/definitions/project"
+      }
     }
   },
   "definitions": {
     "project": {
       "type": "object",
-      "required": ["slug", "title", "flag", "featured", "published", "summary"],
+      "required": [
+        "slug",
+        "title",
+        "flag",
+        "featured",
+        "published",
+        "summary"
+      ],
       "additionalProperties": false,
       "properties": {
         "slug": {
@@ -22,13 +35,23 @@
           "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
           "description": "Unique url-safe id."
         },
-        "title": { "type": "string", "minLength": 1 },
-        "kicker": {
+        "title": {
           "type": "string",
+          "minLength": 1,
+          "description": "Product name - the same in both languages."
+        },
+        "kicker": {
+          "$ref": "#/definitions/localizedText",
           "description": "One-line subtitle under the title."
         },
         "flag": {
-          "enum": ["case-study", "live", "building", "award", "side"],
+          "enum": [
+            "case-study",
+            "live",
+            "building",
+            "award",
+            "side"
+          ],
           "description": "Badge shown on the card."
         },
         "featured": {
@@ -44,35 +67,52 @@
           "description": "Display order, lowest first. Rewritten from list position on every admin save."
         },
         "summary": {
-          "type": "string",
-          "description": "The pitch — shown on every card."
+          "$ref": "#/definitions/localizedText",
+          "description": "The pitch - shown on every card."
         },
-        "problem": { "type": "string", "description": "Featured cards only." },
-        "solution": { "type": "string", "description": "Featured cards only." },
+        "problem": {
+          "$ref": "#/definitions/localizedText",
+          "description": "Featured cards only."
+        },
+        "solution": {
+          "$ref": "#/definitions/localizedText",
+          "description": "Featured cards only."
+        },
         "impact": {
-          "type": "string",
+          "$ref": "#/definitions/localizedText",
           "description": "Optional. The result, rendered with emphasis."
         },
         "stack": {
           "type": "array",
-          "items": { "type": "string" },
-          "description": "Technology chips."
+          "items": {
+            "type": "string"
+          },
+          "description": "Technology chips - not translated."
         },
         "links": {
           "type": "array",
           "items": {
             "type": "object",
-            "required": ["label", "href"],
+            "required": [
+              "label",
+              "href"
+            ],
             "additionalProperties": false,
             "properties": {
-              "label": { "type": "string", "minLength": 1 },
-              "href": { "type": "string", "format": "uri" }
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "href": {
+                "type": "string",
+                "format": "uri"
+              }
             }
           }
         },
         "privateNote": {
-          "type": "string",
-          "description": "Shown instead of a repo link when the code can't be published (gov systems, course projects)."
+          "$ref": "#/definitions/localizedText",
+          "description": "Shown instead of a repo link when the code can't be published."
         },
         "image": {
           "type": "string",
@@ -80,8 +120,25 @@
           "description": "Screenshot path under public/, e.g. /projects/simf.png"
         },
         "imageAlt": {
-          "type": "string",
+          "$ref": "#/definitions/localizedText",
           "description": "Alt text. Required whenever image is set."
+        }
+      }
+    },
+    "localizedText": {
+      "type": "object",
+      "required": [
+        "en"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "en": {
+          "type": "string",
+          "description": "English — required; used as the fallback."
+        },
+        "pt": {
+          "type": "string",
+          "description": "Brazilian Portuguese — optional; empty falls back to English."
         }
       }
     }

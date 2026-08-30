@@ -2,7 +2,14 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { FLAGS, flagMeta, type Project, type ProjectLink } from "@/lib/projects";
+import { FLAGS, flagColor, type Project, type ProjectLink } from "@/lib/projects";
+import type { LocalizedText } from "@/lib/i18n/config";
+import { en } from "@/lib/i18n/dictionaries/en";
+
+// The panel itself is an English-only dev tool; only the *content* it edits is
+// bilingual. Flag labels are borrowed from the English dictionary so the badge
+// wording here matches what the site renders.
+const FLAG_LABEL = en.projects.flags;
 
 // Local project manager. Loads content/projects.json, edits it in a
 // master-detail layout, and writes it back through /api/admin/projects.
@@ -11,18 +18,32 @@ import { FLAGS, flagMeta, type Project, type ProjectLink } from "@/lib/projects"
 const EMPTY: Project = {
   slug: "",
   title: "",
-  kicker: "",
+  kicker: { en: "" },
   flag: "side",
   featured: false,
   published: true,
   order: 0,
-  summary: "",
-  problem: "",
-  solution: "",
+  summary: { en: "" },
+  problem: { en: "" },
+  solution: { en: "" },
   impact: undefined,
   stack: [],
   links: [],
 };
+
+/** A project is "translated" once every field it actually uses has Portuguese. */
+function missingPortuguese(p: Project): number {
+  const fields: (LocalizedText | undefined)[] = [
+    p.kicker,
+    p.summary,
+    p.problem,
+    p.solution,
+    p.impact,
+    p.privateNote,
+    p.imageAlt,
+  ];
+  return fields.filter((f) => f?.en?.trim() && !f.pt?.trim()).length;
+}
 
 function slugify(value: string) {
   return value
@@ -161,6 +182,9 @@ export function AdminClient() {
   }
 
   const featuredCount = projects.filter((p) => p.featured && p.published).length;
+  const untranslated = projects.filter(
+    (p) => p.published && missingPortuguese(p) > 0,
+  ).length;
 
   return (
     <main className="mx-auto max-w-6xl px-5 py-10 md:px-8">
@@ -171,8 +195,17 @@ export function AdminClient() {
           </h1>
           <p className="mt-1 font-mono text-xs text-comment">
             Edits <span className="text-muted">content/projects.json</span>. Dev-only
-            — commit the file to publish. {featuredCount} featured, {projects.length}{" "}
-            total.
+            — commit the file to publish. {featuredCount} featured,{" "}
+            {projects.length} total
+            {untranslated > 0 ? (
+              <>
+                ,{" "}
+                <span className="text-amber">
+                  {untranslated} missing Portuguese
+                </span>
+              </>
+            ) : null}
+            .
           </p>
         </div>
 
@@ -300,11 +333,20 @@ function ProjectList({
                       {p.title || "(untitled)"}
                     </span>
                     <span
-                      className={`block truncate font-mono text-[10px] ${flagMeta[p.flag].color}`}
+                      className={`block truncate font-mono text-[10px] ${flagColor[p.flag]}`}
                     >
-                      {flagMeta[p.flag].label} · {p.slug}
+                      {FLAG_LABEL[p.flag]} · {p.slug}
                     </span>
                   </button>
+
+                  {missingPortuguese(p) > 0 ? (
+                    <span
+                      title={`${missingPortuguese(p)} field(s) have no Portuguese — the site falls back to English there`}
+                      className="flex-none font-mono text-[10px] text-amber"
+                    >
+                      pt {missingPortuguese(p)}
+                    </span>
+                  ) : null}
 
                   <div className="flex flex-none items-center gap-1">
                     <Toggle
@@ -372,7 +414,7 @@ function Editor({
   onChange: (changes: Partial<Project>) => void;
 }) {
   const slugClash = taken.includes(project.slug);
-  const needsAlt = Boolean(project.image) && !project.imageAlt;
+  const needsAlt = Boolean(project.image) && !project.imageAlt?.en?.trim();
 
   return (
     <div className="space-y-5 rounded-xl border border-border bg-surface p-5 md:p-6">
@@ -398,7 +440,7 @@ function Editor({
         />
       </div>
 
-      <Field
+      <LocalizedField
         label="kicker"
         value={project.kicker}
         onChange={(v) => onChange({ kicker: v })}
@@ -415,7 +457,7 @@ function Editor({
           >
             {FLAGS.map((f) => (
               <option key={f} value={f}>
-                {flagMeta[f].label}
+                {FLAG_LABEL[f]}
               </option>
             ))}
           </select>
@@ -433,29 +475,30 @@ function Editor({
         />
       </div>
 
-      <Area
+      <LocalizedArea
         label="summary"
         value={project.summary}
         onChange={(v) => onChange({ summary: v })}
         hint="the pitch, shown on every card"
       />
-      <Area
+      <LocalizedArea
         label="problem"
         value={project.problem}
         onChange={(v) => onChange({ problem: v })}
         hint="featured cards only"
       />
-      <Area
+      <LocalizedArea
         label="solution"
         value={project.solution}
         onChange={(v) => onChange({ solution: v })}
         hint="featured cards only"
       />
-      <Area
+      <LocalizedArea
         label="impact"
-        value={project.impact ?? ""}
-        onChange={(v) => onChange({ impact: v || undefined })}
+        value={project.impact}
+        onChange={(v) => onChange({ impact: v })}
         hint="optional, the result, highlighted"
+        optional
       />
 
       <Field
@@ -474,28 +517,31 @@ function Editor({
 
       <LinkEditor links={project.links} onChange={(links) => onChange({ links })} />
 
-      <Area
+      <LocalizedArea
         label="privateNote"
-        value={project.privateNote ?? ""}
-        onChange={(v) => onChange({ privateNote: v || undefined })}
+        value={project.privateNote}
+        onChange={(v) => onChange({ privateNote: v })}
         hint="shown instead of a repo link when the code cannot be published"
+        optional
       />
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div>
         <Field
           label="image"
           value={project.image ?? ""}
           onChange={(v) => onChange({ image: v || undefined })}
           hint="e.g. /projects/simf.png (file goes in public/projects/)"
         />
-        <Field
-          label="imageAlt"
-          value={project.imageAlt ?? ""}
-          onChange={(v) => onChange({ imageAlt: v || undefined })}
-          hint={needsAlt ? "required when an image is set" : "describes the screenshot"}
-          invalid={needsAlt}
-        />
       </div>
+
+      <LocalizedField
+        label="imageAlt"
+        value={project.imageAlt}
+        onChange={(v) => onChange({ imageAlt: v })}
+        hint={needsAlt ? "required when an image is set" : "describes the screenshot"}
+        invalid={needsAlt}
+        optional
+      />
     </div>
   );
 }
@@ -554,6 +600,138 @@ function LinkEditor({
   );
 }
 
+/* -- bilingual fields ----------------------------------------------------- */
+
+// English is the required side; Portuguese is optional and falls back to it at
+// render time (lib/projects.ts). That's deliberate — a project can be added in
+// one language and translated later without the /pt page showing a gap.
+function LocaleRow({
+  label,
+  hint,
+  children,
+}: {
+  label: string;
+  hint?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <span className="mb-1.5 block font-mono text-xs text-comment">
+        {label}
+        {hint ? <span className="ml-2 text-[10px]">- {hint}</span> : null}
+      </span>
+      <div className="grid gap-2 sm:grid-cols-2">{children}</div>
+    </div>
+  );
+}
+
+function localeTag(lang: "en" | "pt", filled: boolean, fallback: boolean) {
+  const tone = filled
+    ? "text-green"
+    : fallback
+      ? "text-amber"
+      : "text-comment";
+  return (
+    <span className={`font-mono text-[10px] ${tone}`}>
+      {lang.toUpperCase()}
+      {!filled && fallback ? " · falls back to EN" : ""}
+    </span>
+  );
+}
+
+function LocalizedField({
+  label,
+  value,
+  onChange,
+  hint,
+  invalid = false,
+  optional = false,
+}: {
+  label: string;
+  value: LocalizedText | undefined;
+  onChange: (v: LocalizedText | undefined) => void;
+  hint?: string;
+  invalid?: boolean;
+  optional?: boolean;
+}) {
+  const v = value ?? { en: "" };
+  const set = (patch: Partial<LocalizedText>) => {
+    const next = { ...v, ...patch };
+    const empty = !next.en?.trim() && !next.pt?.trim();
+    onChange(optional && empty ? undefined : next);
+  };
+
+  return (
+    <LocaleRow label={label} hint={hint}>
+      <label className="block">
+        {localeTag("en", Boolean(v.en?.trim()), false)}
+        <input
+          value={v.en ?? ""}
+          onChange={(e) => set({ en: e.target.value })}
+          aria-label={`${label} (English)`}
+          aria-invalid={invalid || undefined}
+          className={`mt-1 ${inputClass} ${invalid ? "border-red/60" : "border-border"}`}
+        />
+      </label>
+      <label className="block">
+        {localeTag("pt", Boolean(v.pt?.trim()), Boolean(v.en?.trim()))}
+        <input
+          value={v.pt ?? ""}
+          onChange={(e) => set({ pt: e.target.value })}
+          aria-label={`${label} (Portuguese)`}
+          className={`mt-1 ${inputClass} border-border`}
+        />
+      </label>
+    </LocaleRow>
+  );
+}
+
+function LocalizedArea({
+  label,
+  value,
+  onChange,
+  hint,
+  optional = false,
+}: {
+  label: string;
+  value: LocalizedText | undefined;
+  onChange: (v: LocalizedText | undefined) => void;
+  hint?: string;
+  optional?: boolean;
+}) {
+  const v = value ?? { en: "" };
+  const set = (patch: Partial<LocalizedText>) => {
+    const next = { ...v, ...patch };
+    const empty = !next.en?.trim() && !next.pt?.trim();
+    onChange(optional && empty ? undefined : next);
+  };
+
+  return (
+    <LocaleRow label={label} hint={hint}>
+      <label className="block">
+        {localeTag("en", Boolean(v.en?.trim()), false)}
+        <textarea
+          value={v.en ?? ""}
+          rows={3}
+          onChange={(e) => set({ en: e.target.value })}
+          aria-label={`${label} (English)`}
+          className={`mt-1 ${inputClass} resize-y border-border leading-relaxed`}
+        />
+      </label>
+      <label className="block">
+        {localeTag("pt", Boolean(v.pt?.trim()), Boolean(v.en?.trim()))}
+        <textarea
+          value={v.pt ?? ""}
+          rows={3}
+          onChange={(e) => set({ pt: e.target.value })}
+          aria-label={`${label} (Portuguese)`}
+          className={`mt-1 ${inputClass} resize-y border-border leading-relaxed`}
+        />
+      </label>
+    </LocaleRow>
+  );
+}
+
 /* -- small controls ------------------------------------------------------- */
 
 const inputClass =
@@ -588,33 +766,6 @@ function Field({
           {hint}
         </span>
       ) : null}
-    </label>
-  );
-}
-
-function Area({
-  label,
-  value,
-  onChange,
-  hint,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  hint?: string;
-}) {
-  return (
-    <label className="block">
-      <span className="mb-1.5 block font-mono text-xs text-comment">
-        {label}
-        {hint ? <span className="ml-2 text-[10px]">- {hint}</span> : null}
-      </span>
-      <textarea
-        value={value}
-        rows={3}
-        onChange={(e) => onChange(e.target.value)}
-        className={`${inputClass} resize-y border-border leading-relaxed`}
-      />
     </label>
   );
 }

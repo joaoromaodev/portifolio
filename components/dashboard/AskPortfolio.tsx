@@ -6,18 +6,15 @@ import { fadeUp } from "@/lib/motion";
 import { Panel, TerminalChrome } from "@/components/ui/Panel";
 import { EqualizerBars } from "./EqualizerBars";
 import { useTurnstile } from "./useTurnstile";
-
-const SUGGESTIONS = [
-  "What does João do at SEDUC?",
-  "Show me the strongest project",
-  "Is he open to remote work?",
-];
+import { useI18n } from "@/components/i18n/LocaleProvider";
 
 type Msg = { role: "user" | "assistant"; text: string };
 
 // "Ask my portfolio" chat (DESIGN.md §6). Streams Claude Haiku 4.5 from
 // /api/ask; the KITT voicebox bars animate while the answer streams in.
 export function AskPortfolio({ className = "" }: { className?: string }) {
+  const { locale, dict } = useI18n();
+  const copy = dict.dashboard.ask;
   const [value, setValue] = useState("");
   const [messages, setMessages] = useState<Msg[]>([]);
   const [streaming, setStreaming] = useState(false);
@@ -44,13 +41,15 @@ export function AskPortfolio({ className = "" }: { className?: string }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: question,
+          // The assistant answers in the language of the page it's embedded in.
+          locale,
           turnstileToken: turnstile.getToken(),
         }),
       });
 
       if (!res.ok || !res.body) {
         const j = await res.json().catch(() => ({}));
-        throw new Error(j.error ?? "The assistant is unavailable right now.");
+        throw new Error(j.error ?? copy.unavailable);
       }
 
       const reader = res.body.getReader();
@@ -72,7 +71,7 @@ export function AskPortfolio({ className = "" }: { className?: string }) {
       }
     } catch (e) {
       setMessages((m) => m.slice(0, -1)); // drop the empty assistant bubble
-      setError(e instanceof Error ? e.message : "Something went wrong.");
+      setError(e instanceof Error ? e.message : copy.genericError);
     } finally {
       setStreaming(false);
     }
@@ -101,10 +100,8 @@ export function AskPortfolio({ className = "" }: { className?: string }) {
                 />
               </span>
               <p className="text-sm text-fg">
-                Ask me anything about João&apos;s work, projects or background.{" "}
-                <span className="text-muted">
-                  Powered by Claude — answers stay within the portfolio.
-                </span>
+                {copy.intro}{" "}
+                <span className="text-muted">{copy.poweredBy}</span>
               </p>
             </div>
 
@@ -139,7 +136,7 @@ export function AskPortfolio({ className = "" }: { className?: string }) {
           {/* suggestion chips (only before first message) */}
           {!hasChat ? (
             <div className="flex flex-wrap gap-2">
-              {SUGGESTIONS.map((s) => (
+              {copy.suggestions.map((s) => (
                 <button
                   key={s}
                   type="button"
@@ -167,7 +164,7 @@ export function AskPortfolio({ className = "" }: { className?: string }) {
                 onChange={(e) => setValue(e.target.value)}
                 disabled={streaming}
                 maxLength={500}
-                placeholder={streaming ? "Thinking…" : "Type a question…"}
+                placeholder={streaming ? copy.thinking : copy.placeholder}
                 className="flex-1 bg-transparent font-mono text-sm text-fg placeholder:text-comment disabled:cursor-not-allowed"
               />
               <button
@@ -175,7 +172,7 @@ export function AskPortfolio({ className = "" }: { className?: string }) {
                 disabled={streaming || !value.trim()}
                 className="rounded-md bg-cyan px-2.5 py-1 font-mono text-xs font-medium text-bg transition-opacity disabled:opacity-40"
               >
-                send
+                {copy.sendShort}
               </button>
             </div>
             {/* Cloudflare Turnstile widget — only renders when configured */}
@@ -183,7 +180,7 @@ export function AskPortfolio({ className = "" }: { className?: string }) {
               <div ref={turnstile.containerRef} className="mt-2" />
             ) : null}
             <p className="mt-1.5 font-mono text-[10px] text-comment">
-              rate-limited · max 300 tokens · no SIMF / gov data
+              {copy.footnote}
             </p>
           </form>
         </div>

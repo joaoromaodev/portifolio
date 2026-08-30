@@ -5,14 +5,17 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { fadeUp } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
-import { skills } from "@/lib/site";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 
 // One quiet panel, one row per domain — reads like a config file, not five
 // competing cards. The section is an index, not a headline.
 export function Skills() {
+  const { dict } = useI18n();
+  const skills = dict.skills.groups;
+
   return (
     <Section id="skills">
-      <SectionHeader id="skills" title="Toolbox" />
+      <SectionHeader id={dict.skills.slug} title={dict.skills.title} />
 
       <motion.div variants={fadeUp}>
         <Panel className="divide-y divide-border">

@@ -4,6 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 
 export type WidgetStatus = "loading" | "ready" | "empty" | "error";
 
@@ -12,13 +13,6 @@ const STATUS_DOT: Record<WidgetStatus, string> = {
   ready: "bg-green",
   empty: "bg-comment",
   error: "bg-red",
-};
-
-const STATUS_LABEL: Record<WidgetStatus, string> = {
-  loading: "fetching",
-  ready: "live",
-  empty: "idle",
-  error: "offline",
 };
 
 // Shared frame for every live widget: title + status dot + body.
@@ -36,6 +30,8 @@ export function WidgetShell({
   className?: string;
   children: ReactNode;
 }) {
+  const { dict } = useI18n();
+
   return (
     // min-w-0 keeps truncated text from blowing out a CSS grid track when
     // this widget sits in a multi-column dashboard grid.
@@ -49,12 +45,12 @@ export function WidgetShell({
                 status === "loading" ? "animate-pulse" : ""
               }`}
             />
-            {STATUS_LABEL[status]}
+            {dict.dashboard.status[status]}
           </span>
         </div>
         <div className="flex-1 p-4">{children}</div>
         <div className="border-t border-border px-4 py-1.5 font-mono text-[10px] text-comment">
-          source: {source}
+          {dict.dashboard.sourceLabel}: {source}
         </div>
       </Panel>
     </motion.div>

@@ -8,14 +8,17 @@ import { GitHubWidget } from "./GitHubWidget";
 import { SpotifyWidget } from "./SpotifyWidget";
 import { SteamWidget } from "./SteamWidget";
 import { AskPortfolio } from "./AskPortfolio";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 
 export function LiveDashboard() {
+  const { dict } = useI18n();
+
   return (
     <Section id="dashboard">
       <SectionHeader
-        id="live"
-        title="A dashboard that's actually alive"
-        subtitle="Live tiles fed by real APIs — GitHub, Steam and Spotify — each proxied through its own Next.js Route Handler, so the keys never touch the browser. Ask the assistant below anything about the work."
+        id={dict.dashboard.slug}
+        title={dict.dashboard.title}
+        subtitle={dict.dashboard.subtitle}
       />
 
       <motion.div variants={stagger} {...inView} className="space-y-4 md:space-y-5">

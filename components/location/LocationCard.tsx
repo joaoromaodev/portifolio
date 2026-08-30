@@ -4,13 +4,17 @@ import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
 import { profile } from "@/lib/site";
+import { useI18n } from "@/components/i18n/LocaleProvider";
+import { weatherLabel } from "@/lib/weather";
 import { useBelemTime } from "@/components/useBelemTime";
 import { useLiveWidget } from "@/components/dashboard/WidgetShell";
 import { LocationMap } from "./LocationMap";
 
 const WEATHER_FALLBACK = {
   tempC: 31,
-  condition: "Scattered thunderstorms",
+  // WMO weather code — the label is resolved per locale on the client, so the
+  // API response (and its shared cache) stays language-agnostic.
+  code: 95,
   humidity: 78,
   glyph: "⛈️",
 };
@@ -18,6 +22,8 @@ const WEATHER_FALLBACK = {
 // Location cluster: GPS-styled world map + Belém clock + inline weather +
 // status, placed contextually next to Contact (DESIGN.md §5, refactored).
 export function LocationCard() {
+  const { dict } = useI18n();
+  const place = dict.contact.location;
   const time = useBelemTime();
   const { data: weather } = useLiveWidget("/api/weather", WEATHER_FALLBACK, {
     refreshMs: 600000,
@@ -29,32 +35,34 @@ export function LocationCard() {
         {/* Left: the facts */}
         <div className="flex flex-col justify-between gap-6 p-6">
           <div>
-            <p className="font-mono text-sm text-comment">{"// based in"}</p>
+            <p className="font-mono text-sm text-comment">{`// ${place.basedIn}`}</p>
             <h3 className="mt-1 text-2xl font-semibold text-fg">
-              Belém, Pará
+              {place.city}
             </h3>
-            <p className="text-muted">{profile.location} · gateway to the Amazon</p>
+            <p className="text-muted">
+              {dict.profile.location} · {place.gateway}
+            </p>
             <p className="mt-1 font-mono text-xs text-comment">
-              01°27&apos;21&quot;S · 48°29&apos;25&quot;W
+              {profile.coordinates}
             </p>
           </div>
 
           <dl className="grid grid-cols-2 gap-4">
             <div>
-              <dt className="font-mono text-xs text-comment">local time</dt>
+              <dt className="font-mono text-xs text-comment">{place.localTime}</dt>
               <dd className="mt-0.5 font-mono text-xl tabular-nums text-amber">
                 {time ?? "--:--:--"}
               </dd>
             </div>
             <div>
-              <dt className="font-mono text-xs text-comment">weather now</dt>
+              <dt className="font-mono text-xs text-comment">{place.weatherNow}</dt>
               <dd className="mt-0.5 flex items-baseline gap-1.5">
                 <span aria-hidden="true">{weather.glyph}</span>
                 <span className="font-mono text-xl tabular-nums text-cyan">
                   {weather.tempC}°
                 </span>
                 <span className="truncate text-xs text-muted">
-                  {weather.condition}
+                  {weatherLabel(weather.code, dict)}
                 </span>
               </dd>
             </div>
@@ -65,7 +73,7 @@ export function LocationCard() {
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-green opacity-70" />
               <span className="relative inline-flex size-2 rounded-full bg-green" />
             </span>
-            {profile.status}
+            {dict.profile.status}
           </p>
         </div>
 

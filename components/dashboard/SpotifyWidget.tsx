@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { fadeUp, EASE } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
 import { useLiveWidget, type WidgetStatus } from "./WidgetShell";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 import { EqualizerBars } from "./EqualizerBars";
 
 type TopTrack = {
@@ -47,17 +48,11 @@ const STATUS_DOT: Record<WidgetStatus, string> = {
   error: "bg-red",
 };
 
-const STATUS_LABEL: Record<WidgetStatus, string> = {
-  loading: "fetching",
-  ready: "live",
-  empty: "idle",
-  error: "offline",
-};
-
 // Deliberately quieter than the dashboard tiles: a slim status-bar strip —
 // what's on right now — with a "top tracks" expander that unfolds the actual
 // most-played list from the Spotify API (user-top-read).
 export function SpotifyWidget() {
+  const { dict } = useI18n();
   const { status, data } = useLiveWidget<SpotifyData>("/api/spotify", FALLBACK, {
     refreshMs: 45000,
   });
@@ -90,12 +85,12 @@ export function SpotifyWidget() {
           <p className="min-w-0 flex-1 truncate text-sm">
             <span className="font-mono text-[11px] uppercase tracking-wide text-comment">
               {status === "loading"
-                ? "loading"
+                ? dict.dashboard.spotify.loading
                 : isLive
                   ? data.playing
-                    ? "now playing"
-                    : "last played"
-                  : "example track"}
+                    ? dict.dashboard.spotify.nowPlaying
+                    : dict.dashboard.spotify.lastPlayed
+                  : dict.dashboard.spotify.exampleTrack}
             </span>{" "}
             <span className="text-fg">
               {status === "loading" ? "…" : data.track}
@@ -113,7 +108,7 @@ export function SpotifyWidget() {
               rel="noreferrer"
               className="hidden flex-none font-mono text-xs text-green transition-colors hover:underline sm:inline"
             >
-              open ↗
+              {dict.dashboard.spotify.open} ↗
             </a>
           ) : null}
 
@@ -125,7 +120,7 @@ export function SpotifyWidget() {
               onClick={() => setOpen((v) => !v)}
               className="flex-none rounded border border-border px-2 py-1 font-mono text-xs text-muted transition-colors hover:border-green/50 hover:text-green"
             >
-              top tracks {open ? "▴" : "▾"}
+              {dict.dashboard.spotify.topTracks} {open ? "▴" : "▾"}
             </button>
           ) : null}
 
@@ -135,7 +130,7 @@ export function SpotifyWidget() {
               status === "loading" ? "animate-pulse" : ""
             }`}
           />
-          <span className="sr-only">Spotify {STATUS_LABEL[status]}</span>
+          <span className="sr-only">Spotify {dict.dashboard.status[status]}</span>
         </div>
 
         {/* Expanded — the most-played list, straight from the API when live,

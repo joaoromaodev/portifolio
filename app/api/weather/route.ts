@@ -1,22 +1,13 @@
 import { ok, fail } from "@/lib/api";
+import { weatherGlyph } from "@/lib/weather";
 
 // Belém weather via Open-Meteo (no API key). Cached ~1h (DESIGN.md §4).
+// Returns the raw WMO code rather than a description, so the same cached
+// response serves both locales — the client picks the label from its
+// dictionary (lib/weather.ts).
 export const revalidate = 3600;
 
 const BELEM = { lat: -1.4558, lon: -48.4902 };
-
-// WMO weather codes → human condition + glyph.
-function describe(code: number): { condition: string; glyph: string } {
-  if (code === 0) return { condition: "Clear sky", glyph: "☀️" };
-  if (code <= 2) return { condition: "Partly cloudy", glyph: "⛅" };
-  if (code === 3) return { condition: "Overcast", glyph: "☁️" };
-  if (code <= 48) return { condition: "Fog", glyph: "🌫️" };
-  if (code <= 67) return { condition: "Rain", glyph: "🌧️" };
-  if (code <= 77) return { condition: "Snow", glyph: "🌨️" };
-  if (code <= 82) return { condition: "Rain showers", glyph: "🌦️" };
-  if (code <= 99) return { condition: "Thunderstorm", glyph: "⛈️" };
-  return { condition: "—", glyph: "🌡️" };
-}
 
 export async function GET() {
   try {
@@ -28,13 +19,13 @@ export async function GET() {
     const c = json?.current;
     if (!c) return fail("empty");
 
-    const { condition, glyph } = describe(c.weather_code);
+    const code = Number(c.weather_code) || 0;
     return ok(
       {
         tempC: Math.round(c.temperature_2m),
-        condition,
+        code,
         humidity: Math.round(c.relative_humidity_2m),
-        glyph,
+        glyph: weatherGlyph(code),
       },
       revalidate,
     );

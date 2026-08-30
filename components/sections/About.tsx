@@ -4,12 +4,15 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { fadeUp } from "@/lib/motion";
-import { about } from "@/lib/site";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 
 export function About() {
+  const { dict } = useI18n();
+  const about = dict.about;
+
   return (
     <Section id="about">
-      <SectionHeader id="about" title="The human behind the dashboard" />
+      <SectionHeader id={about.slug} title={about.title} />
 
       <motion.div
         variants={fadeUp}
@@ -23,7 +26,7 @@ export function About() {
       {/* A quiet footnote, not a sidebar — a short tag list never balances a
           5-paragraph essay in a boxed 2-column layout, so it doesn't try. */}
       <motion.div variants={fadeUp} className="mt-8 max-w-2xl border-t border-border pt-6">
-        <p className="font-mono text-sm text-comment">{"// beyond code"}</p>
+        <p className="font-mono text-sm text-comment">{`// ${about.beyondCodeLabel}`}</p>
         <ul className="mt-3 flex flex-wrap gap-2">
           {about.beyondCode.map((item) => (
             <li

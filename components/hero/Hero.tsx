@@ -3,12 +3,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { profile, RESUME_PATH } from "@/lib/site";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 import { EASE } from "@/lib/motion";
 import { useBelemTime } from "@/components/useBelemTime";
 import { SynthwaveGrid } from "./SynthwaveGrid";
 import { Typewriter } from "./Typewriter";
 
 export function Hero({ resume = false }: { resume?: boolean }) {
+  const { dict } = useI18n();
   const time = useBelemTime();
   const [typed, setTyped] = useState(false);
 
@@ -32,7 +34,7 @@ export function Hero({ resume = false }: { resume?: boolean }) {
           className="mb-6 text-sm"
         >
           <span className="font-mono text-comment">joao@belem </span>
-          <Typewriter lines={["whoami"]} onDone={() => setTyped(true)} />
+          <Typewriter lines={[dict.hero.prompt]} onDone={() => setTyped(true)} />
         </motion.div>
 
         {/* Name — the answer to whoami. Inter, editorial scale. */}
@@ -48,15 +50,14 @@ export function Hero({ resume = false }: { resume?: boolean }) {
           {...reveal(0.08)}
           className="mt-6 max-w-2xl text-balance text-xl leading-snug text-fg/85 sm:text-2xl"
         >
-          I build the real-time systems that{" "}
-          <span className="text-green">public-sector finance</span> runs on —
-          turning raw data into automation and full-stack products that hold up
-          in production.
+          {dict.hero.headline.lead}
+          <span className="text-green">{dict.hero.headline.accent}</span>
+          {dict.hero.headline.tail}
         </motion.p>
 
         {/* Supporting line — role + place, muted. */}
         <motion.p {...reveal(0.16)} className="mt-4 max-w-2xl text-muted">
-          {profile.role} from Belém, Brazil.
+          {dict.hero.roleLine}
         </motion.p>
 
         {/* Live status + local time */}
@@ -69,11 +70,11 @@ export function Hero({ resume = false }: { resume?: boolean }) {
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-green opacity-70" />
               <span className="relative inline-flex size-2 rounded-full bg-green" />
             </span>
-            {profile.status}
+            {dict.profile.status}
           </span>
           <span className="text-border">·</span>
           <span className="text-muted">
-            Belém{" "}
+            {dict.hero.cityLabel}{" "}
             <span className="tabular-nums text-amber">{time ?? "--:--:--"}</span>
           </span>
         </motion.div>
@@ -84,7 +85,7 @@ export function Hero({ resume = false }: { resume?: boolean }) {
             href="#projects"
             className="rounded-lg bg-green px-5 py-2.5 text-sm font-medium text-bg transition-opacity hover:opacity-90"
           >
-            View work
+            {dict.hero.ctaWork}
           </a>
           {resume ? (
             <a
@@ -92,7 +93,7 @@ export function Hero({ resume = false }: { resume?: boolean }) {
               download
               className="rounded-lg border border-border px-5 py-2.5 text-sm text-fg transition-colors hover:border-fg/30"
             >
-              Download CV
+              {dict.hero.ctaCv}
             </a>
           ) : null}
           <a
@@ -107,7 +108,7 @@ export function Hero({ resume = false }: { resume?: boolean }) {
             href="#contact"
             className="rounded-lg px-5 py-2.5 text-sm text-muted transition-colors hover:text-fg"
           >
-            Contact
+            {dict.hero.ctaContact}
           </a>
         </motion.div>
       </div>

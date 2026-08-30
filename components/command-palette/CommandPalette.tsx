@@ -4,7 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { EASE } from "@/lib/motion";
 import { Panel, TerminalChrome } from "@/components/ui/Panel";
-import { nav, profile } from "@/lib/site";
+import { profile } from "@/lib/site";
+import { useI18n } from "@/components/i18n/LocaleProvider";
+import type { Dictionary } from "@/lib/i18n";
 
 type LogEntry =
   | { type: "command"; text: string }
@@ -21,49 +23,55 @@ type Resolved = {
 // the exact panel/terminal-chrome language already used everywhere else
 // (Panel + TerminalChrome), so it reads as part of the system, not a bolted-
 // on widget. Commands mirror the existing nav — single source of truth.
-function resolveCommand(raw: string): Resolved {
+function resolveCommand(raw: string, dict: Dictionary): Resolved {
   const cmd = raw.trim().toLowerCase();
+  const nav = dict.nav.items;
+  const c = dict.commandPalette;
 
   if (cmd === "help") {
     const list = nav.map((n) => `  ${n.label}`).join("\n");
     return {
-      text: `Available commands:\n${list}\n  whoami\n  github\n  linkedin\n  clear\n\nType a section name to jump there.`,
+      text: `${c.available}\n${list}\n  whoami\n  github\n  linkedin\n  clear\n\n${c.typeSection}`,
     };
   }
 
   if (cmd === "whoami") {
     return {
-      text: `${profile.name} — ${profile.role}\n${profile.location} · ${profile.status}`,
+      text: `${profile.name} — ${dict.profile.role}\n${dict.profile.location} · ${dict.profile.status}`,
     };
   }
 
-  if (cmd.startsWith("sudo")) {
-    return {
-      text: "Nice try. This terminal only has read access — same as you. 🥪",
-    };
-  }
+  if (cmd.startsWith("sudo")) return { text: c.sudo };
 
-  if (cmd === "triforce" || cmd === "zelda") {
-    return {
-      text: "Wisdom, Power, Courage.\nSame kid who replayed Ocarina of Time until the emulator gave up. Still chasing all three. 🔺",
-    };
-  }
+  if (cmd === "triforce" || cmd === "zelda") return { text: c.triforce };
 
   if (cmd === "github") {
-    return { text: "Opening GitHub ↗", tone: "green", openUrl: profile.links.github };
+    return {
+      text: `${c.opening} GitHub ↗`,
+      tone: "green",
+      openUrl: profile.links.github,
+    };
   }
 
   if (cmd === "linkedin") {
-    return { text: "Opening LinkedIn ↗", tone: "green", openUrl: profile.links.linkedin };
+    return {
+      text: `${c.opening} LinkedIn ↗`,
+      tone: "green",
+      openUrl: profile.links.linkedin,
+    };
   }
 
   const match = nav.find((n) => n.id === cmd || n.label === cmd);
   if (match) {
-    return { text: `Jumping to // ${match.label}…`, tone: "green", navigateTo: match.id };
+    return {
+      text: c.jumping.replace("{label}", match.label),
+      tone: "green",
+      navigateTo: match.id,
+    };
   }
 
   return {
-    text: `command not found: ${raw}\nType "help" to see what's available.`,
+    text: `${c.notFound.replace("{cmd}", raw)}\n${c.tryHelp}`,
     tone: "comment",
   };
 }
@@ -78,6 +86,8 @@ function scrollToSection(id: string) {
 }
 
 export function CommandPalette() {
+  const { dict } = useI18n();
+  const c = dict.commandPalette;
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [log, setLog] = useState<LogEntry[]>([]);
@@ -146,7 +156,7 @@ export function CommandPalette() {
       return;
     }
 
-    const resolved = resolveCommand(cmd);
+    const resolved = resolveCommand(cmd, dict);
     setLog((l) => [
       ...l,
       { type: "command", text: cmd },
@@ -183,6 +193,30 @@ export function CommandPalette() {
     }
   };
 
+  // The empty-state hint names four commands and highlights each one, so it's
+  // assembled from the template rather than concatenated — the section names
+  // are the localized nav labels, which is what the palette actually accepts.
+  const navLabel = (id: string) =>
+    dict.nav.items.find((n) => n.id === id)?.label ?? id;
+  const hintCommands = [
+    navLabel("about"),
+    navLabel("projects"),
+    "whoami",
+    "help",
+  ];
+  const emptyHint = c.empty
+    .split(/(\{[abcd]\})/)
+    .map((part, i) => {
+      const slot = { "{a}": 0, "{b}": 1, "{c}": 2, "{d}": 3 }[part];
+      return slot === undefined ? (
+        part
+      ) : (
+        <span key={i} className="text-green">
+          {hintCommands[slot]}
+        </span>
+      );
+    });
+
   return (
     <>
       <motion.button
@@ -191,7 +225,7 @@ export function CommandPalette() {
         onClick={() => (open ? close() : setOpen(true))}
         aria-haspopup="dialog"
         aria-expanded={open}
-        aria-label="Open command palette (Ctrl+K)"
+        aria-label={c.open}
         initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -202,7 +236,7 @@ export function CommandPalette() {
         className="fixed bottom-5 right-5 z-40 flex items-center gap-1.5 rounded-full border border-border bg-surface/90 px-3 py-2 font-mono text-xs text-muted shadow-lg backdrop-blur transition-colors hover:border-green/40 hover:text-fg"
       >
         <span className="text-green">{">"}</span>
-        <span>terminal</span>
+        <span>{c.trigger}</span>
         <kbd className="hidden rounded border border-border bg-bg px-1 py-0.5 text-[10px] text-comment sm:inline-block">
           ⌘K
         </kbd>
@@ -224,7 +258,7 @@ export function CommandPalette() {
             <motion.div
               role="dialog"
               aria-modal="true"
-              aria-label="Command palette"
+              aria-label={c.label}
               initial={{
                 opacity: 0,
                 y: shouldReduceMotion ? 0 : -12,
@@ -240,7 +274,7 @@ export function CommandPalette() {
               className="relative w-full max-w-lg"
             >
               <Panel className="overflow-hidden">
-                <TerminalChrome title="joao@belem — command palette" />
+                <TerminalChrome title={c.chrome} />
 
                 <div
                   ref={logRef}
@@ -248,12 +282,7 @@ export function CommandPalette() {
                   className="max-h-72 space-y-2.5 overflow-y-auto p-4 font-mono text-sm"
                 >
                   {log.length === 0 ? (
-                    <p className="text-muted">
-                      Try <span className="text-green">about</span>,{" "}
-                      <span className="text-green">projects</span>, or just say{" "}
-                      <span className="text-green">whoami</span>. Type{" "}
-                      <span className="text-green">help</span> for more.
-                    </p>
+                    <p className="text-muted">{emptyHint}</p>
                   ) : (
                     log.map((entry, i) =>
                       entry.type === "command" ? (
@@ -292,7 +321,7 @@ export function CommandPalette() {
                       value={value}
                       onChange={(e) => setValue(e.target.value)}
                       onKeyDown={onInputKeyDown}
-                      placeholder="type a command…"
+                      placeholder={c.placeholder}
                       autoComplete="off"
                       spellCheck={false}
                       className="flex-1 bg-transparent font-mono text-sm text-fg placeholder:text-comment"
@@ -301,7 +330,7 @@ export function CommandPalette() {
                 </form>
 
                 <div className="border-t border-border px-4 py-1.5 font-mono text-[10px] text-comment">
-                  type &quot;help&quot; · ↑/↓ history · esc to close
+                  {c.hint}
                 </div>
               </Panel>
             </motion.div>

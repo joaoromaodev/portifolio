@@ -4,15 +4,18 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { fadeUp } from "@/lib/motion";
-import { experience } from "@/lib/site";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 
 export function Experience() {
+  const { dict } = useI18n();
+  const experience = dict.experience.items;
+
   return (
     <Section id="experience">
       <SectionHeader
-        id="experience"
-        title="From intern to tech lead"
-        subtitle="~2.5 years inside the Pará State Department of Education (SEDUC-PA) — same institution, growing scope."
+        id={dict.experience.slug}
+        title={dict.experience.title}
+        subtitle={dict.experience.subtitle}
       />
 
       <ol className="relative border-l border-border pl-6">

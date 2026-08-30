@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
 import { profile } from "@/lib/site";
+import { getDictionary } from "@/lib/i18n";
+import { DEFAULT_LOCALE } from "@/lib/i18n/config";
 
 // Social preview card (LinkedIn, X, WhatsApp, Slack). Generated at build time
 // from the same palette as the site — DESIGN.md §7. Also reused as the Twitter
@@ -7,6 +9,8 @@ import { profile } from "@/lib/site";
 export const alt = "João Romão — Data Analyst & Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
+
+const dict = getDictionary(DEFAULT_LOCALE);
 
 export default function OpengraphImage() {
   return new ImageResponse(
@@ -36,7 +40,7 @@ export default function OpengraphImage() {
               background: "#56d364",
             }}
           />
-          <div style={{ fontSize: 26, color: "#56d364" }}>{profile.status}</div>
+          <div style={{ fontSize: 26, color: "#56d364" }}>{dict.profile.status}</div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -62,7 +66,7 @@ export default function OpengraphImage() {
               maxWidth: 900,
             }}
           >
-            {`${profile.role} · ${profile.tagline}`}
+            {`${dict.profile.role} · ${dict.profile.tagline}`}
           </div>
         </div>
 
@@ -77,7 +81,7 @@ export default function OpengraphImage() {
             paddingTop: 26,
           }}
         >
-          <div>{profile.location}</div>
+          <div>{dict.profile.location}</div>
           <div style={{ color: "#39c5cf" }}>github.com/joaoromaodev</div>
         </div>
       </div>

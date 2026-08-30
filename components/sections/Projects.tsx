@@ -5,15 +5,18 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { stagger, inView } from "@/lib/motion";
 import { featuredProjects, secondaryProjects } from "@/lib/site";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 import { ProjectCard } from "./ProjectCard";
 
 export function Projects() {
+  const { dict } = useI18n();
+
   return (
     <Section id="projects">
       <SectionHeader
-        id="projects"
-        title="Selected work"
-        subtitle="Real systems, mostly in production. Strongest first. Government work is shown as a case study only — no real data, no private code."
+        id={dict.projects.slug}
+        title={dict.projects.title}
+        subtitle={dict.projects.subtitle}
       />
 
       {/* Featured — full-width case-study rows, strongest first. Stacked
@@ -32,7 +35,7 @@ export function Projects() {
             {...inView}
             className="mb-4 mt-12 font-mono text-sm text-comment"
           >
-            {"// more projects"}
+            {`// ${dict.projects.more}`}
           </motion.p>
 
           {/* Secondary — compact tiles in a two-column grid. */}

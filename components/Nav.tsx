@@ -3,9 +3,16 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { EASE } from "@/lib/motion";
-import { nav, profile } from "@/lib/site";
+import { profile } from "@/lib/site";
+import { useI18n } from "@/components/i18n/LocaleProvider";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { LanguageToggle } from "@/components/i18n/LanguageToggle";
+import { localePath } from "@/lib/i18n/config";
 
 export function Nav() {
+  const { locale, dict } = useI18n();
+  const nav = dict.nav.items;
+  const home = localePath(locale);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -42,7 +49,7 @@ export function Nav() {
     >
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
         <a
-          href="#top"
+          href={`${home}#top`}
           className="font-mono text-sm font-semibold text-fg transition-colors hover:text-green"
         >
           <span className="text-green">~/</span>
@@ -68,15 +75,18 @@ export function Nav() {
             href="#contact"
             className="hidden rounded-lg border border-green/40 px-3 py-1.5 font-mono text-sm text-green transition-colors hover:bg-green/10 sm:inline-block"
           >
-            get in touch
+            {dict.nav.cta}
           </a>
+
+          <LanguageToggle />
+          <ThemeToggle />
 
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
             aria-controls="mobile-nav"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? dict.nav.closeMenu : dict.nav.openMenu}
             className="flex size-9 flex-none items-center justify-center rounded-lg border border-border text-fg transition-colors hover:border-green/40 lg:hidden"
           >
             <span className="relative flex h-3.5 w-4 flex-col justify-between" aria-hidden="true">
@@ -128,7 +138,7 @@ export function Nav() {
                   onClick={() => setOpen(false)}
                   className="block rounded-lg border border-green/40 px-3 py-2 text-center font-mono text-sm text-green transition-colors hover:bg-green/10"
                 >
-                  get in touch
+                  {dict.nav.cta}
                 </a>
               </li>
             </ul>

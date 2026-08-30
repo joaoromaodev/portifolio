@@ -4,7 +4,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
-import { flagMeta, type Project } from "@/lib/site";
+import { flagColor, type Project } from "@/lib/site";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 
 // Two shapes, one card language: featured projects are full-width horizontal
 // case studies (identity left, problem→solution→impact right); secondary
@@ -24,12 +25,12 @@ export function ProjectCard({
 }
 
 function FlagChip({ project }: { project: Project }) {
-  const flag = flagMeta[project.flag];
+  const { dict } = useI18n();
   return (
     <span
-      className={`flex-none rounded-full border border-border px-2 py-0.5 font-mono text-[10px] ${flag.color}`}
+      className={`flex-none rounded-full border border-border px-2 py-0.5 font-mono text-[10px] ${flagColor[project.flag]}`}
     >
-      {flag.label}
+      {dict.projects.flags[project.flag]}
     </span>
   );
 }
@@ -52,12 +53,13 @@ function StackChips({ stack }: { stack: readonly string[] }) {
 // Screenshot band. Optional everywhere — a project with no image simply
 // renders without one, so the grid never shows a broken/placeholder frame.
 function Shot({ project }: { project: Project }) {
+  const { tx } = useI18n();
   if (!project.image) return null;
   return (
     <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg border border-border bg-bg">
       <Image
         src={project.image}
-        alt={project.imageAlt ?? `${project.title} — ${project.kicker}`}
+        alt={tx(project.imageAlt) || `${project.title} — ${tx(project.kicker)}`}
         fill
         sizes="(min-width: 768px) 720px, 100vw"
         className="object-cover"
@@ -67,6 +69,7 @@ function Shot({ project }: { project: Project }) {
 }
 
 function CardLinks({ project }: { project: Project }) {
+  const { tx } = useI18n();
   if (!project.links?.length && !project.privateNote) return null;
   return (
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
@@ -83,7 +86,7 @@ function CardLinks({ project }: { project: Project }) {
       ))}
       {project.privateNote ? (
         <p className="font-mono text-[11px] text-muted">
-          <span className="text-amber">●</span> {project.privateNote}
+          <span className="text-amber">●</span> {tx(project.privateNote)}
         </p>
       ) : null}
     </div>
@@ -91,6 +94,9 @@ function CardLinks({ project }: { project: Project }) {
 }
 
 function FeaturedCard({ project }: { project: Project }) {
+  const { dict, tx } = useI18n();
+  const terms = dict.projects.terms;
+
   return (
     <motion.div variants={fadeUp}>
       <Panel
@@ -113,9 +119,9 @@ function FeaturedCard({ project }: { project: Project }) {
               </h3>
               <FlagChip project={project} />
             </div>
-            <p className="font-mono text-xs text-comment">{project.kicker}</p>
+            <p className="font-mono text-xs text-comment">{tx(project.kicker)}</p>
             <p className="mt-3 text-[15px] leading-relaxed text-muted">
-              {project.summary}
+              {tx(project.summary)}
             </p>
           </div>
           <div className="mt-auto space-y-3">
@@ -126,10 +132,10 @@ function FeaturedCard({ project }: { project: Project }) {
 
         {/* Case study — the reasoning, in a quiet column */}
         <dl className="space-y-3 border-t border-border pt-5 text-sm md:border-l md:border-t-0 md:pl-8 md:pt-0">
-          <Row term="problem" desc={project.problem} />
-          <Row term="solution" desc={project.solution} />
+          <Row term={terms.problem} desc={tx(project.problem)} />
+          <Row term={terms.solution} desc={tx(project.solution)} />
           {project.impact ? (
-            <Row term="impact" desc={project.impact} accent />
+            <Row term={terms.impact} desc={tx(project.impact)} accent />
           ) : null}
         </dl>
       </Panel>
@@ -138,6 +144,8 @@ function FeaturedCard({ project }: { project: Project }) {
 }
 
 function CompactCard({ project }: { project: Project }) {
+  const { tx } = useI18n();
+
   return (
     <motion.div variants={fadeUp} className="h-full">
       <Panel as="article" interactive className="flex h-full flex-col p-5">
@@ -152,13 +160,13 @@ function CompactCard({ project }: { project: Project }) {
             <h3 className="font-mono text-base font-semibold text-fg">
               {project.title}
             </h3>
-            <p className="font-mono text-xs text-comment">{project.kicker}</p>
+            <p className="font-mono text-xs text-comment">{tx(project.kicker)}</p>
           </div>
           <FlagChip project={project} />
         </div>
 
         <p className="mt-2.5 text-sm leading-relaxed text-muted">
-          {project.summary}
+          {tx(project.summary)}
         </p>
 
         <div className="mt-auto space-y-2.5 pt-4">

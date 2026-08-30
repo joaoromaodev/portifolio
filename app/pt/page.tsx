@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { SiteShell } from "@/components/SiteShell";
 import { localeMetadata } from "@/lib/i18n/metadata";
 
-export const metadata: Metadata = localeMetadata("en");
+export const metadata: Metadata = localeMetadata("pt");
 
-export default function Home() {
-  return <SiteShell locale="en" />;
+export default function HomePt() {
+  return <SiteShell locale="pt" />;
 }

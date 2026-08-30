@@ -4,15 +4,30 @@
     {
       "slug": "simf",
       "title": "SIMF",
-      "kicker": "Internal Financial Management System",
+      "kicker": {
+        "en": "Internal Financial Management System",
+        "pt": "Sistema Interno de Gestão Financeira"
+      },
       "flag": "case-study",
       "featured": true,
       "published": true,
       "order": 1,
-      "summary": "Internal web platform that monitors budget & financial execution for the Pará State Department of Education. Anchor project — I'm the tech lead and product owner.",
-      "problem": "Budget and financial execution were tracked across scattered tools, with no single real-time view for the directors who answer for it.",
-      "solution": "A role-based web platform that reads SIAFE data in real time, with modules for budget execution, settlements, payments and bank accounts — in active use by DFIN and DPPC.",
-      "impact": "In active production use, serving SAPF. Deployed on an Ubuntu VM (Nginx + PM2) behind internal DNS with SSL.",
+      "summary": {
+        "en": "Internal web platform that monitors budget & financial execution for the Pará State Department of Education. Anchor project — I'm the tech lead and product owner.",
+        "pt": "Plataforma web interna que monitora a execução orçamentária e financeira da Secretaria de Educação do Pará. Projeto âncora — sou o tech lead e product owner."
+      },
+      "problem": {
+        "en": "Budget and financial execution were tracked across scattered tools, with no single real-time view for the directors who answer for it.",
+        "pt": "A execução orçamentária e financeira era acompanhada em ferramentas espalhadas, sem uma visão única em tempo real para os diretores que respondem por ela."
+      },
+      "solution": {
+        "en": "A role-based web platform that reads SIAFE data in real time, with modules for budget execution, settlements, payments and bank accounts — in active use by DFIN and DPPC.",
+        "pt": "Uma plataforma web com controle de acesso por perfil que lê os dados do SIAFE em tempo real, com módulos de execução orçamentária, liquidações, pagamentos e contas bancárias — em uso ativo pela DFIN e pela DPPC."
+      },
+      "impact": {
+        "en": "In active production use, serving SAPF. Deployed on an Ubuntu VM (Nginx + PM2) behind internal DNS with SSL.",
+        "pt": "Em uso ativo em produção, atendendo a SAPF. Implantado em VM Ubuntu (Nginx + PM2) atrás de DNS interno com SSL."
+      },
       "stack": [
         "Next.js 15",
         "React",
@@ -21,20 +36,38 @@
         "PostgreSQL"
       ],
       "links": [],
-      "privateNote": "Private gov system — case study only, with fictional-data screenshots. No code or real data is published."
+      "privateNote": {
+        "en": "Private gov system — case study only, with fictional-data screenshots. No code or real data is published.",
+        "pt": "Sistema de governo privado — apenas estudo de caso, com capturas de tela de dados fictícios. Nenhum código ou dado real é publicado."
+      }
     },
     {
       "slug": "pete-peae",
       "title": "Monitor PETE/PEAE",
-      "kicker": "Financial automation",
+      "kicker": {
+        "en": "Financial automation",
+        "pt": "Automação financeira"
+      },
       "flag": "live",
       "featured": true,
       "published": true,
       "order": 2,
-      "summary": "Production system that tracks daily installments paid to municipalities under two state programs — school transport (PETE) and school meals (PEAE).",
-      "problem": "Tracking lived in two Google Sheets + AppScripts that hid a real failure mode: a second payment order on the same installment went unnoticed.",
-      "solution": "An end-to-end pipeline from raw SIAFE report to WhatsApp message + PDFs sent to the Secretary, with anomaly detection and an interactive per-municipality dashboard.",
-      "impact": "Replaced 2 Google Sheets + AppScripts and surfaced anomalies the old system hid, improving correction and reliability.",
+      "summary": {
+        "en": "Production system that tracks daily installments paid to municipalities under two state programs — school transport (PETE) and school meals (PEAE).",
+        "pt": "Sistema em produção que acompanha diariamente as parcelas pagas às prefeituras em dois programas estaduais — transporte escolar (PETE) e alimentação escolar (PEAE)."
+      },
+      "problem": {
+        "en": "Tracking lived in two Google Sheets + AppScripts that hid a real failure mode: a second payment order on the same installment went unnoticed.",
+        "pt": "O acompanhamento vivia em duas planilhas do Google + AppScripts que escondiam uma falha real: uma segunda ordem bancária na mesma parcela passava despercebida."
+      },
+      "solution": {
+        "en": "An end-to-end pipeline from raw SIAFE report to WhatsApp message + PDFs sent to the Secretary, with anomaly detection and an interactive per-municipality dashboard.",
+        "pt": "Um pipeline de ponta a ponta, do relatório bruto do SIAFE até a mensagem de WhatsApp + PDFs enviados à Secretária, com detecção de anomalias e um dashboard interativo por município."
+      },
+      "impact": {
+        "en": "Replaced 2 Google Sheets + AppScripts and surfaced anomalies the old system hid, improving correction and reliability.",
+        "pt": "Substituiu 2 planilhas do Google + AppScripts e expôs anomalias que o sistema antigo escondia, melhorando a correção e a confiabilidade."
+      },
       "stack": [
         "Python",
         "Streamlit",
@@ -52,14 +85,26 @@
     {
       "slug": "rootlab",
       "title": "RootLab",
-      "kicker": "Root-Cause Analysis platform",
+      "kicker": {
+        "en": "Root-Cause Analysis platform",
+        "pt": "Plataforma de Análise de Causa Raiz"
+      },
       "flag": "building",
       "featured": true,
       "published": true,
       "order": 3,
-      "summary": "Local-first tool that chains Ishikawa → GUT Matrix → 5 Whys → 5W2H into a single, auditable cascade with PDF export. Runs offline in the browser.",
-      "problem": "Root-cause analysis is usually scattered across disconnected templates, so the reasoning behind a fix is hard to audit.",
-      "solution": "A cascading flow where each step's output feeds the next — built offline-first with no server. Aimed at quality (ISO 9001 / IATF 16949), production and Scrum teams.",
+      "summary": {
+        "en": "Local-first tool that chains Ishikawa → GUT Matrix → 5 Whys → 5W2H into a single, auditable cascade with PDF export. Runs offline in the browser.",
+        "pt": "Ferramenta local-first que encadeia Ishikawa → Matriz GUT → 5 Porquês → 5W2H em uma cascata única e auditável, com exportação em PDF. Roda offline, no navegador."
+      },
+      "problem": {
+        "en": "Root-cause analysis is usually scattered across disconnected templates, so the reasoning behind a fix is hard to audit.",
+        "pt": "A análise de causa raiz costuma ficar espalhada em modelos desconectados, o que torna difícil auditar o raciocínio por trás de uma correção."
+      },
+      "solution": {
+        "en": "A cascading flow where each step's output feeds the next — built offline-first with no server. Aimed at quality (ISO 9001 / IATF 16949), production and Scrum teams.",
+        "pt": "Um fluxo em cascata onde a saída de cada etapa alimenta a próxima — feito offline-first, sem servidor. Voltado para qualidade (ISO 9001 / IATF 16949), produção e times Scrum."
+      },
       "stack": [
         "React",
         "TypeScript",
@@ -70,39 +115,72 @@
         "Vitest"
       ],
       "links": [],
-      "privateNote": "Pre-MVP, in active development — co-developed with a colleague (name may change before launch)."
+      "privateNote": {
+        "en": "Pre-MVP, in active development — co-developed with a colleague (name may change before launch).",
+        "pt": "Pré-MVP, em desenvolvimento ativo — codesenvolvido com um colega (o nome pode mudar antes do lançamento)."
+      }
     },
     {
       "slug": "ecopredict",
       "title": "EcoPredict",
-      "kicker": "AI for Sustainability",
+      "kicker": {
+        "en": "AI for Sustainability",
+        "pt": "IA para Sustentabilidade"
+      },
       "flag": "award",
       "featured": false,
       "published": true,
       "order": 4,
-      "summary": "AI + sustainability project in the I2A2 \"AI for Sustainable Projects — Towards COP 30\" program. Top 7 globally, \"Outstanding Achievement\" (Dec 2025).",
-      "problem": "Applying ML and sustainability metrics to a real local context — Belém and the Amazon.",
-      "solution": "Co-led the project as data analyst, building the ML models and sustainability metrics.",
-      "impact": "Top 7 projects · Outstanding Achievement (Dec 2025).",
+      "summary": {
+        "en": "AI + sustainability project in the I2A2 \"AI for Sustainable Projects — Towards COP 30\" program. Top 7 globally, \"Outstanding Achievement\" (Dec 2025).",
+        "pt": "Projeto de IA + sustentabilidade no programa I2A2 \"AI for Sustainable Projects — Towards COP 30\". Top 7 mundial, reconhecimento \"Outstanding Achievement\" (dez/2025)."
+      },
+      "problem": {
+        "en": "Applying ML and sustainability metrics to a real local context — Belém and the Amazon.",
+        "pt": "Aplicar machine learning e métricas de sustentabilidade a um contexto local real — Belém e a Amazônia."
+      },
+      "solution": {
+        "en": "Co-led the project as data analyst, building the ML models and sustainability metrics.",
+        "pt": "Co-liderei o projeto como analista de dados, construindo os modelos de ML e as métricas de sustentabilidade."
+      },
+      "impact": {
+        "en": "Top 7 projects · Outstanding Achievement (Dec 2025).",
+        "pt": "Top 7 projetos · Outstanding Achievement (dez/2025)."
+      },
       "stack": [
         "Python",
         "Machine Learning",
         "Data Analysis"
       ],
       "links": [],
-      "privateNote": "Course project — recognised as an award highlight; not published."
+      "privateNote": {
+        "en": "Course project — recognised as an award highlight; not published.",
+        "pt": "Projeto de curso — destacado como premiação; não publicado."
+      }
     },
     {
       "slug": "diarias",
       "title": "Diárias",
-      "kicker": "Financial automation (gov)",
+      "kicker": {
+        "en": "Financial automation (gov)",
+        "pt": "Automação financeira (governo)"
+      },
       "flag": "live",
       "featured": false,
       "published": true,
       "order": 5,
-      "summary": "Sibling of PETE/PEAE: generates the monthly standardized load file that HR uploads into ERGON, SEDUC's legacy system.",
-      "problem": "A manual, error-prone monthly export feeding a legacy system.",
-      "solution": "Automated generation of the standardized ERGON load file.",
+      "summary": {
+        "en": "Sibling of PETE/PEAE: generates the monthly standardized load file that HR uploads into ERGON, SEDUC's legacy system.",
+        "pt": "Irmão do PETE/PEAE: gera mensalmente o arquivo padronizado de carga que o RH sobe no ERGON, o sistema legado da SEDUC."
+      },
+      "problem": {
+        "en": "A manual, error-prone monthly export feeding a legacy system.",
+        "pt": "Uma exportação mensal manual e sujeita a erro alimentando um sistema legado."
+      },
+      "solution": {
+        "en": "Automated generation of the standardized ERGON load file.",
+        "pt": "Geração automatizada do arquivo padronizado de carga do ERGON."
+      },
       "stack": [
         "Python",
         "Automation"
@@ -112,14 +190,26 @@
     {
       "slug": "mago-mercador",
       "title": "Mago Mercador",
-      "kicker": "E-commerce / personal venture",
+      "kicker": {
+        "en": "E-commerce / personal venture",
+        "pt": "E-commerce / negócio próprio"
+      },
       "flag": "side",
       "featured": false,
       "published": true,
       "order": 6,
-      "summary": "My tabletop-RPG dice & accessories shop — product, brand and social. magomercador.com.br · @magomercador.",
-      "problem": "Building a real brand and storefront for a niche audience.",
-      "solution": "An e-commerce venture spanning product, branding and social media.",
+      "summary": {
+        "en": "My tabletop-RPG dice & accessories shop — product, brand and social. magomercador.com.br · @magomercador.",
+        "pt": "Minha loja de dados e acessórios para RPG de mesa — produto, marca e redes sociais. magomercador.com.br · @magomercador."
+      },
+      "problem": {
+        "en": "Building a real brand and storefront for a niche audience.",
+        "pt": "Construir uma marca e uma loja de verdade para um público de nicho."
+      },
+      "solution": {
+        "en": "An e-commerce venture spanning product, branding and social media.",
+        "pt": "Um negócio de e-commerce que abrange produto, identidade de marca e redes sociais."
+      },
       "stack": [
         "E-commerce",
         "Branding",
@@ -139,14 +229,26 @@
     {
       "slug": "cherry-bomb",
       "title": "Cherry Bomb Vending Machine",
-      "kicker": "UI / branding",
+      "kicker": {
+        "en": "UI / branding",
+        "pt": "UI / identidade visual"
+      },
       "flag": "side",
       "featured": false,
       "published": true,
       "order": 7,
-      "summary": "Mobile-first neobrutalist UI (red/black/white) with Pix payment logic for a handmade-goods vending machine.",
-      "problem": "A vending machine for handmade goods needed a bold, simple buy flow.",
-      "solution": "A mobile-first neobrutalist UI with Pix payment logic.",
+      "summary": {
+        "en": "Mobile-first neobrutalist UI (red/black/white) with Pix payment logic for a handmade-goods vending machine.",
+        "pt": "UI neobrutalista mobile-first (vermelho/preto/branco) com lógica de pagamento por Pix para uma máquina de vendas de produtos artesanais."
+      },
+      "problem": {
+        "en": "A vending machine for handmade goods needed a bold, simple buy flow.",
+        "pt": "Uma máquina de vendas de produtos artesanais precisava de um fluxo de compra simples e marcante."
+      },
+      "solution": {
+        "en": "A mobile-first neobrutalist UI with Pix payment logic.",
+        "pt": "Uma UI neobrutalista mobile-first com lógica de pagamento por Pix."
+      },
       "stack": [
         "UI Design",
         "Branding",

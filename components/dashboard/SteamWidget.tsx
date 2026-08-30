@@ -1,6 +1,7 @@
 "use client";
 
 import { WidgetShell, SkeletonLine, useLiveWidget } from "./WidgetShell";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 
 type SteamData = {
   games: { name: string; hours: number }[];
@@ -20,12 +21,13 @@ const FALLBACK: SteamData = {
 };
 
 export function SteamWidget() {
+  const { dict } = useI18n();
   const { status, data } = useLiveWidget<SteamData>("/api/steam", FALLBACK);
 
   return (
     <WidgetShell
-      title="Steam · recently played"
-      source="Steam Web API · public profile"
+      title={dict.dashboard.steam.title}
+      source={dict.dashboard.steam.source}
       status={status}
     >
       {status === "loading" ? (
@@ -58,7 +60,11 @@ export function SteamWidget() {
                   <span className="truncate text-sm text-fg">{g.name}</span>
                 </span>
                 <span className="flex-none font-mono text-xs text-muted tabular-nums">
-                  {g.hours}h<span className="text-comment"> / 2wk</span>
+                  {g.hours}h
+                  <span className="text-comment">
+                    {" "}
+                    {dict.dashboard.steam.perTwoWeeks}
+                  </span>
                 </span>
               </li>
             ))}
@@ -71,7 +77,7 @@ export function SteamWidget() {
               rel="noreferrer"
               className="inline-flex w-fit items-center gap-1 font-mono text-sm text-green transition-colors hover:underline"
             >
-              View profile ↗
+              {dict.dashboard.viewProfile} ↗
             </a>
           ) : null}
         </div>

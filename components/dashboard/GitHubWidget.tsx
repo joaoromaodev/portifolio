@@ -1,6 +1,7 @@
 "use client";
 
 import { WidgetShell, SkeletonLine, useLiveWidget } from "./WidgetShell";
+import { useI18n } from "@/components/i18n/LocaleProvider";
 
 type GitHubData = {
   handle: string;
@@ -35,13 +36,14 @@ const LEVEL_BG = [
 ];
 
 export function GitHubWidget({ className = "" }: { className?: string }) {
+  const { dict } = useI18n();
   const { status, data } = useLiveWidget<GitHubData>("/api/github", FALLBACK);
   const levels = data.levels?.length ? data.levels : FALLBACK_LEVELS;
 
   return (
     <WidgetShell
-      title="GitHub activity"
-      source="GitHub REST · ISR ~1h"
+      title={dict.dashboard.github.title}
+      source={dict.dashboard.github.source}
       status={status}
       className={className}
     >
@@ -82,7 +84,7 @@ export function GitHubWidget({ className = "" }: { className?: string }) {
               ))}
             </div>
             <p className="font-mono text-xs text-comment">
-              last {data.weeks} weeks
+              {dict.dashboard.github.lastWeeks.replace("{weeks}", String(data.weeks))}
             </p>
           </div>
 
@@ -93,7 +95,10 @@ export function GitHubWidget({ className = "" }: { className?: string }) {
                 {data.total != null ? data.total : `${data.weeks}w`}
               </p>
               <p className="font-mono text-xs text-comment">
-                {data.total != null ? "contributions" : "tracked"} ·{" "}
+                {data.total != null
+                  ? dict.dashboard.github.contributions
+                  : dict.dashboard.github.tracked}{" "}
+                ·{" "}
                 <span className="text-muted">@{data.handle}</span>
               </p>
             </div>
@@ -117,7 +122,7 @@ export function GitHubWidget({ className = "" }: { className?: string }) {
               rel="noreferrer"
               className="inline-flex w-fit items-center gap-1 font-mono text-sm text-green transition-colors hover:underline"
             >
-              View profile ↗
+              {dict.dashboard.viewProfile} ↗
             </a>
           </div>
         </div>
