@@ -9,6 +9,21 @@ que quiser ativar. Copie `.env.example` → `.env.local` e cole os valores.
 
 ---
 
+## 0. Site URL, currículo e projetos (sem chave)
+
+- **`NEXT_PUBLIC_SITE_URL`** — só precisa quando você apontar um domínio próprio
+  (ex.: `https://joaoromao.dev`). Em branco, a Vercel usa a URL do deploy
+  sozinha. É o que alimenta o `sitemap.xml`, o `robots.txt`, o card social e o
+  JSON-LD.
+- **Currículo** — coloque o PDF em `public/joao-romao-cv.pdf`. Os botões
+  "Download CV" (hero) e "CV (PDF)" (contato) aparecem sozinhos no próximo
+  build; enquanto o arquivo não existir, ficam escondidos.
+- **Projetos** — rode `npm run dev` e abra **http://localhost:3000/admin**.
+  Cadastre/edite/reordene, marque ★ destaque e ◉ publicado, salve, e **commite
+  o `content/projects.json`**. O painel não existe em produção (404).
+
+---
+
 ## 1. Anthropic — chatbot "Ask my portfolio" (`ANTHROPIC_API_KEY`)
 
 1. https://console.anthropic.com → **API Keys** → **Create Key**.
@@ -64,4 +79,23 @@ npm run dev      # http://localhost:3000
 3. Em **Settings → Environment Variables**, cole as mesmas chaves do `.env.local`.
 4. Em `ALLOWED_ORIGINS`, ponha a URL final (ex.: `https://joaoromao.dev`) pra
    liberar o chatbot no domínio de produção.
-5. Deploy. Depois é só apontar o domínio próprio em **Settings → Domains**.
+5. Deploy. Depois é só apontar o domínio próprio em **Settings → Domains** — e
+   aí sim preencher `NEXT_PUBLIC_SITE_URL` com esse domínio.
+
+### Analytics
+
+**Vercel Analytics** e **Speed Insights** já estão no código. Ative os dois no
+painel do projeto (aba **Analytics** / **Speed Insights**) — plano grátis, sem
+cookie e sem banner de consentimento. Fora da Vercel eles simplesmente não
+coletam nada.
+
+### Checklist antes de divulgar
+
+- [ ] `npm run build` passa sem erro.
+- [ ] `NEXT_PUBLIC_SITE_URL` preenchido (se já tiver domínio).
+- [ ] CV em `public/joao-romao-cv.pdf`.
+- [ ] Screenshots dos projetos em `public/projects/` (dados fictícios!).
+- [ ] Cole a URL no https://www.linkedin.com/post-inspector/ pra forçar o
+      LinkedIn a buscar o card social novo.
+- [ ] Registre o site no https://search.google.com/search-console e envie o
+      `sitemap.xml`.

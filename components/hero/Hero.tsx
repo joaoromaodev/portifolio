@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { profile } from "@/lib/site";
+import { profile, RESUME_PATH } from "@/lib/site";
 import { EASE } from "@/lib/motion";
 import { useBelemTime } from "@/components/useBelemTime";
 import { SynthwaveGrid } from "./SynthwaveGrid";
 import { Typewriter } from "./Typewriter";
 
-export function Hero() {
+export function Hero({ resume = false }: { resume?: boolean }) {
   const time = useBelemTime();
   const [typed, setTyped] = useState(false);
 
@@ -86,6 +86,15 @@ export function Hero() {
           >
             View work
           </a>
+          {resume ? (
+            <a
+              href={RESUME_PATH}
+              download
+              className="rounded-lg border border-border px-5 py-2.5 text-sm text-fg transition-colors hover:border-fg/30"
+            >
+              Download CV
+            </a>
+          ) : null}
           <a
             href={profile.links.github}
             target="_blank"

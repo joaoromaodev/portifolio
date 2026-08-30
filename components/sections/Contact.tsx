@@ -6,10 +6,10 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { fadeUp } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
-import { profile } from "@/lib/site";
+import { profile, RESUME_PATH } from "@/lib/site";
 import { LocationCard } from "@/components/location/LocationCard";
 
-export function Contact() {
+export function Contact({ resume = false }: { resume?: boolean }) {
   // Assemble the address at runtime so it isn't sitting in the static HTML
   // for scrapers (CLAUDE.md §8 — obfuscate email, no phone).
   const email = useMemo(() => {
@@ -62,7 +62,16 @@ export function Contact() {
               </div>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-3">
+              {resume ? (
+                <a
+                  href={RESUME_PATH}
+                  download
+                  className="rounded-lg border border-amber/40 px-4 py-2.5 font-mono text-sm text-amber transition-colors hover:bg-amber/10"
+                >
+                  CV (PDF)
+                </a>
+              ) : null}
               <a
                 href={profile.links.linkedin}
                 target="_blank"
