@@ -908,33 +908,185 @@
       "slug": "cherry-bomb",
       "title": "Cherry Bomb Vending Machine",
       "kicker": {
-        "en": "UI / branding",
-        "pt": "UI / identidade visual"
+        "en": "Full-stack / IoT",
+        "pt": "Full-stack / IoT"
       },
-      "flag": "side",
-      "featured": false,
+      "flag": "building",
+      "featured": true,
       "published": true,
       "order": 10,
       "summary": {
-        "en": "Mobile-first neobrutalist UI (red/black/white) with Pix payment logic for a handmade-goods vending machine.",
-        "pt": "UI neobrutalista mobile-first (vermelho/preto/branco) com lógica de pagamento por Pix para uma máquina de vendas de produtos artesanais."
+        "en": "A QR-code vending machine for handmade goods: one Pix covers a multi-item cart, and a payment webhook is the only thing allowed to move stock.",
+        "pt": "Uma máquina de vendas por QR Code para produtos artesanais: um Pix cobre a sacola inteira, e só o webhook de pagamento pode mexer no estoque."
       },
       "problem": {
-        "en": "A vending machine for handmade goods needed a bold, simple buy flow.",
-        "pt": "Uma máquina de vendas de produtos artesanais precisava de um fluxo de compra simples e marcante."
+        "en": "Selling handmade pieces in residential buildings means standing by a table for hours or trusting an honour box. A conventional vending machine does not fix it: a card reader charges a monthly fee and a per-transaction cut that an R$ 8.50 hair clip cannot absorb, and cash has to be collected and secured. The machine needed to sell twenty distinct items, unattended, at R$ 5.50 to R$ 24.50, with no hardware in the customer's path.",
+        "pt": "Vender peças artesanais em condomínios significa ficar horas ao lado de uma mesa ou confiar numa caixinha de honestidade. Uma máquina de vendas convencional não resolve: a maquininha cobra mensalidade e uma fatia por transação que uma presilha de R$ 8,50 não absorve, e dinheiro em espécie precisa ser recolhido e guardado. A máquina precisava vender vinte itens distintos, sem ninguém por perto, entre R$ 5,50 e R$ 24,50, sem hardware nenhum no caminho do cliente."
       },
       "solution": {
-        "en": "A mobile-first neobrutalist UI with Pix payment logic.",
-        "pt": "Uma UI neobrutalista mobile-first com lógica de pagamento por Pix."
+        "en": "The payment terminal was removed from the machine and replaced by a sticker. A QR code on the glass opens a mobile storefront that mirrors the machine's physical layout — a 4×5 grid where every card is a real coil, addressed A1 to E4. The customer fills a bag across several slots and pays one Pix for the whole cart: the backend totals it server-side, asks Mercado Pago for a single charge, and waits. Nothing about the order is trusted until the webhook reports approved.",
+        "pt": "O terminal de pagamento saiu da máquina e virou um adesivo. Um QR Code no vidro abre uma vitrine mobile que espelha o layout físico — uma grade 4×5 em que cada card é uma mola real, endereçada de A1 a E4. O cliente enche a sacola com vários slots e paga um único Pix pelo carrinho inteiro: o backend soma no servidor, pede uma cobrança só ao Mercado Pago, e espera. Nada do pedido é considerado verdade até o webhook dizer que foi aprovado."
+      },
+      "impact": {
+        "en": "Not measured, and deliberately not claimed. The software path runs in production end to end — storefront, Pix charge, confirmation webhook, stock subtraction — but physical dispensing is not implemented: the ESP32 firmware file is empty and there is no MQTT publisher. The honest summary is a payment and inventory system working in production, attached to a machine that cannot yet turn its coils. Any figure about units sold would be fiction.",
+        "pt": "Não medido, e propositalmente não afirmado. O caminho de software roda em produção de ponta a ponta — vitrine, cobrança Pix, webhook de confirmação, baixa de estoque — mas a liberação física não está implementada: o arquivo de firmware do ESP32 está vazio e não existe publisher MQTT. O resumo honesto é um sistema de pagamento e estoque funcionando em produção, preso a uma máquina que ainda não gira as molas. Qualquer número de vendas seria ficção."
+      },
+      "role": {
+        "en": "Sole author, over four days in April 2026 — product definition, FastAPI backend, PostgreSQL schema, Mercado Pago integration and webhook, Cloudinary image pipeline, the customer storefront, the admin panel, the visual identity, and deployment. The hardware protocol is mine too; the firmware that will consume it is not written yet.",
+        "pt": "Autor único, ao longo de quatro dias em abril de 2026 — definição do produto, backend FastAPI, schema PostgreSQL, integração e webhook do Mercado Pago, pipeline de imagens no Cloudinary, a vitrine do cliente, o painel admin, a identidade visual e o deploy. O protocolo de hardware também é meu; o firmware que vai consumi-lo ainda não foi escrito."
+      },
+      "overview": {
+        "en": "The project starts from a constraint rather than a product idea. In Brazil, Pix is instant, free for individuals and already installed on every customer's phone as their banking app — which makes the phone a better payment terminal than anything that could be bolted to a vending machine. So the machine was designed with no payment hardware at all. The consequence is that almost the entire product is a web application, and the physical machine is reduced to a grid of coils, a controller and a QR sticker. The 4×5 grid is not a design flourish: slot C2 in the interface is coil C2 in the machine, which is what lets a single Pix drive several motors in one order.\n\nThe interface commits hard to one context — a stranger, standing at a machine, holding a phone, probably in a hurry. It is mobile-only by construction, since the only route in is the QR code on the glass. There are no hover states anywhere in the stylesheet, only an active state with a press-down scale, because nothing on a touchscreen hovers. The visual language is Y2K pop-punk neobrutalism: four colours and no more, 2px black borders on everything, hard offset shadows with zero blur, no rounded corners. It reads as a sticker on a machine rather than an e-commerce checkout, which is the point — the customer should feel like they are operating a vending machine, not entering a store.",
+        "pt": "O projeto parte de uma restrição, não de uma ideia de produto. No Brasil o Pix é instantâneo, gratuito para pessoa física e já está instalado no celular de todo cliente, no app do banco dele — o que faz do celular um terminal de pagamento melhor do que qualquer coisa que pudesse ser parafusada na máquina. Então a máquina foi desenhada sem nenhum hardware de pagamento. A consequência é que quase todo o produto é uma aplicação web, e a máquina física se reduz a uma grade de molas, um controlador e um adesivo de QR Code. A grade 4×5 não é enfeite: o slot C2 na interface é a mola C2 na máquina, e é isso que permite um único Pix acionar vários motores num pedido só.\n\nA interface se compromete inteira com um contexto — um desconhecido, de pé diante de uma máquina, de celular na mão, provavelmente com pressa. É mobile-only por construção, já que a única porta de entrada é o QR Code no vidro. Não existe nenhuma regra de hover no stylesheet, só o estado ativo com uma escala de pressão, porque nada em tela de toque tem hover. A linguagem visual é neobrutalismo pop-punk anos 2000: quatro cores e nada além, bordas pretas de 2px em tudo, sombras sólidas sem desfoque, nenhum canto arredondado. Lê-se como um adesivo numa máquina, não como um checkout de e-commerce — que é justamente o ponto: o cliente deve sentir que está operando uma máquina, não entrando numa loja."
       },
       "stack": [
-        "UI Design",
-        "Branding",
-        "Pix"
+        "FastAPI",
+        "Python 3.11",
+        "PostgreSQL",
+        "psycopg2",
+        "Mercado Pago (Pix)",
+        "Cloudinary",
+        "Tailwind CSS",
+        "Vanilla JS",
+        "Railway",
+        "ESP32 / MQTT"
       ],
       "links": [],
-      "highlights": [],
-      "gallery": []
+      "privateNote": {
+        "en": "The repository is public, but this case study is published without a link while a credential found in its documentation is rotated.",
+        "pt": "O repositório é público, mas este estudo de caso sai sem link enquanto uma credencial encontrada na documentação dele é rotacionada."
+      },
+      "highlights": [
+        {
+          "title": {
+            "en": "One Pix for a cart, not one per item",
+            "pt": "Um Pix pela sacola, não um por item"
+          },
+          "body": {
+            "en": "The natural implementation — a charge per product — would multiply round-trips to Mercado Pago and force the customer through several bank confirmations for a single purchase. Instead the backend totals the cart itself using decimal arithmetic with half-up rounding before creating one charge, and stores the item list as JSON alongside the payment record. That stored list is what the approval step later reads to know which coils to turn, which is why a single Pix can drive several motors.",
+            "pt": "A implementação natural — uma cobrança por produto — multiplicaria as idas ao Mercado Pago e obrigaria o cliente a várias confirmações no banco por uma compra só. Em vez disso o backend soma o carrinho no servidor, com aritmética decimal e arredondamento meio-para-cima, antes de criar uma cobrança única, e grava a lista de itens em JSON junto do registro do pagamento. É essa lista que a etapa de aprovação lê depois para saber quais molas girar — e é por isso que um Pix só consegue acionar vários motores."
+          }
+        },
+        {
+          "title": {
+            "en": "The webhook is the only thing that can move stock",
+            "pt": "Só o webhook pode mexer no estoque"
+          },
+          "body": {
+            "en": "Stock is never decremented on the client, at checkout, or on any optimistic path. The front-end caps the plus button at the live stock figure purely as courtesy; the authoritative write happens only when Mercado Pago's webhook reports approved, in one guarded SQL update per item. The guard floors the result at zero, so a duplicated webhook — which payment providers do send — cannot drive inventory negative. A customer who abandons the page mid-payment never removes stock that was not paid for.",
+            "pt": "O estoque nunca é baixado no cliente, no checkout, nem em nenhum caminho otimista. O botão de mais trava no estoque atual por cortesia de interface; a escrita que vale acontece só quando o webhook do Mercado Pago informa aprovado, num único update SQL protegido por item. A proteção trava o resultado em zero, então um webhook duplicado — coisa que provedores de pagamento realmente enviam — não consegue deixar o estoque negativo. Quem abandona a página no meio do pagamento nunca tira do estoque o que não pagou."
+          }
+        },
+        {
+          "title": {
+            "en": "Designed for a stranger holding a phone at a machine",
+            "pt": "Desenhado para um desconhecido de celular diante da máquina"
+          },
+          "body": {
+            "en": "The interface assumes one context and refuses to serve any other. Mobile-only, because the only entry point is a QR code on glass. No hover rules exist in the stylesheet at all — only an active state that presses the element into its own shadow, so every tap answers back. Sold-out slots are not hidden but dimmed and desaturated with touch removed, so the on-screen grid keeps matching the physical machine the customer is looking at. Quantity control collapses into a strip inside the card, which keeps a twenty-slot grid usable on a phone without opening a modal per product.",
+            "pt": "A interface assume um contexto e se recusa a servir qualquer outro. Mobile-only, porque a única porta de entrada é um QR Code no vidro. Não existe nenhuma regra de hover no stylesheet — só o estado ativo, que afunda o elemento na própria sombra, de modo que todo toque responde. Slots esgotados não somem: ficam apagados e dessaturados, sem eventos de toque, para que a grade na tela continue batendo com a máquina que o cliente está olhando. O controle de quantidade se resolve numa tira dentro do próprio card, o que mantém uma grade de vinte slots usável no celular sem abrir um modal por produto."
+          }
+        },
+        {
+          "title": {
+            "en": "Restocking without a developer",
+            "pt": "Reposição sem desenvolvedor"
+          },
+          "body": {
+            "en": "A password-protected admin panel lets the operator rename products, change prices, set stock and photograph items straight from their phone; the upload goes through the backend to Cloudinary, is cropped server-side to a square with automatic gravity, and the resulting URL is written back to the product row. Without this the project would have needed a developer present at every restock, which would have made the machine unusable in practice.",
+            "pt": "Um painel admin protegido por senha permite à operadora renomear produtos, mudar preços, ajustar estoque e fotografar itens direto do celular; o upload passa pelo backend até o Cloudinary, é recortado no servidor num quadrado com enquadramento automático, e a URL resultante volta gravada na linha do produto. Sem isso o projeto exigiria um desenvolvedor presente em cada reposição, o que tornaria a máquina inviável na prática."
+          }
+        },
+        {
+          "title": {
+            "en": "The hardware boundary was specified before the hardware existed",
+            "pt": "A fronteira do hardware foi especificada antes do hardware existir"
+          },
+          "body": {
+            "en": "The MQTT contract — topic, JSON shape, per-motor quantity and turn duration — was written and fixed while the ESP32 was still in shipping. That let the whole payment and inventory path be built, deployed and tested against a defined seam instead of a guess. It is also the honest boundary of what is done: the contract exists, the firmware does not.",
+            "pt": "O contrato MQTT — tópico, formato do JSON, quantidade por motor e duração do giro — foi escrito e fechado enquanto o ESP32 ainda estava a caminho pelo correio. Isso permitiu construir, publicar e testar todo o caminho de pagamento e estoque contra uma junta definida, em vez de um chute. É também a fronteira honesta do que está pronto: o contrato existe, o firmware não."
+          }
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/projects/cherry-bomb/vitrine.webp",
+          "alt": {
+            "en": "The storefront grid on a phone, shown twice: empty, and with two slots added to the bag. Twenty product cards addressed A1 to E4, each with a price and an ADD button; sold-out slots are greyed out but still visible.",
+            "pt": "A grade da vitrine num celular, mostrada duas vezes: vazia e com dois slots na sacola. Vinte cards de produto endereçados de A1 a E4, cada um com preço e botão ADD; slots esgotados ficam apagados mas continuam visíveis."
+          },
+          "caption": {
+            "en": "Every card is a real coil — the grid on screen has to match the glass the customer is looking at.",
+            "pt": "Cada card é uma mola de verdade — a grade na tela tem de bater com o vidro que o cliente está olhando."
+          }
+        },
+        {
+          "src": "/projects/cherry-bomb/sacola.webp",
+          "alt": {
+            "en": "The bag as a bottom sheet on a phone, shown with two items listed against their slot addresses and totals, and again in its empty state.",
+            "pt": "A sacola como bottom sheet num celular, mostrada com dois itens listados junto de seus endereços de slot e totais, e de novo no estado vazio."
+          },
+          "caption": {
+            "en": "Several slots, one bag, one charge — the list here is what later tells the machine which motors to turn.",
+            "pt": "Vários slots, uma sacola, uma cobrança — esta lista é o que depois diz à máquina quais motores girar."
+          }
+        },
+        {
+          "src": "/projects/cherry-bomb/pagamento-pix.webp",
+          "alt": {
+            "en": "Three states of the Pix payment screen on a phone: the charge being generated, the QR code with a copy-and-paste code awaiting confirmation, and a generation failure.",
+            "pt": "Três estados da tela de pagamento Pix num celular: a cobrança sendo gerada, o QR Code com código copia-e-cola aguardando confirmação, e uma falha na geração."
+          },
+          "caption": {
+            "en": "One charge for the whole bag, then polling — the customer's own banking app is the payment terminal.",
+            "pt": "Uma cobrança pela sacola inteira, e então o polling — o terminal de pagamento é o app do banco do próprio cliente."
+          }
+        },
+        {
+          "src": "/projects/cherry-bomb/confirmacao.webp",
+          "alt": {
+            "en": "The success screen after an approved payment, confirming the order and offering to start a new purchase.",
+            "pt": "A tela de sucesso após um pagamento aprovado, confirmando o pedido e oferecendo iniciar uma nova compra."
+          },
+          "caption": {
+            "en": "Where the software ends today: payment approved and stock updated, but the coils do not turn yet.",
+            "pt": "Onde o software termina hoje: pagamento aprovado e estoque atualizado, mas as molas ainda não giram."
+          }
+        },
+        {
+          "src": "/projects/cherry-bomb/admin.webp",
+          "alt": {
+            "en": "The admin panel on a phone in three screens: password login, the list of twenty slots with price and stock, and the slot editor with photo upload, name, price and stock fields.",
+            "pt": "O painel admin num celular em três telas: login por senha, a lista dos vinte slots com preço e estoque, e o editor de slot com upload de foto, nome, preço e estoque."
+          },
+          "caption": {
+            "en": "So restocking never needs a developer — the operator repoints a slot from their own phone.",
+            "pt": "Para que a reposição nunca precise de desenvolvedor — a operadora reaponta um slot do próprio celular."
+          }
+        },
+        {
+          "src": "/projects/cherry-bomb/arquitetura.webp",
+          "alt": {
+            "en": "Architecture diagram with four layers: client (mobile storefront and admin panel), backend (FastAPI, PostgreSQL, Cloudinary), payment (Mercado Pago Pix), and a dashed hardware layer marked specified but not implemented.",
+            "pt": "Diagrama de arquitetura com quatro camadas: cliente (vitrine mobile e painel admin), backend (FastAPI, PostgreSQL, Cloudinary), pagamento (Mercado Pago Pix) e uma camada de hardware tracejada, marcada como especificada mas não implementada."
+          },
+          "caption": {
+            "en": "Three layers in production and one still on paper — the dashed row is the honest part of the diagram.",
+            "pt": "Três camadas em produção e uma ainda no papel — a linha tracejada é a parte honesta do diagrama."
+          }
+        },
+        {
+          "src": "/projects/cherry-bomb/identidade.webp",
+          "alt": {
+            "en": "Brand system sheet: the four-colour palette with usage notes, the display and interface typefaces, component specimens for product cards, quantity strips and buttons, the flat offset shadow scale, and the two cuts of the cherry logo.",
+            "pt": "Prancha do sistema de marca: a paleta de quatro cores com notas de uso, as fontes de display e de interface, espécimes de componentes para cards de produto, tiras de quantidade e botões, a escala de sombra sólida, e os dois cortes do logo da cereja."
+          },
+          "caption": {
+            "en": "Four colours, 2px borders, zero-blur shadows, and no hover state anywhere — the restriction is the identity.",
+            "pt": "Quatro cores, bordas de 2px, sombras sem desfoque e nenhum estado de hover — a restrição é a identidade."
+          }
+        }
+      ]
     }
   ]
 }

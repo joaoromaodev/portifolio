@@ -39,7 +39,7 @@ grade é de duas colunas e um 5º tile deixaria a última linha pela metade. O
 | Sensse | ★ (home) | sim | 8 |
 | RootLab | ★ (fora do corte de 4) | não | — |
 | Diárias | — | não | — |
-| Cherry Bomb Vending Machine | — | não | — |
+| Cherry Bomb Vending Machine | ★ (fora do corte de 4) | sim | 7 |
 
 **Em rascunho** (`published: false`, recuperável com um toggle no `/admin`):
 
@@ -114,6 +114,20 @@ Armadilhas já pagas:
   Fixe o tema prefixando `<html data-theme="light">`.
 - Meça a altura real de cada tela antes (num iframe no navegador) e capture com
   `--window-size` correspondente.
+- **A convenção da galeria é largura ~1280, altura livre.** Toda imagem do
+  catálogo tem entre 1160 e 1440 de largura (o Sensse chega a 0,63 de
+  proporção, então retrato é aceito; largura pequena não). O lightbox renderiza
+  com `w-full` — um recorte de 390px de celular seria ampliado 2,6× e sairia
+  borrado. Recorte de celular, então, entra **em conjunto**: dois ou três
+  aparelhos lado a lado já dão ~1176 de largura.
+- **Se o pacote vier como prancha anotada**, corte a moldura de anotação (faixa
+  "MOCKUP 0X", título, e as colunas de explicação no rodapé) e deixe só as
+  telas: o padrão da casa é print limpo, e a explicação vive no `caption`/`alt`
+  bilíngue do JSON — anotação em português numa prancha não é traduzível sem
+  renderizar de novo. Meça as caixas com `getBoundingClientRect()` num iframe
+  em vez de estimar a olho, e **confira o que o corte esconde**: no Cherry Bomb
+  uma das telas era rotulada "estado que ainda não existe", e sem o rótulo ela
+  passaria a ler como funcionalidade pronta.
 
 ### Passo 4 — converter para WebP
 
@@ -193,7 +207,22 @@ websocket do HMR. Para testar os headers de verdade: `npm run build && npm start
       aberto. `CLAUDE.md` §8.1 diz que não; se mudar, precisa ser decisão
       explícita, e o pacote tem de ser revisado arquivo por arquivo antes
       (tirar `supabase/.temp/` e os docs organizacionais internos).
-- [ ] **Projetos que ainda pediriam material:** Cherry Bomb (é um projeto de
-      design **sem nenhuma imagem** — a contradição mais gritante do catálogo) e
-      Diárias (esse pode ficar como tile compacto para sempre; inventar
-      profundidade ali seria encher linguiça).
+- [ ] **Cherry Bomb — bloqueio de segurança antes de divulgar.** O
+      `VERIFICACAO.md` do pacote (§0) achou a **senha real do painel admin em
+      texto aberto** no `docs/PRODUCT_SPEC.md` do repositório **público**
+      `pix-vending-machine`, e ela está também no histórico (commit `b72aeae`).
+      Somado a `allow_origins=["*"]` e à URL do Swagger publicada no README,
+      isso é acesso de escrita para quem ler o repo. Por isso o estudo de caso
+      foi publicado **sem link de repo nem de demo**, com um `privateNote`
+      explicando. Ordem: trocar a senha no Railway → remover a linha do doc →
+      rotacionar Cloudinary e Mercado Pago → restringir o CORS. **Depois disso,
+      adicionar os links** em `content/projects.json` e apagar o `privateNote`.
+- [ ] **Cherry Bomb e RootLab disputam a home.** Os dois são `featured: true`
+      mas têm `order` 9 e 10, então caem fora do corte de 4
+      (`HOME_FEATURED_LIMIT`) e só aparecem como linha full-width em
+      `/projects`. Para levar um deles à home é preciso **rebaixar um dos
+      quatro atuais** (SIMF, ClickContas, Balcão, Sensse) ou reordenar — a home
+      é de duas colunas e um 5º tile deixaria a última linha pela metade.
+- [ ] **Projetos que ainda pediriam material:** Diárias (esse pode ficar como
+      tile compacto para sempre; inventar profundidade ali seria encher
+      linguiça).

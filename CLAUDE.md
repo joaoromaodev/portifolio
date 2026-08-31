@@ -221,16 +221,27 @@ filmes; e os hiperfocos rotativos (guitarra, Mago Mercador, games, treino).
 - Loja de dados e acessórios para RPG de mesa. magomercador.com.br · @magomercador (IG/TikTok).
   Mostra empreendedorismo, produto, marca e social. Card "side project".
 
-### G. Cherry Bomb Vending Machine — UI / branding
-- UI mobile-first neobrutalista (vermelho/preto/branco) + lógica de pagamento Pix para uma
-  máquina de vendas de itens artesanais. Card de design (opcional; mostra senso visual).
+### G. Cherry Bomb Vending Machine — Pix vending machine  ✅ estudo de caso publicado
+- **O quê:** máquina de vendas de itens artesanais sem terminal de pagamento: um QR Code no
+  vidro abre uma vitrine mobile que espelha a grade física (4×5, A1→E4), e um único Pix cobre
+  a sacola inteira. UI neobrutalista pop-punk (vermelho/preto/branco, quatro cores).
+- **Stack:** FastAPI (Python 3.11), PostgreSQL, Mercado Pago (Pix), Cloudinary, Tailwind +
+  JS vanilla, Railway; ESP32/MQTT especificado.
+- **Honestidade (não inflar):** o **software está em produção**, mas a **liberação física não
+  existe** — o firmware do ESP32 tem 0 byte e não há publisher MQTT. Por isso o flag é
+  `building`, e `impact` diz explicitamente que **não há métrica** (nenhum dado de venda,
+  conversão ou uptime existe). Autor único.
+- 🔒 **Publicado sem link de repo.** O repo é público, mas tem a senha real do painel admin
+  em texto aberto na documentação, e no histórico — ver a pendência em
+  `docs/ALIMENTAR-PORTFOLIO.md` §5. Só adicionar links depois de rotacionar as credenciais.
 
 **Curadoria — ver `docs/ALIMENTAR-PORTFOLIO.md` §2 para o estado sempre atual.**
 Em 31/08/2026: na home **SIMF, ClickContas, Balcão de Atendimento e Sensse**
 (os 4 primeiros destaques — a home corta em `HOME_FEATURED_LIMIT`); **RootLab**
-é destaque mas fica fora do corte; **Diárias** e **Cherry Bomb** como cards
-compactos. Em rascunho (`published: false`, fora do site, recuperáveis no
-`/admin`): **Monitor PETE/PEAE** (scraping do SIAFE é sigiloso — sem print do
+e **Cherry Bomb** são destaques mas ficam fora do corte (aparecem como linha
+full-width em `/projects`); **Diárias** como card compacto. O Cherry Bomb ganhou
+estudo de caso próprio (7 telas) em 31/08/2026.
+Em rascunho (`published: false`, fora do site, recuperáveis no `/admin`): **Monitor PETE/PEAE** (scraping do SIAFE é sigiloso — sem print do
 sistema rodando), **EcoPredict** e **Mago Mercador** (não é código nem sistema).
 (Career-ops foi removido do site a pedido do João em jul/2026.)
 
