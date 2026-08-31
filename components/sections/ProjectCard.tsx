@@ -6,6 +6,7 @@ import { fadeUp } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
 import { flagColor, type Project } from "@/lib/site";
 import { hasDetailPage } from "@/lib/projects";
+import { ProjectThumb } from "@/components/sections/ProjectThumb";
 import { projectPath } from "@/lib/i18n/config";
 import { useI18n } from "@/components/i18n/LocaleProvider";
 
@@ -54,13 +55,20 @@ function StackChips({ stack }: { stack: readonly string[] }) {
 
 // The title is the link to the case study — but only for projects that have
 // one, so a card never promises a page that doesn't exist.
+//
+// `after:absolute after:inset-0` stretches this one anchor over the whole
+// card, so clicking anywhere on it opens the case study. It has to be a
+// pseudo-element rather than a wrapping <a>: the card also carries real links
+// (repo, live site), and an anchor inside an anchor is invalid HTML that
+// browsers silently unnest. Anything that stays clickable is lifted above it
+// with `relative z-10`.
 function ProjectTitleLink({ project }: { project: Project }) {
   const { locale } = useI18n();
   if (!hasDetailPage(project)) return <>{project.title}</>;
   return (
     <Link
       href={projectPath(locale, project.slug)}
-      className="transition-colors hover:text-green"
+      className="transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-green"
     >
       {project.title}
     </Link>
@@ -68,18 +76,21 @@ function ProjectTitleLink({ project }: { project: Project }) {
 }
 
 function CardLinks({ project }: { project: Project }) {
-  const { dict, locale, tx } = useI18n();
+  const { dict, tx } = useI18n();
   const detail = hasDetailPage(project);
   if (!detail && !project.links?.length && !project.privateNote) return null;
   return (
+    // Only the real anchors are lifted above the title's stretched overlay.
+    // Raising this whole row instead would put the non-interactive bits — the
+    // "case study" affordance and the private-repo note — on top of it too,
+    // and they'd swallow clicks over a good third of the card.
     <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
       {detail ? (
-        <Link
-          href={projectPath(locale, project.slug)}
-          className="font-mono text-xs text-cyan transition-colors hover:underline"
-        >
+        // Plain text, not a link: the whole card already goes here, and a
+        // second anchor to the same page is just noise for screen readers.
+        <p className="font-mono text-xs text-cyan">
           {dict.projectDetail.caseStudy} →
-        </Link>
+        </p>
       ) : null}
       {project.links?.map((l) => (
         <a
@@ -87,7 +98,7 @@ function CardLinks({ project }: { project: Project }) {
           href={l.href}
           target="_blank"
           rel="noreferrer"
-          className="font-mono text-xs text-green transition-colors hover:underline"
+          className="relative z-10 font-mono text-xs text-green transition-colors hover:underline"
         >
           {l.label} ↗
         </a>
@@ -110,10 +121,15 @@ function FeaturedCard({ project }: { project: Project }) {
       <Panel
         as="article"
         interactive
-        className="grid gap-x-8 gap-y-5 p-6 md:grid-cols-[1fr_1.4fr]"
+        className="group relative grid gap-x-8 gap-y-5 p-6 md:grid-cols-[1fr_1.4fr]"
       >
         {/* Identity — who this project is */}
         <div className="flex min-w-0 flex-col gap-4">
+          <ProjectThumb
+            project={project}
+            variant="inset"
+            sizes="(min-width: 768px) 40vw, 92vw"
+          />
           <div>
             <div className="flex items-start justify-between gap-3">
               <h3 className="font-mono text-xl font-semibold text-fg">
@@ -149,8 +165,18 @@ function CompactCard({ project }: { project: Project }) {
   const { tx } = useI18n();
 
   return (
-    <motion.div variants={fadeUp} className="h-full">
-      <Panel as="article" interactive className="flex h-full flex-col p-5">
+    <motion.div variants={fadeUp} className="h-full min-w-0">
+      <Panel
+        as="article"
+        interactive
+        className="group relative flex h-full flex-col p-5"
+      >
+        <ProjectThumb
+          project={project}
+          variant="inset"
+          sizes="(min-width: 640px) 45vw, 92vw"
+          className="mb-4"
+        />
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
             <h3 className="font-mono text-base font-semibold text-fg">

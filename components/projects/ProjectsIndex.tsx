@@ -38,7 +38,7 @@ export function ProjectsIndex({ locale }: { locale: Locale }) {
           href={localePath(locale)}
           className="font-mono text-sm text-comment transition-colors hover:text-green"
         >
-          ← {dict.projectDetail.back}
+          ← {dict.projectDetail.backHome}
         </Link>
 
         <header className="mb-10 mt-8">

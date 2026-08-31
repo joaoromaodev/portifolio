@@ -3,7 +3,7 @@
 // and in the same language as the page the widget is embedded in.
 import { profile } from "./site";
 import { projects } from "./projects";
-import { getDictionary, t, type Locale } from "./i18n";
+import { getDictionary, t, type Dictionary, type Locale } from "./i18n";
 
 const LANGUAGE: Record<Locale, string> = {
   en: "English",
@@ -27,6 +27,18 @@ function build(locale: Locale): string {
     .map((s) => `- ${s.group}: ${s.items.join(", ")}`)
     .join("\n");
 
+  // A paragraph that carries an inline link is authored as segments rather
+  // than a single string, so it has to be flattened back to prose here — a
+  // plain join() would put "[object Object]" in the model's prompt.
+  const aboutText = (d: Dictionary) =>
+    d.about.paragraphs
+      .map((p) =>
+        typeof p === "string"
+          ? p
+          : p.map((s) => (typeof s === "string" ? s : s.text)).join(""),
+      )
+      .join("\n\n");
+
   const experienceLines = dict.experience.items
     .map((e) => `- ${e.period} · ${e.role} @ ${e.org}: ${e.note}`)
     .join("\n");
@@ -34,7 +46,7 @@ function build(locale: Locale): string {
   return `You are "${dict.dashboard.ask.title}", a friendly, concise assistant embedded in the personal portfolio website of ${profile.name}, a ${dict.profile.role} based in ${dict.profile.location}. You answer visitors' questions about João — his work, projects, skills, experience and background — in ${LANGUAGE[locale]}.
 
 ABOUT JOÃO (origin story, for tone/context):
-${dict.about.paragraphs.join("\n\n")}
+${aboutText(dict)}
 
 EXPERIENCE:
 ${experienceLines}

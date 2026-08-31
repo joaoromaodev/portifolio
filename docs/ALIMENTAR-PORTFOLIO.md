@@ -29,7 +29,7 @@ grade é de duas colunas e um 5º tile deixaria a última linha pela metade. O
 
 ## 2. Estado atual (31/08/2026)
 
-**No site (7):**
+**No site (5)** — todos com estudo de caso e todos destaque:
 
 | Projeto | Destaque | Página de caso | Telas |
 |---|---|---|---|
@@ -37,9 +37,12 @@ grade é de duas colunas e um 5º tile deixaria a última linha pela metade. O
 | ClickContas | ★ (home) | sim | 6 |
 | Balcão de Atendimento | ★ (home) | sim | 8 |
 | Sensse | ★ (home) | sim | 8 |
-| RootLab | ★ (fora do corte de 4) | não | — |
-| Diárias | — | não | — |
 | Cherry Bomb Vending Machine | ★ (fora do corte de 4) | sim | 7 |
+
+Depois da limpeza de 31/08/2026 o catálogo ficou coerente: **todo card publicado
+tem página de caso e miniatura**. Não há mais card que seja só texto — se um
+projeto novo entrar sem material, ele volta a existir (o `hasDetailPage()`
+cuida disso), mas quebra essa regra.
 
 **Em rascunho** (`published: false`, recuperável com um toggle no `/admin`):
 
@@ -47,7 +50,10 @@ grade é de duas colunas e um 5º tile deixaria a última linha pela metade. O
   e o João não quis print do sistema rodando. *Nota: o motivo justifica tirar as
   imagens, não necessariamente o projeto — ele pode voltar como card só de
   texto, como o SIMF era antes.*
+- **RootLab** — tirado a pedido em 31/08/2026. Era destaque sem página de caso
+  nem imagem, e ficava fora do corte de 4 da home. Volta quando tiver material.
 - **EcoPredict** — tirado a pedido.
+- **Diárias** — tirado a pedido em 31/08/2026. Nunca teve material próprio.
 - **Mago Mercador** — tirado por não ser código nem sistema.
 
 ---
@@ -188,6 +194,22 @@ em `app/globals.css`. Um hex solto quebra o modo claro sem avisar.
 **O CSP só vale em produção.** Em dev ele briga com o `eval()` do React e o
 websocket do HMR. Para testar os headers de verdade: `npm run build && npm start`.
 
+**Card inteiro clicável: elevar só as âncoras, nunca a linha toda.** O card de
+projeto usa "stretched link" — o título é um `<a>` com `after:absolute
+after:inset-0`, que cobre o card inteiro. Não dá pra envolver tudo num `<a>`,
+porque o card também tem links de repo e site, e âncora dentro de âncora é HTML
+inválido. O que **já quebrou**: pôr `relative z-10` no contêiner inteiro dos
+links levantou junto o texto "Case study →" e a nota de repo privado, que não
+são links — e eles passaram a engolir o clique em cerca de um terço do card. A
+`z-10` vai em cada `<a>`, e só neles.
+
+**Screenshot headless de seção abaixo da dobra sai preto.** As seções usam
+revelação no scroll (Framer Motion), então numa captura de página inteira tudo
+que está abaixo da primeira dobra fica em `opacity: 0`. Não é bug de captura, e
+`--force-prefers-reduced-motion` não resolve. Para conferir conteúdo abaixo da
+dobra, leia o HTML servido (`curl | grep`) ou consulte o DOM — é mais rápido e
+mais confiável que insistir no print.
+
 ---
 
 ## 5. Pendências
@@ -196,9 +218,6 @@ websocket do HMR. Para testar os headers de verdade: `npm run build && npm start
       download no hero e no contato aparecem sozinhos quando o arquivo existir;
       até lá ficam escondidos. **É o último item aberto do checklist de
       divulgação** (`SETUP.md`).
-- [ ] **RootLab** — está marcado como destaque mas fica fora do corte de 4 da
-      home. Decidir: mandar material (telas + notas) para ele brigar por uma
-      vaga, ou tirar o destaque e deixá-lo no `/projects`.
 - [ ] **Sensse** — o site usa os **mockups** com arte abstrata no lugar da foto
       de produto, porque o público é recrutador internacional. Os prints da loja
       real estão no pacote entregue; se a decisão mudar, é trocar arquivo em
@@ -217,12 +236,11 @@ websocket do HMR. Para testar os headers de verdade: `npm run build && npm start
       explicando. Ordem: trocar a senha no Railway → remover a linha do doc →
       rotacionar Cloudinary e Mercado Pago → restringir o CORS. **Depois disso,
       adicionar os links** em `content/projects.json` e apagar o `privateNote`.
-- [ ] **Cherry Bomb e RootLab disputam a home.** Os dois são `featured: true`
-      mas têm `order` 9 e 10, então caem fora do corte de 4
-      (`HOME_FEATURED_LIMIT`) e só aparecem como linha full-width em
-      `/projects`. Para levar um deles à home é preciso **rebaixar um dos
-      quatro atuais** (SIMF, ClickContas, Balcão, Sensse) ou reordenar — a home
-      é de duas colunas e um 5º tile deixaria a última linha pela metade.
-- [ ] **Projetos que ainda pediriam material:** Diárias (esse pode ficar como
-      tile compacto para sempre; inventar profundidade ali seria encher
-      linguiça).
+- [ ] **Cherry Bomb fica fora da home.** É o 5º destaque (`order` 4), e a home
+      corta em 4 (`HOME_FEATURED_LIMIT`), então ele só aparece como linha
+      full-width em `/projects`. Para levá-lo à home é preciso **rebaixar um
+      dos quatro atuais** (SIMF, ClickContas, Balcão, Sensse) — a grade é de
+      duas colunas e um 5º tile deixaria a última linha pela metade.
+- [ ] **RootLab** — em rascunho desde 31/08/2026. Para voltar ao site precisa
+      de material: telas + notas de engenharia, no mesmo formato do §3.
+      Lembrar de §8.3 do `CLAUDE.md`: é pré-MVP e co-autoral, não inflar.

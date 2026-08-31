@@ -11,7 +11,7 @@
       "flag": "case-study",
       "featured": true,
       "published": true,
-      "order": 1,
+      "order": 0,
       "summary": {
         "en": "Internal web platform that monitors budget & financial execution for the Pará State Department of Education. Anchor project — I'm the tech lead and product owner.",
         "pt": "Plataforma web interna que monitora a execução orçamentária e financeira da Secretaria de Educação do Pará. Projeto âncora — sou o tech lead e product owner."
@@ -163,7 +163,7 @@
       "flag": "live",
       "featured": false,
       "published": false,
-      "order": 2,
+      "order": 1,
       "summary": {
         "en": "Production system that tracks daily installments paid to municipalities under two state programs — school transport (PETE) and school meals (PEAE).",
         "pt": "Sistema em produção que acompanha diariamente as parcelas pagas às prefeituras em dois programas estaduais — transporte escolar (PETE) e alimentação escolar (PEAE)."
@@ -206,7 +206,7 @@
       "flag": "live",
       "featured": true,
       "published": true,
-      "order": 3,
+      "order": 2,
       "summary": {
         "en": "Multi-tenant platform that digitises an accounting firm's routine: AI reads handwritten timesheets, and a shared cash book lets each client company post its own entries for the accountant to reconcile.",
         "pt": "Plataforma multiempresa que digitaliza a rotina de um escritório de contabilidade: a IA lê folhas de ponto manuscritas, e um livro caixa compartilhado deixa cada empresa-cliente lançar o próprio movimento para a contadora conciliar."
@@ -368,7 +368,7 @@
       "flag": "live",
       "featured": true,
       "published": true,
-      "order": 4,
+      "order": 3,
       "summary": {
         "en": "Full-stack platform that schedules ~110 schools into 200 in-person slots and turns every session into tamper-evident proof for federal oversight bodies. Built and shipped solo.",
         "pt": "Plataforma full-stack que agenda ~110 escolas em 200 vagas presenciais e transforma cada atendimento em prova auditável para órgãos de controle. Construída e publicada sozinho."
@@ -555,7 +555,7 @@
       "flag": "live",
       "featured": true,
       "published": true,
-      "order": 5,
+      "order": 4,
       "summary": {
         "en": "Sexual-wellness store in production: catalogue, Pix and card checkout, postcode-based shipping, stock held against the payment clock, and a back-office the owners run themselves.",
         "pt": "Loja de bem-estar sexual em produção: catálogo, checkout Pix e cartão, frete por CEP, estoque reservado junto com a cobrança e um back-office que os donos tocam sozinhos."
@@ -760,9 +760,9 @@
         "pt": "Plataforma de Análise de Causa Raiz"
       },
       "flag": "building",
-      "featured": true,
-      "published": true,
-      "order": 6,
+      "featured": false,
+      "published": false,
+      "order": 5,
       "summary": {
         "en": "Local-first tool that chains Ishikawa → GUT Matrix → 5 Whys → 5W2H into a single, auditable cascade with PDF export. Runs offline in the browser.",
         "pt": "Ferramenta local-first que encadeia Ishikawa → Matriz GUT → 5 Porquês → 5W2H em uma cascata única e auditável, com exportação em PDF. Roda offline, no navegador."
@@ -802,7 +802,7 @@
       "flag": "award",
       "featured": false,
       "published": false,
-      "order": 7,
+      "order": 6,
       "summary": {
         "en": "AI + sustainability project in the I2A2 \"AI for Sustainable Projects — Towards COP 30\" program. Top 7 globally, \"Outstanding Achievement\" (Dec 2025).",
         "pt": "Projeto de IA + sustentabilidade no programa I2A2 \"AI for Sustainable Projects — Towards COP 30\". Top 7 mundial, reconhecimento \"Outstanding Achievement\" (dez/2025)."
@@ -841,8 +841,8 @@
       },
       "flag": "live",
       "featured": false,
-      "published": true,
-      "order": 8,
+      "published": false,
+      "order": 7,
       "summary": {
         "en": "Sibling of PETE/PEAE: generates the monthly standardized load file that HR uploads into ERGON, SEDUC's legacy system.",
         "pt": "Irmão do PETE/PEAE: gera mensalmente o arquivo padronizado de carga que o RH sobe no ERGON, o sistema legado da SEDUC."
@@ -873,7 +873,7 @@
       "flag": "side",
       "featured": false,
       "published": false,
-      "order": 9,
+      "order": 8,
       "summary": {
         "en": "My tabletop-RPG dice & accessories shop — product, brand and social. magomercador.com.br · @magomercador.",
         "pt": "Minha loja de dados e acessórios para RPG de mesa — produto, marca e redes sociais. magomercador.com.br · @magomercador."
@@ -914,7 +914,7 @@
       "flag": "building",
       "featured": true,
       "published": true,
-      "order": 10,
+      "order": 9,
       "summary": {
         "en": "A QR-code vending machine for handmade goods: one Pix covers a multi-item cart, and a payment webhook is the only thing allowed to move stock.",
         "pt": "Uma máquina de vendas por QR Code para produtos artesanais: um Pix cobre a sacola inteira, e só o webhook de pagamento pode mexer no estoque."
@@ -1086,7 +1086,12 @@
             "pt": "Quatro cores, bordas de 2px, sombras sem desfoque e nenhum estado de hover — a restrição é a identidade."
           }
         }
-      ]
+      ],
+      "image": "/projects/cherry-bomb/vitrine.webp",
+      "imageAlt": {
+        "en": "The storefront grid on a phone: twenty product cards addressed A1 to E4, each with a price and an ADD button.",
+        "pt": "A grade da vitrine num celular: vinte cards de produto endereçados de A1 a E4, cada um com preço e botão ADD."
+      }
     }
   ]
 }

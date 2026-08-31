@@ -140,9 +140,16 @@ export const pt: Dictionary = {
     paragraphs: [
       "Sou gamer e nerd desde que me entendo por gente. Começou lá por 2007, no PC de segunda mão que meu irmão mais velho me passou, onde rejoguei The Legend of Zelda: Ocarina of Time no emulador mais vezes do que consigo contar — era o único jogo que eu tinha.",
       "Eu já programava antes de saber o que era código: mexendo no CSS do meu Tumblr, editando arquivos do Minecraft no Bloco de Notas pra subir um servidor por Hamachi e jogar com os amigos. Cresci pesquisando no Google tudo que precisava aprender — inimigo declarado do \"não sei fazer isso\".",
-      "Essa curiosidade definiu o rumo da minha vida inteira. Assistindo Steve Jobs falar sobre as pessoas loucas o bastante pra achar que podem mudar o mundo, eu soube que queria ser uma delas — usando tecnologia pra mudar as coisas de verdade.",
-      "Criança, eu fazia jogos; adolescente, migrei pro design e emendei um negócio no outro (e quebrei a cara em vários). Essa mesma vontade aparece em tudo até hoje: restaurar uma guitarra SG, tocar o @magomercador (minha loja de acessórios de RPG de mesa), jogar quando dá, e tentar mexer mais o corpo.",
-      "Meu objetivo de longo prazo é simples: construir uma vida fora do país com a minha esposa — em algum lugar com qualidade de vida de verdade, e com a liberdade financeira e física pra aproveitar.",
+      [
+        "Essa curiosidade definiu o rumo da minha vida inteira. O ",
+        {
+          text: "Think Different",
+          href: "https://pt.wikipedia.org/wiki/Think_different",
+        },
+        ", da Apple — aquele que diz que as pessoas loucas o bastante pra achar que podem mudar o mundo são as que mudam —, me pegou exatamente na idade certa. Ali eu soube que queria ser uma delas, usando tecnologia pra mudar alguma coisa de verdade.",
+      ],
+      "Quando criança, eu fazia jogos; adolescente, migrei pro design e emendei um negócio no outro (e fui à falência em vários). Essa mesma vontade aparece em tudo até hoje: um projeto de luthieria que estou começando, um empreendimento novo sempre que enxergo uma oportunidade, e jogar com os amigos.",
+      "Meu objetivo de longo prazo: construir uma vida com a minha esposa — em algum lugar com qualidade de vida de verdade, e com a liberdade financeira e física pra aproveitar.",
     ],
     beyondCodeLabel: "além do código",
     beyondCode: [
@@ -150,7 +157,7 @@ export const pt: Dictionary = {
       "Quebra-cabeças",
       "Anime & cinema",
       "Guitarra",
-      "Mago Mercador",
+      "Luthieria",
       "Games",
       "Treino",
     ],
@@ -211,6 +218,7 @@ export const pt: Dictionary = {
 
   projectDetail: {
     back: "Todos os projetos",
+    backHome: "Início",
     caseStudy: "Estudo de caso",
     theCase: "o caso",
     role: "meu papel",

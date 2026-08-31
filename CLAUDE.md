@@ -141,18 +141,31 @@ I was coding before I knew what code was: tweaking my Tumblr's CSS, editing Mine
 Notepad so I could spin up a server over Hamachi and play with my friends. I grew up googling
 whatever I needed to learn — the sworn enemy of "I don't know how to do that."
 
-That curiosity set the direction for my whole life. Watching Steve Jobs talk about the people
-crazy enough to think they can change the world, I knew I wanted to be one of them — using
-technology to actually change things.
+That curiosity set the direction for my whole life. Apple's [Think Different] — the one arguing
+that the people crazy enough to think they can change the world are the ones who do — landed on
+me at exactly the right age. I knew I wanted to be one of them, using technology to actually
+change something.
 
-As a kid I built games; as a teenager I moved into design and launched one venture after
-another (and failed at plenty of them). That same drive still shows up everywhere: restoring an
-SG guitar, running @magomercador (my tabletop-RPG accessories shop), gaming when I can, and
-trying to move my body more often.
+As a kid I built games; as a teenager I moved into design and started one venture after another
+(and went bust on plenty of them). That same drive still shows up everywhere: a lutherie project
+I'm just starting, a new venture whenever I spot an opportunity, and gaming with friends.
 
-My long-term goal is simple: to build a life abroad with my wife — somewhere with real quality
-of life, and the financial and physical freedom to enjoy it.
+My long-term goal: to build a life with my wife — somewhere with real quality of life, and the
+financial and physical freedom to enjoy it.
 ```
+
+**Notas sobre esta cópia (atualizada em 31/08/2026, com o João):**
+- `[Think Different]` é um **link** para a Wikipédia (en/pt conforme o idioma).
+  O parágrafo é o único do About escrito como **segmentos** em vez de string —
+  ver `Rich` em `components/sections/About.tsx`. Quem editar precisa lembrar que
+  `lib/persona.ts` achata esses segmentos para o prompt do assistente; um
+  `join()` cru imprimiria `[object Object]`.
+- É **comercial da Apple (1997)**, não filme nem documentário. Referenciar assim.
+- **"fora do país" saiu a pedido do João**: o objetivo agora é "construir uma
+  vida com a minha esposa", e o sinal internacional fica por conta de "somewhere"
+  e do status `open to remote / relocation` no hero. Não reintroduzir sem pedir.
+- Mago Mercador saiu do texto e do chip (o projeto está em rascunho); no lugar
+  entrou luthieria.
 
 **Toques pessoais opcionais** (para um bloco "Beyond code" ou easter eggs):
 rock do clássico ao metal (já foi a shows do Slipknot e Guns N' Roses), puzzles, anime, séries,
@@ -236,13 +249,14 @@ filmes; e os hiperfocos rotativos (guitarra, Mago Mercador, games, treino).
   `docs/ALIMENTAR-PORTFOLIO.md` §5. Só adicionar links depois de rotacionar as credenciais.
 
 **Curadoria — ver `docs/ALIMENTAR-PORTFOLIO.md` §2 para o estado sempre atual.**
-Em 31/08/2026: na home **SIMF, ClickContas, Balcão de Atendimento e Sensse**
-(os 4 primeiros destaques — a home corta em `HOME_FEATURED_LIMIT`); **RootLab**
-e **Cherry Bomb** são destaques mas ficam fora do corte (aparecem como linha
-full-width em `/projects`); **Diárias** como card compacto. O Cherry Bomb ganhou
-estudo de caso próprio (7 telas) em 31/08/2026.
-Em rascunho (`published: false`, fora do site, recuperáveis no `/admin`): **Monitor PETE/PEAE** (scraping do SIAFE é sigiloso — sem print do
-sistema rodando), **EcoPredict** e **Mago Mercador** (não é código nem sistema).
+Em 31/08/2026 o site tem **5 projetos, todos destaque e todos com estudo de caso
+e miniatura** — nenhum card é só texto. Na home: **SIMF, ClickContas, Balcão de
+Atendimento e Sensse** (a home corta em `HOME_FEATURED_LIMIT`); o **Cherry Bomb**
+é o 5º e fica fora do corte, aparecendo como linha full-width em `/projects`.
+Em rascunho (`published: false`, fora do site, recuperáveis no `/admin`):
+**Monitor PETE/PEAE** (scraping do SIAFE é sigiloso — sem print do sistema
+rodando), **RootLab** e **Diárias** (tirados a pedido em 31/08/2026 — voltam se
+ganharem material), **EcoPredict** e **Mago Mercador** (não é código nem sistema).
 (Career-ops foi removido do site a pedido do João em jul/2026.)
 
 ### Projetos adicionados depois desta lista

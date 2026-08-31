@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
 import { flagColor, hasDetailPage, type Project } from "@/lib/projects";
+import { ProjectThumb } from "@/components/sections/ProjectThumb";
 import { projectPath } from "@/lib/i18n/config";
 import { useI18n } from "@/components/i18n/LocaleProvider";
 
@@ -19,7 +19,10 @@ export function ProjectTile({ project }: { project: Project }) {
 
   const body = (
     <>
-      <Thumb project={project} />
+      <ProjectThumb
+        project={project}
+        sizes="(min-width: 768px) 45vw, 92vw"
+      />
 
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-start justify-between gap-3">
@@ -96,47 +99,5 @@ export function ProjectTile({ project }: { project: Project }) {
         </Panel>
       )}
     </motion.div>
-  );
-}
-
-// A screenshot when there is one; otherwise a deliberate placeholder in the
-// site's own terminal idiom, rather than an empty frame. Most projects here
-// can't publish screenshots at all (private gov systems), so the fallback is
-// the normal case, not an error state.
-function Thumb({ project }: { project: Project }) {
-  const { tx } = useI18n();
-
-  if (project.image) {
-    return (
-      <div className="relative aspect-[16/6] w-full flex-none overflow-hidden border-b border-border bg-bg">
-        <Image
-          src={project.image}
-          alt={tx(project.imageAlt) || `${project.title} — ${tx(project.kicker)}`}
-          fill
-          sizes="(min-width: 768px) 45vw, 92vw"
-          className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div
-      aria-hidden="true"
-      className="relative flex aspect-[16/6] w-full flex-none items-center justify-center overflow-hidden border-b border-border bg-bg"
-    >
-      {/* the same grid motif as the hero, held very quiet */}
-      <div
-        className="absolute inset-0 opacity-[0.35]"
-        style={{
-          backgroundImage:
-            "linear-gradient(to right, color-mix(in srgb, var(--color-border) 90%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--color-border) 90%, transparent) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-      />
-      <p className="relative font-mono text-sm text-comment">
-        <span className={flagColor[project.flag]}>$</span> {project.slug}
-      </p>
-    </div>
   );
 }

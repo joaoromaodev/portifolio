@@ -136,11 +136,18 @@ export const en = {
     slug: "about",
     title: "The human behind the dashboard",
     paragraphs: [
-      "I've been a gamer and a geek for as long as I can remember. It started around 2007 on my older brother's hand-me-down PC, where I replayed The Legend of Zelda: Ocarina of Time on an emulator more times than I can count — it was the only game I had.",
+      "I've been a gamer and a geek for as long as I can remember. It started around 2007, on the hand-me-down PC my older brother passed down to me, where I replayed The Legend of Zelda: Ocarina of Time on an emulator more times than I can count — it was the only game I had.",
       "I was coding before I knew what code was: tweaking my Tumblr's CSS, editing Minecraft files in Notepad so I could spin up a server over Hamachi and play with my friends. I grew up googling whatever I needed to learn — the sworn enemy of \"I don't know how to do that.\"",
-      "That curiosity set the direction for my whole life. Watching Steve Jobs talk about the people crazy enough to think they can change the world, I knew I wanted to be one of them — using technology to actually change things.",
-      "As a kid I built games; as a teenager I moved into design and launched one venture after another (and failed at plenty of them). That same drive still shows up everywhere: restoring an SG guitar, running @magomercador (my tabletop-RPG accessories shop), gaming when I can, and trying to move my body more often.",
-      "My long-term goal is simple: to build a life abroad with my wife — somewhere with real quality of life, and the financial and physical freedom to enjoy it.",
+      [
+        "That curiosity set the direction for my whole life. Apple's ",
+        {
+          text: "Think Different",
+          href: "https://en.wikipedia.org/wiki/Think_different",
+        },
+        " — the one arguing that the people crazy enough to think they can change the world are the ones who do — landed on me at exactly the right age. I knew I wanted to be one of them, using technology to actually change something.",
+      ],
+      "As a kid I built games; as a teenager I moved into design and started one venture after another (and went bust on plenty of them). That same drive still shows up everywhere: a lutherie project I'm just starting, a new venture whenever I spot an opportunity, and gaming with friends.",
+      "My long-term goal: to build a life with my wife — somewhere with real quality of life, and the financial and physical freedom to enjoy it.",
     ],
     beyondCodeLabel: "beyond code",
     beyondCode: [
@@ -148,7 +155,7 @@ export const en = {
       "Puzzles",
       "Anime & film",
       "Guitar",
-      "Mago Mercador",
+      "Lutherie",
       "Gaming",
       "Training",
     ],
@@ -211,6 +218,8 @@ export const en = {
 
   projectDetail: {
     back: "All projects",
+    /** The /projects index goes back to the top of the home page, not to itself. */
+    backHome: "Home",
     caseStudy: "Case study",
     theCase: "the case",
     role: "my role",

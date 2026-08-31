@@ -4,7 +4,12 @@ import { Footer } from "@/components/Footer";
 import { LocaleProvider } from "@/components/i18n/LocaleProvider";
 import { Gallery } from "./Gallery";
 import { getDictionary, type Locale } from "@/lib/i18n";
-import { DEFAULT_LOCALE, localePath, projectPath, t } from "@/lib/i18n/config";
+import {
+  DEFAULT_LOCALE,
+  projectPath,
+  PROJECTS_INDEX,
+  t,
+} from "@/lib/i18n/config";
 import { flagColor, type Project } from "@/lib/projects";
 
 // One case-study page per project, rendered once per locale. Everything comes
@@ -38,7 +43,7 @@ export function ProjectDetail({
 
       <main id="main-content" className="mx-auto max-w-4xl px-5 py-16 md:px-8 md:py-24">
         <Link
-          href={`${localePath(locale)}#projects`}
+          href={PROJECTS_INDEX[locale]}
           className="font-mono text-sm text-comment transition-colors hover:text-green"
         >
           ← {copy.back}
@@ -153,7 +158,7 @@ export function ProjectDetail({
 
         <div className="mt-16 border-t border-border pt-8">
           <Link
-            href={`${localePath(locale)}#projects`}
+            href={PROJECTS_INDEX[locale]}
             className="font-mono text-sm text-green transition-colors hover:underline"
           >
             ← {copy.back}

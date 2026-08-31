@@ -19,7 +19,7 @@ export function About() {
         className="max-w-2xl space-y-4 text-[17px] leading-relaxed text-fg/90"
       >
         {about.paragraphs.map((p, i) => (
-          <p key={i}>{p}</p>
+          <p key={i}>{typeof p === "string" ? p : <Rich segments={p} />}</p>
         ))}
       </motion.div>
 
@@ -39,5 +39,35 @@ export function About() {
         </ul>
       </motion.div>
     </Section>
+  );
+}
+
+// A paragraph that carries a link is authored as segments instead of one
+// string, because the anchor sits mid-sentence and the sentence is different
+// in each language — splitting on a marker would tie the two dictionaries to
+// the same word order.
+function Rich({
+  segments,
+}: {
+  segments: readonly (string | { text: string; href: string })[];
+}) {
+  return (
+    <>
+      {segments.map((s, i) =>
+        typeof s === "string" ? (
+          s
+        ) : (
+          <a
+            key={i}
+            href={s.href}
+            target="_blank"
+            rel="noreferrer"
+            className="text-green underline decoration-green/40 underline-offset-4 transition-colors hover:decoration-green"
+          >
+            {s.text}
+          </a>
+        ),
+      )}
+    </>
   );
 }
