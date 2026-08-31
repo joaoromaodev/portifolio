@@ -161,8 +161,8 @@
         "pt": "Automação financeira"
       },
       "flag": "live",
-      "featured": true,
-      "published": true,
+      "featured": false,
+      "published": false,
       "order": 2,
       "summary": {
         "en": "Production system that tracks daily installments paid to municipalities under two state programs — school transport (PETE) and school meals (PEAE).",
@@ -594,7 +594,7 @@
       },
       "flag": "award",
       "featured": false,
-      "published": true,
+      "published": false,
       "order": 6,
       "summary": {
         "en": "AI + sustainability project in the I2A2 \"AI for Sustainable Projects — Towards COP 30\" program. Top 7 globally, \"Outstanding Achievement\" (Dec 2025).",
@@ -665,7 +665,7 @@
       },
       "flag": "side",
       "featured": false,
-      "published": true,
+      "published": false,
       "order": 8,
       "summary": {
         "en": "My tabletop-RPG dice & accessories shop — product, brand and social. magomercador.com.br · @magomercador.",
