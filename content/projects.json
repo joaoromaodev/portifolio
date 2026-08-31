@@ -546,6 +546,213 @@
       ]
     },
     {
+      "slug": "sensse",
+      "title": "Sensse",
+      "kicker": {
+        "en": "Custom e-commerce, storefront to back-office",
+        "pt": "E-commerce próprio, do catálogo ao back-office"
+      },
+      "flag": "live",
+      "featured": true,
+      "published": true,
+      "order": 5,
+      "summary": {
+        "en": "Sexual-wellness store in production: catalogue, Pix and card checkout, postcode-based shipping, stock held against the payment clock, and a back-office the owners run themselves.",
+        "pt": "Loja de bem-estar sexual em produção: catálogo, checkout Pix e cartão, frete por CEP, estoque reservado junto com a cobrança e um back-office que os donos tocam sozinhos."
+      },
+      "problem": {
+        "en": "The shop sold over WhatsApp, one conversation at a time — quoting prices, calculating shipping, sending a Pix key, checking it cleared, noting stock in a notebook. That caps sales at however many messages one person can answer, and leaves no history of what sells or where buyers come from.",
+        "pt": "A loja vendia por WhatsApp, uma conversa por vez — consultar preço, calcular frete, mandar chave Pix, conferir se caiu, anotar o estoque num caderno. Isso limita as vendas ao número de mensagens que uma pessoa consegue responder, e não deixa histórico do que sai nem de onde vem quem compra."
+      },
+      "solution": {
+        "en": "A complete store built from scratch on Next.js and its own Postgres: catalogue with variants and stock, search, favourites, cart, Pix (expiring QR) and card checkout, postcode shipping with same-day local delivery, customer area, an editorial blog with its own publishing panel, and a back-office covering orders, stock with cost and expiry, finance, influencer coupons and cart recovery.",
+        "pt": "Uma loja completa construída do zero em Next.js com Postgres próprio: catálogo com variações e estoque, busca, favoritos, carrinho, checkout com Pix (QR que expira) e cartão, frete por CEP com entrega no mesmo dia na região, área do cliente, blog editorial com painel de publicação, e um back-office que cobre pedidos, estoque com custo e validade, financeiro, cupons de influenciador e recuperação de carrinho."
+      },
+      "impact": {
+        "en": "In production at sensse.com.br, serving Belém, Ananindeua and Marituba with same-day delivery and the rest of Brazil by post. The whole operation — products, stock, dispatch, finance and content — is run by the owners in the panel, with no developer in the loop.",
+        "pt": "Em produção em sensse.com.br, atendendo Belém, Ananindeua e Marituba com entrega no mesmo dia e o resto do Brasil pelos Correios. A operação inteira — produtos, estoque, despacho, financeiro e conteúdo — é tocada pelos donos no painel, sem desenvolvedor no meio."
+      },
+      "stack": [
+        "Next.js 16",
+        "TypeScript",
+        "Tailwind v4",
+        "PostgreSQL (Supabase)",
+        "Row Level Security",
+        "Mercado Pago",
+        "Melhor Envio",
+        "Vercel"
+      ],
+      "links": [
+        {
+          "label": "Site",
+          "href": "https://sensse.com.br"
+        },
+        {
+          "label": "GitHub",
+          "href": "https://github.com/joaoromaodev/sensse-ecommerce"
+        }
+      ],
+      "privateNote": {
+        "en": "Public repo is the production code trimmed for portfolio; screens are mockups with fictional data and neutral product art.",
+        "pt": "O repositório público é o código de produção recortado para portfólio; as telas são mockups com dados fictícios e arte neutra no lugar do produto."
+      },
+      "image": "/projects/sensse/home.webp",
+      "imageAlt": {
+        "en": "Sensse storefront home page: brand header, same-day regional delivery banner, editorial posts and product categories.",
+        "pt": "Home da loja Sensse: cabeçalho da marca, banner de entrega no mesmo dia na região, posts editoriais e categorias de produto."
+      },
+      "role": {
+        "en": "Product, architecture, front end, back end, database and deploy — solo. Including the schema and its RLS policies, the payment and carrier integrations, the back-office, and running the deploy.",
+        "pt": "Produto, arquitetura, front-end, back-end, banco de dados e deploy — sozinho. Incluindo o esquema e as políticas de RLS, as integrações de pagamento e transportadora, o back-office, e a operação do deploy."
+      },
+      "overview": {
+        "en": "Sensse serves Belém and its region with same-day delivery, and the rest of Brazil by post. It was built without an e-commerce platform for two reasons that are the same reason: the category is restricted across most paid-ad channels and some payment gateways, so traffic has to come from search and content — and customer discretion is an engineering requirement, not a preference. An off-the-shelf platform decides on its own what leaves for third-party tools, and here that could not be its decision.\n\nThe result is a single Next.js application — storefront, API routes and back-office in one deploy — over Postgres with row-level security. It covers the full cycle: the customer finds a product, pays by Pix or card, stock is reserved while the charge is alive and drawn down when payment confirms; the owner tracks, dispatches, books cost and publishes content from the panel. The decisions worth reading aren't in the screens but in the rules underneath them — where the discount is calculated, what may reach Google, how long a stock reservation survives.",
+        "pt": "A Sensse atende Belém e região com entrega no mesmo dia, e o resto do Brasil pelos Correios. Foi construída sem plataforma de e-commerce por dois motivos que são o mesmo motivo: a categoria é restrita na maior parte dos canais de anúncio pago e em parte dos gateways, então o tráfego precisa vir de busca e conteúdo — e a discrição do cliente é requisito de engenharia, não preferência. Uma solução de prateleira decide sozinha o que sai para ferramentas de terceiros, e aqui isso não podia ser decisão dela.\n\nO resultado é uma aplicação Next.js única — loja, rotas de API e back-office no mesmo deploy — sobre Postgres com row-level security. Ela cobre o ciclo inteiro: o cliente encontra o produto, paga no Pix ou no cartão, o estoque é reservado enquanto a cobrança vive e baixado quando o pagamento confirma; o dono acompanha, despacha, lança custo e publica conteúdo pelo painel. As decisões que valem a leitura não estão nas telas, e sim nas regras que as sustentam — onde o desconto é calculado, o que pode chegar ao Google, quanto tempo uma reserva de estoque sobrevive."
+      },
+      "highlights": [
+        {
+          "title": {
+            "en": "Sensitive data doesn't leave the house — and the cost was accepted",
+            "pt": "Dado sensível não sai de casa — e o custo foi aceito"
+          },
+          "body": {
+            "en": "Sexual health is sensitive data under Brazil's LGPD, so product name, category and id are treated as things that must not reach a third party. Every route is sanitised before any event goes out — /produto/rosa-magica becomes /produto/[slug] — and the page title is replaced by a constant, because gtag attaches both to every event on its own. That was found by testing in the browser, not by reading documentation. The consequence is deliberate and real: Google Analytics will never say which product was viewed. So the site counts for itself, in Postgres, one row per product per day, with no cookie, no IP and no session — which makes the figure anonymous and, as a side effect, lets it see the visitors who declined the cookie banner and are invisible in GA4.",
+            "pt": "Vida sexual é dado sensível pela LGPD, então nome, categoria e id de produto são tratados como informação que não pode chegar a terceiro. Toda rota é higienizada antes de qualquer evento sair — /produto/rosa-magica vira /produto/[slug] — e o título da página vira uma constante, porque o gtag anexa os dois sozinho a cada evento. Isso foi descoberto testando no navegador, não lendo documentação. A consequência é deliberada e real: o Google Analytics nunca dirá qual produto foi visto. Então o site conta por conta própria, no Postgres, uma linha por produto por dia, sem cookie, sem IP e sem sessão — o que torna o número anônimo e, de quebra, deixa ver quem recusou o banner de cookies e é invisível no GA4."
+          }
+        },
+        {
+          "title": {
+            "en": "The discount rule lives in exactly one place",
+            "pt": "A regra do desconto mora em um lugar só"
+          },
+          "body": {
+            "en": "The store gives 5% on Pix and accepts influencer coupons. Stacked, a 10% coupon would hand over 15% and, with commission on top, open a quarter of the price. The rule became \"the larger one wins, never the sum\", written as a pure function called both by the server that charges and by the screen that promises — because when the same calculation lived in two places, it diverged, and a customer who sees one number and pays another opens a ticket. Ties go to the coupon on purpose: the customer pays the same, but only that way does the sale stay traceable to the influencer who brought it. The same review caught a wrong commission base in the database function booking the expense — it would have paid commission on money the customer never paid.",
+            "pt": "A loja dá 5% no Pix e aceita cupom de influenciador. Somados, um cupom de 10% entregaria 15% e, com a comissão em cima, abriria um quarto do preço. A regra virou \"vale o maior, nunca a soma\", escrita como função pura chamada tanto pelo servidor que cobra quanto pela tela que promete — porque quando o mesmo cálculo morava em dois lugares, ele divergiu, e cliente que vê um valor e paga outro abre chamado. O empate vai para o cupom de propósito: o cliente paga igual, mas só assim a venda fica rastreada ao influenciador que a trouxe. A mesma revisão pegou uma base de comissão errada na função do banco que lança a despesa — ela pagaria comissão sobre dinheiro que o cliente não pagou."
+          }
+        },
+        {
+          "title": {
+            "en": "Stock reserved on the same clock as the charge",
+            "pt": "Estoque reservado no mesmo relógio da cobrança"
+          },
+          "body": {
+            "en": "Generating a Pix charge reserves the stock, and the reservation and the charge expiry share one constant in one file. If they drifted apart you'd get the two worst cases: a customer paying a QR code for an already-cancelled order, or stock held by a dead charge. A cron releases expired reservations every minute, and the final draw-down is FIFO by batch — each intake carries its cost and expiry, which is what lets the finance panel state the real margin on an order instead of estimating it.",
+            "pt": "Gerar a cobrança Pix reserva o estoque, e a reserva e a expiração da cobrança compartilham uma constante, num arquivo só. Se divergissem, existiriam os dois piores casos: cliente pagando um QR de um pedido já cancelado, ou estoque preso por uma cobrança morta. Um cron libera as reservas vencidas de minuto em minuto, e a baixa definitiva é FIFO por lote — cada entrada carrega seu custo e validade, que é o que permite ao painel financeiro dizer a margem real de um pedido em vez de estimar."
+          }
+        },
+        {
+          "title": {
+            "en": "The age gate and neutral packaging as requirements that shaped the code",
+            "pt": "O age gate e a embalagem neutra como requisitos que moldaram o código"
+          },
+          "body": {
+            "en": "The 18+ gate is the first thing a visitor meets, and whoever leaves there leaves before accepting cookies — invisible to any external analytics. So there's a server-side counter just for the gate: the only way to know how many people the site loses at the door. The neutral-packaging promise became code too: no product name in transactional e-mail, in push, in the subject of a cart-recovery message or in the WhatsApp templates — those templates don't even have a product variable, so the item cannot be named by accident. The rule became structure instead of discipline.",
+            "pt": "O portão de 18 anos é a primeira coisa que o visitante encontra, e quem desiste ali sai antes de aceitar cookies — invisível para qualquer analytics externo. Por isso existe um contador no servidor só para o portão: a única forma de saber quantas pessoas o site perde na porta. A promessa de embalagem neutra também virou código: sem nome de produto em e-mail transacional, em push, no assunto da mensagem de recuperação de carrinho ou nos modelos de WhatsApp — nesses modelos nem existe a variável de produto, então não há como citar o item por acidente. A regra virou estrutura em vez de disciplina."
+          }
+        },
+        {
+          "title": {
+            "en": "Content as the acquisition channel, not decoration",
+            "pt": "Conteúdo como canal de aquisição, não enfeite"
+          },
+          "body": {
+            "en": "Because paid advertising is restricted for the category, the editorial layer isn't an accessory — it is the channel. The blog has its own publishing panel (a partner publishes without touching code), categories, articles served from the CDN with revalidation, structured data and a sitemap. And there is exactly one page about delivery in Belém, deliberately one rather than scattering the city through the site, because the store serves all of Brazil and local is a differentiator, not an identity.",
+            "pt": "Como anúncio pago é restrito para a categoria, a camada editorial não é acessório — é o canal. O blog tem painel próprio de publicação (a sócia publica sem tocar em código), categorias, artigos servidos do CDN com revalidação, dados estruturados e sitemap. E existe exatamente uma página sobre a entrega em Belém, deliberadamente uma em vez de espalhar a cidade pelo site, porque a loja atende o Brasil inteiro e o local é diferencial, não identidade."
+          }
+        }
+      ],
+      "gallery": [
+        {
+          "src": "/projects/sensse/home.webp",
+          "alt": {
+            "en": "Storefront home: brand header, a same-day regional delivery banner, editorial posts, product categories, curated kits and a most-loved row.",
+            "pt": "Home da loja: cabeçalho da marca, banner de entrega no mesmo dia na região, posts editoriais, categorias de produto, kits curados e uma linha de mais amados."
+          },
+          "caption": {
+            "en": "The storefront — content sits above the catalogue, because content is the channel.",
+            "pt": "A vitrine — o conteúdo vem antes do catálogo, porque o conteúdo é o canal."
+          }
+        },
+        {
+          "src": "/projects/sensse/produto.webp",
+          "alt": {
+            "en": "Product page: image gallery, colour variant, stock count with the Pix reservation window, Pix price, and a neutral-packaging notice.",
+            "pt": "Página de produto: galeria de imagens, variação de cor, contagem de estoque com a janela de reserva do Pix, preço no Pix, e o aviso de embalagem neutra."
+          },
+          "caption": {
+            "en": "Variant, stock and the two-hour reservation the Pix charge holds.",
+            "pt": "Variação, estoque e a reserva de duas horas que a cobrança Pix segura."
+          }
+        },
+        {
+          "src": "/projects/sensse/checkout.webp",
+          "alt": {
+            "en": "Checkout: bag contents, postcode shipping quote with a same-day option, Pix versus card selection, coupon field and order totals.",
+            "pt": "Checkout: conteúdo da sacola, cotação de frete por CEP com opção de entrega no mesmo dia, escolha entre Pix e cartão, campo de cupom e totais do pedido."
+          },
+          "caption": {
+            "en": "Where the discount rule has to agree with the server that charges.",
+            "pt": "Onde a regra do desconto tem de concordar com o servidor que cobra."
+          }
+        },
+        {
+          "src": "/projects/sensse/catalogo.webp",
+          "alt": {
+            "en": "Catalogue with a search field, category filters and a grid of product cards showing price and Pix price.",
+            "pt": "Catálogo com campo de busca, filtros por categoria e uma grade de cards de produto mostrando preço e preço no Pix."
+          },
+          "caption": {
+            "en": "Search and filtering over the catalogue.",
+            "pt": "Busca e filtro sobre o catálogo."
+          }
+        },
+        {
+          "src": "/projects/sensse/blog.webp",
+          "alt": {
+            "en": "A blog article laid out with a heading, body copy and related links — the editorial layer the store acquires customers through.",
+            "pt": "Um artigo do blog com título, corpo e links relacionados — a camada editorial pela qual a loja adquire clientes."
+          },
+          "caption": {
+            "en": "Written by a partner in her own panel, with no developer involved.",
+            "pt": "Escrito pela sócia no painel dela, sem desenvolvedor envolvido."
+          }
+        },
+        {
+          "src": "/projects/sensse/entrega-belem.webp",
+          "alt": {
+            "en": "Same-day delivery page explaining coverage across Belém, Ananindeua and Marituba, cut-off times and neutral packaging.",
+            "pt": "Página de entrega no mesmo dia explicando a cobertura em Belém, Ananindeua e Marituba, horários de corte e embalagem neutra."
+          },
+          "caption": {
+            "en": "One page for the local offer — local is a differentiator, not the identity.",
+            "pt": "Uma página para a oferta local — local é diferencial, não a identidade."
+          }
+        },
+        {
+          "src": "/projects/sensse/conta.webp",
+          "alt": {
+            "en": "Customer account area listing past orders with status, saved favourites and personal details.",
+            "pt": "Área do cliente listando pedidos anteriores com status, favoritos salvos e dados pessoais."
+          },
+          "caption": {
+            "en": "The customer's own record — no product names leave in any notification.",
+            "pt": "O histórico do próprio cliente — nenhum nome de produto sai em notificação."
+          }
+        },
+        {
+          "src": "/projects/sensse/arquitetura.webp",
+          "alt": {
+            "en": "Architecture diagram of the store: a single Next.js deploy holding storefront, API routes and back-office over Postgres with row-level security, alongside the payment, shipping and e-mail integrations.",
+            "pt": "Diagrama de arquitetura da loja: um único deploy Next.js com loja, rotas de API e back-office sobre Postgres com row-level security, ao lado das integrações de pagamento, frete e e-mail."
+          },
+          "caption": {
+            "en": "One deploy, one database, and the decisions that shaped both.",
+            "pt": "Um deploy, um banco, e as decisões que moldaram os dois."
+          }
+        }
+      ]
+    },
+    {
       "slug": "rootlab",
       "title": "RootLab",
       "kicker": {
@@ -555,7 +762,7 @@
       "flag": "building",
       "featured": true,
       "published": true,
-      "order": 5,
+      "order": 6,
       "summary": {
         "en": "Local-first tool that chains Ishikawa → GUT Matrix → 5 Whys → 5W2H into a single, auditable cascade with PDF export. Runs offline in the browser.",
         "pt": "Ferramenta local-first que encadeia Ishikawa → Matriz GUT → 5 Porquês → 5W2H em uma cascata única e auditável, com exportação em PDF. Roda offline, no navegador."
@@ -595,7 +802,7 @@
       "flag": "award",
       "featured": false,
       "published": false,
-      "order": 6,
+      "order": 7,
       "summary": {
         "en": "AI + sustainability project in the I2A2 \"AI for Sustainable Projects — Towards COP 30\" program. Top 7 globally, \"Outstanding Achievement\" (Dec 2025).",
         "pt": "Projeto de IA + sustentabilidade no programa I2A2 \"AI for Sustainable Projects — Towards COP 30\". Top 7 mundial, reconhecimento \"Outstanding Achievement\" (dez/2025)."
@@ -635,7 +842,7 @@
       "flag": "live",
       "featured": false,
       "published": true,
-      "order": 7,
+      "order": 8,
       "summary": {
         "en": "Sibling of PETE/PEAE: generates the monthly standardized load file that HR uploads into ERGON, SEDUC's legacy system.",
         "pt": "Irmão do PETE/PEAE: gera mensalmente o arquivo padronizado de carga que o RH sobe no ERGON, o sistema legado da SEDUC."
@@ -666,7 +873,7 @@
       "flag": "side",
       "featured": false,
       "published": false,
-      "order": 8,
+      "order": 9,
       "summary": {
         "en": "My tabletop-RPG dice & accessories shop — product, brand and social. magomercador.com.br · @magomercador.",
         "pt": "Minha loja de dados e acessórios para RPG de mesa — produto, marca e redes sociais. magomercador.com.br · @magomercador."
@@ -707,7 +914,7 @@
       "flag": "side",
       "featured": false,
       "published": true,
-      "order": 9,
+      "order": 10,
       "summary": {
         "en": "Mobile-first neobrutalist UI (red/black/white) with Pix payment logic for a handmade-goods vending machine.",
         "pt": "UI neobrutalista mobile-first (vermelho/preto/branco) com lógica de pagamento por Pix para uma máquina de vendas de produtos artesanais."
