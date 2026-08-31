@@ -225,10 +225,31 @@ filmes; e os hiperfocos rotativos (guitarra, Mago Mercador, games, treino).
 - UI mobile-first neobrutalista (vermelho/preto/branco) + lógica de pagamento Pix para uma
   máquina de vendas de itens artesanais. Card de design (opcional; mostra senso visual).
 
-**Curadoria (atual no site):** **A, B, C** em destaque (case-study rows full-width); **D, E, F, G**
-como cards compactos no grid "more projects". Isso agora é controlado pelas flags
-`featured`/`order` no `content/projects.json`, não por código.
+**Curadoria — ver `docs/ALIMENTAR-PORTFOLIO.md` §2 para o estado sempre atual.**
+Em 31/08/2026: na home **SIMF, ClickContas, Balcão de Atendimento e Sensse**
+(os 4 primeiros destaques — a home corta em `HOME_FEATURED_LIMIT`); **RootLab**
+é destaque mas fica fora do corte; **Diárias** e **Cherry Bomb** como cards
+compactos. Em rascunho (`published: false`, fora do site, recuperáveis no
+`/admin`): **Monitor PETE/PEAE** (scraping do SIAFE é sigiloso — sem print do
+sistema rodando), **EcoPredict** e **Mago Mercador** (não é código nem sistema).
 (Career-ops foi removido do site a pedido do João em jul/2026.)
+
+### Projetos adicionados depois desta lista
+
+- **ClickContas** — SaaS contábil modular, em produção com clientes reais. OCR
+  com Gemini lê folha de ponto manuscrita; livro caixa colaborativo. Dois bancos
+  por padrão de acesso (Postgres + Google Sheets). ✅ estudo de caso publicado,
+  sem repo (produto de cliente privado).
+- **Balcão de Atendimento** — agendamento e prova auditável de atendimento
+  (PDDE/FNDE), desenvolvedor único. ✅ repo demo público.
+- **Sensse** (sensse.com.br) — e-commerce próprio em Next.js, do catálogo ao
+  back-office, em produção. ✅ site e repo públicos. As telas no portfólio são
+  **mockups com arte neutra**, não o sortimento real — público é recrutador
+  internacional.
+
+**➡️ Para adicionar um projeto novo, seguir `docs/ALIMENTAR-PORTFOLIO.md`.**
+Ele tem o formato de pacote a pedir, o passo de verificação de dados (§8), como
+renderizar mockups HTML, as regras de conversão WebP e as armadilhas já pagas.
 
 ---
 

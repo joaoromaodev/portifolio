@@ -54,6 +54,11 @@ reorder them, edit every field, and toggle two flags per project:
 | ★ **featured** | Renders as a full-width case-study row (problem → solution → impact) instead of a compact tile. |
 | ◉ **published** | Off keeps the project in the file as a draft, hidden from the site. |
 
+> **Retomando de outra máquina?** [`docs/ALIMENTAR-PORTFOLIO.md`](docs/ALIMENTAR-PORTFOLIO.md)
+> tem o estado atual do catálogo, o passo a passo para adicionar um projeto
+> (incluindo a verificação de dados e a renderização de mockups) e as
+> armadilhas do código que já custaram caro.
+
 Text fields are **bilingual** — each one has an English and a Portuguese box side
 by side. English is required; Portuguese is optional and falls back to English at
 render time, so you can add a project in one language and translate it later. The
