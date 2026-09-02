@@ -50,7 +50,8 @@ O site complementa o currículo (já pronto) e o LinkedIn — não os repete, ap
 **Stack (decidida):**
 - **Next.js (App Router) + TypeScript + Tailwind CSS + Framer Motion** (animações).
 - **Route Handlers** (`/app/api/...`) como proxy das APIs ao vivo — segredos só no server, com cache/ISR.
-- Deploy na **Vercel** (gratuito; depois apontar domínio próprio).
+- Deploy na **Vercel** (gratuito). Domínio próprio: **romaodev.com** (Namecheap,
+  02/09/2026) — apex é o oficial, `www` redireciona. Passo a passo no `SETUP.md`.
 - Formulário de contato via serviço (ex.: Formspree) ou `mailto:` ofuscado — decidir com o João.
 
 **Env vars previstas (APIs ao vivo — ver `DESIGN.md` §4/§6/§11):**
