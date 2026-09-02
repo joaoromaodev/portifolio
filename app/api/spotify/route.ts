@@ -10,6 +10,7 @@ type TopTrack = {
   track: string;
   artist: string;
   url?: string;
+  art?: string;
 };
 
 type SpotifyData = {
@@ -18,6 +19,7 @@ type SpotifyData = {
   artist: string;
   album: string;
   url?: string;
+  art?: string;
   top: TopTrack[];
 };
 
@@ -47,12 +49,25 @@ async function getAccessToken(): Promise<string | null> {
 type SpotifyTrackItem = {
   name: string;
   artists?: { name: string }[];
-  album?: { name: string };
+  album?: { name: string; images?: { url: string; width?: number }[] };
   external_urls?: { spotify?: string };
 };
 
 function artistNames(item: SpotifyTrackItem): string {
   return (item.artists ?? []).map((a) => a.name).join(", ");
+}
+
+// Ship the bare image id, not the i.scdn.co URL: the client renders it through
+// /api/spotify/cover/<id>, which keeps the CSP at 'self' and leaves nothing
+// caller-supplied for that route to sanitize. Spotify sorts images widest
+// first and the thumbnails here are tiny, so take the smallest one that still
+// survives a 2x screen (the 300px middle size, in practice).
+function albumArtId(item: SpotifyTrackItem): string | undefined {
+  const images = item.album?.images ?? [];
+  if (images.length === 0) return undefined;
+  const usable = images.filter((i) => (i.width ?? 0) >= 160);
+  const chosen = usable.length > 0 ? usable[usable.length - 1] : images[0];
+  return chosen.url.split("/image/")[1];
 }
 
 function toNow(item: SpotifyTrackItem, playing: boolean) {
@@ -62,6 +77,7 @@ function toNow(item: SpotifyTrackItem, playing: boolean) {
     artist: artistNames(item),
     album: item.album?.name ?? "",
     url: item.external_urls?.spotify,
+    art: albumArtId(item),
   };
 }
 
@@ -97,6 +113,7 @@ export async function GET() {
           track: item.name,
           artist: artistNames(item),
           url: item.external_urls?.spotify,
+          art: albumArtId(item),
         }),
       );
     }

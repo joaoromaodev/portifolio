@@ -13,6 +13,7 @@ type TopTrack = {
   track: string;
   artist: string;
   url?: string;
+  art?: string;
 };
 
 type SpotifyData = {
@@ -21,8 +22,43 @@ type SpotifyData = {
   artist: string;
   album: string;
   url?: string;
+  art?: string;
   top: TopTrack[];
 };
+
+// Album art, served through our own /api/spotify/cover proxy so the CSP can
+// stay at `img-src 'self'` (see that route). `art` is a Spotify image id, and
+// it's absent whenever the widget is showing its illustrative fallback — the
+// ♪ tile keeps the row rhythm identical either way, so nothing shifts when
+// the API comes online.
+function Cover({ art, size }: { art?: string; size: "strip" | "row" }) {
+  const [failed, setFailed] = useState(false);
+  const box = size === "strip" ? "size-8" : "size-7";
+
+  return (
+    <span
+      className={`flex ${box} flex-none items-center justify-center overflow-hidden rounded border border-border bg-bg font-mono text-[10px] text-comment`}
+    >
+      {art && !failed ? (
+        // Plain <img>: next/image is unoptimized site-wide (next.config.ts),
+        // so it would add indirection for nothing. Eager for the same reason
+        // as the Steam covers — lazy needs a context that actually paints.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={`/api/spotify/cover/${art}`}
+          alt=""
+          width={300}
+          height={300}
+          decoding="async"
+          onError={() => setFailed(true)}
+          className="size-full object-cover"
+        />
+      ) : (
+        "♪"
+      )}
+    </span>
+  );
+}
 
 // Fallback until Spotify OAuth (refresh token) + /api/spotify are wired.
 // The top list mirrors real taste (rock/metal) so the strip is never blank.
@@ -53,9 +89,13 @@ const STATUS_DOT: Record<WidgetStatus, string> = {
 // most-played list from the Spotify API (user-top-read).
 export function SpotifyWidget() {
   const { dict } = useI18n();
-  const { status, data } = useLiveWidget<SpotifyData>("/api/spotify", FALLBACK, {
-    refreshMs: 45000,
-  });
+  const { status, data } = useLiveWidget<SpotifyData>(
+    "/api/spotify",
+    FALLBACK,
+    {
+      refreshMs: 45000,
+    },
+  );
   const [open, setOpen] = useState(false);
   const listId = useId();
 
@@ -80,6 +120,11 @@ export function SpotifyWidget() {
             active={data.playing}
             bars={4}
             className="flex-none scale-75"
+          />
+
+          <Cover
+            art={status === "loading" ? undefined : data.art}
+            size="strip"
           />
 
           <p className="min-w-0 flex-1 truncate text-sm">
@@ -130,7 +175,9 @@ export function SpotifyWidget() {
               status === "loading" ? "animate-pulse" : ""
             }`}
           />
-          <span className="sr-only">Spotify {dict.dashboard.status[status]}</span>
+          <span className="sr-only">
+            Spotify {dict.dashboard.status[status]}
+          </span>
         </div>
 
         {/* Expanded — the most-played list, straight from the API when live,
@@ -155,11 +202,12 @@ export function SpotifyWidget() {
                   {top.map((t) => (
                     <li
                       key={t.rank}
-                      className="flex items-baseline gap-3 text-sm"
+                      className="flex items-center gap-3 text-sm"
                     >
                       <span className="w-4 flex-none text-right font-mono text-xs tabular-nums text-amber">
                         {t.rank}
                       </span>
+                      <Cover art={t.art} size="row" />
                       <span className="min-w-0 flex-1 truncate">
                         <span className="text-fg">{t.track}</span>{" "}
                         <span className="font-mono text-xs text-muted">
