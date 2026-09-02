@@ -11,10 +11,11 @@ que quiser ativar. Copie `.env.example` → `.env.local` e cole os valores.
 
 ## 0. Site URL, currículo e projetos (sem chave)
 
-- **`NEXT_PUBLIC_SITE_URL`** — só precisa quando você apontar um domínio próprio
-  (ex.: `https://joaoromao.dev`). Em branco, a Vercel usa a URL do deploy
-  sozinha. É o que alimenta o `sitemap.xml`, o `robots.txt`, o card social e o
-  JSON-LD.
+- **`NEXT_PUBLIC_SITE_URL`** — **opcional, e hoje está em branco de propósito.**
+  Em branco, a Vercel resolve sozinha para o domínio de produção
+  (`https://www.romaodev.com`) — ver "Domínio próprio". Preencha só para fixar
+  um host à mão; se preencher, exige redeploy. É o que alimenta o `sitemap.xml`,
+  o `robots.txt`, o card social e o JSON-LD.
 - **Currículo** — coloque o PDF em `public/joao-romao-cv.pdf`. Os botões
   "Download CV" (hero) e "CV (PDF)" (contato) aparecem sozinhos no próximo
   build; enquanto o arquivo não existir, ficam escondidos.
@@ -98,20 +99,23 @@ npm run dev      # http://localhost:3000
 
 ---
 
-## Domínio próprio — `romaodev.com`
+## Domínio próprio — `www.romaodev.com`  ✅ no ar
 
-Comprado na **Namecheap** em 02/09/2026. Passos, na ordem:
+Comprado na **Namecheap** e ligado à Vercel em **02/09/2026**. Já está
+funcionando; o que segue é o registro de como foi feito, para refazer ou migrar.
+
+> **O endereço oficial é `https://www.romaodev.com`** — é ele que vai no
+> currículo, no LinkedIn e no GitHub. O apex (`romaodev.com`) responde com um
+> **308** para o www, com certificado válido.
+>
+> É a configuração que a Vercel monta por padrão, e o João decidiu mantê-la
+> (02/09/2026). O que importa não é qual dos dois hosts vence, e sim que o
+> **canonical aponte para o host que serve o site** — se um dia inverter para o
+> apex, veja "Trocar de host" no fim desta seção.
 
 **1. Vercel → Settings → Domains.** Adicione **os dois**: `romaodev.com` e
-`www.romaodev.com`.
-
-⚠️ **O apex é o oficial** (decisão do João, 02/09/2026) — é o que vai no
-currículo e no LinkedIn. A Vercel, ao adicionar, monta o inverso por padrão:
-deixa o `www` como *Production* e o apex com um 308 apontando pra ele. Clique em
-**Edit** na linha do `romaodev.com` e faça dele o de produção; o 308 se inverte
-sozinho. O `NEXT_PUBLIC_SITE_URL` (passo 3) **tem que bater exatamente** com o
-host que ficar em Production — se divergir, o canonical aponta pro host que
-redireciona e o Google passa a ver duas versões do site.
+`www.romaodev.com`. A Vercel deixa o `www` como *Production* e cria o 308 do
+apex sozinha.
 
 **2. Namecheap → Domain List → Manage → Advanced DNS.** Com a nameserver em
 **Namecheap BasicDNS**:
@@ -143,23 +147,44 @@ Propagação costuma levar de minutos a algumas horas. Confira com
 `nslookup romaodev.com` — enquanto responder `192.64.119.114`, ainda é parking;
 quando responder `216.198.79.1`, chegou.
 
-**3. Só depois que o domínio responder**, preencha na Vercel:
+**3. `NEXT_PUBLIC_SITE_URL` não precisou ser preenchida.** O `lib/seo.ts` tenta,
+nesta ordem: `NEXT_PUBLIC_SITE_URL` → `VERCEL_PROJECT_PRODUCTION_URL` →
+`VERCEL_URL` → localhost. A Vercel passou a preencher a segunda com o domínio de
+produção assim que ele ficou válido, e o deploy seguinte já saiu com o canonical,
+o `og:url`, o `hreflang`, o `sitemap.xml`, o `robots.txt` e o JSON-LD todos em
+`www.romaodev.com` — verificado, zero ocorrência de `.vercel.app`.
 
-```
-NEXT_PUBLIC_SITE_URL = https://romaodev.com
-```
-
-e **refaça o deploy** (a variável entra no build; sem redeploy o `sitemap.xml`,
-o `robots.txt`, o canonical e o JSON-LD continuam apontando pra URL antiga).
+Defina a variável só se quiser **fixar** o host (blindando contra uma mudança
+futura nos domínios da Vercel). Se definir, ela tem de bater **exatamente** com
+o host de *Production*, e exige **redeploy**: ela entra no build, não em runtime.
 
 **4. Turnstile.** Se o anti-bot do chatbot estiver configurado (§5), o widget da
 Cloudflare é travado por hostname: abra **Turnstile → seu site → Settings** e
-adicione `romaodev.com`. Sem isso o formulário quebra só no domínio novo — e
+adicione `www.romaodev.com`. Sem isso o formulário quebra só no domínio novo — e
 funcionando na `.vercel.app`, é o tipo de falha que demora pra descobrir.
 
-**5. Depois de tudo no ar:** reenvie o `sitemap.xml` no Search Console (é outra
-propriedade, o domínio mudou) e passe a URL nova no LinkedIn Post Inspector pra
-derrubar o cache do card social.
+**5. Depois de tudo no ar:** registre no Search Console — prefira **propriedade
+de domínio** (`romaodev.com`), que cobre apex e www de uma vez — e envie o
+`sitemap.xml`. Passe a URL nova no LinkedIn Post Inspector pra derrubar o cache
+do card social.
+
+### Trocar de host (www ↔ apex)
+
+Se um dia quiser inverter, são **dois passos, os dois obrigatórios**:
+
+1. **Vercel → Domains → Edit** no host desejado → torná-lo o de *Production*.
+   O 308 se inverte sozinho.
+2. **Redeploy.** O HTML é estático: sem rebuild, o canonical continua apontando
+   para o host antigo enquanto o novo serve o site — que é exatamente a
+   divergência que faz o Google enxergar duas versões.
+
+Se `NEXT_PUBLIC_SITE_URL` estiver definida, atualize-a junto — ela vence a
+inferência da Vercel. Confira depois:
+
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" https://<host-novo>/
+curl -s https://<host-novo>/sitemap.xml | head -5   # não pode citar o host antigo
+```
 
 ### Analytics
 
@@ -171,12 +196,9 @@ coletam nada.
 ### Checklist antes de divulgar
 
 - [ ] `npm run build` passa sem erro.
-- [ ] DNS do `romaodev.com` propagado (`nslookup` responde `216.198.79.1`) e as
-      duas linhas da Vercel em **Valid Configuration**.
-- [ ] `NEXT_PUBLIC_SITE_URL = https://romaodev.com` **e redeploy feito depois
-      disso** — a variável entra no build, não em runtime.
-- [ ] Conferir no ar: `curl -s https://romaodev.com/sitemap.xml | head` só deve
-      citar `romaodev.com`, sem nenhuma URL `.vercel.app`.
+- [x] Domínio `www.romaodev.com` no ar, com o apex em 308 e certificado válido
+      (02/09/2026). Canonical, `hreflang`, sitemap, robots e JSON-LD conferidos:
+      zero ocorrência de `.vercel.app`.
 - [ ] CV em `public/joao-romao-cv.pdf`.
 - [ ] Screenshots dos projetos em `public/projects/` (dados fictícios!).
 - [ ] Traduções dos projetos completas (o `/admin` avisa se faltar alguma).
