@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 // Content Security Policy. The site loads no third-party images, fonts or
-// styles (next/font self-hosts the Google fonts), so the only external origins
+// styles (next/font self-hosts the Google fonts; the Steam widget's cover art
+// comes through our own /api/steam/cover proxy), so the only external origins
 // are Cloudflare Turnstile (the chatbot's anti-bot check) and Vercel's
 // analytics beacons.
 //

@@ -1,12 +1,54 @@
 "use client";
 
+import { useState } from "react";
 import { WidgetShell, SkeletonLine, useLiveWidget } from "./WidgetShell";
 import { useI18n } from "@/components/i18n/LocaleProvider";
 
+type SteamGame = { appid: number; name: string; hours: number };
+
 type SteamData = {
-  games: { name: string; hours: number }[];
+  games: SteamGame[];
   profileUrl?: string;
 };
+
+// Store header art, served through our own /api/steam/cover proxy so the CSP
+// can stay at `img-src 'self'` (see that route for why). The thumbnail is
+// square, so the 460x215 header is cropped to its middle 215x215 by
+// object-cover — still enough pixels for a 2x screen. Art is missing for some
+// appids the API can return (delisted titles, some betas); the proxy 404s and
+// `Cover` degrades to the ▶ glyph rather than leaving a broken frame.
+function coverUrl(appid: number) {
+  return `/api/steam/cover/${appid}`;
+}
+
+function Cover({ appid }: { appid: number }) {
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <span className="flex size-11 flex-none items-center justify-center overflow-hidden rounded border border-border bg-bg font-mono text-xs text-cyan">
+      {failed ? (
+        "▶"
+      ) : (
+        // Plain <img>: next/image is unoptimized site-wide (next.config.ts)
+        // and these are remote URLs, so it would add config for nothing.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={coverUrl(appid)}
+          alt=""
+          width={460}
+          height={215}
+          // Eager on purpose: three 42px thumbnails cost almost nothing, and
+          // lazy loading depends on IntersectionObserver, which never fires in
+          // contexts that don't paint (headless captures, a hidden preview
+          // pane) — there the covers simply never appeared.
+          decoding="async"
+          onError={() => setFailed(true)}
+          className="size-full object-cover"
+        />
+      )}
+    </span>
+  );
+}
 
 // Fallback until STEAM_API_KEY + STEAM_ID + /api/steam are wired.
 // Falls back gracefully if the profile is private (DESIGN.md §4). No CTA in
@@ -14,9 +56,9 @@ type SteamData = {
 // actually configured (CLAUDE.md §8, content honesty).
 const FALLBACK: SteamData = {
   games: [
-    { name: "Elden Ring", hours: 2.4 },
-    { name: "Hades II", hours: 1.1 },
-    { name: "Balatro", hours: 0.6 },
+    { appid: 1245620, name: "Elden Ring", hours: 2.4 },
+    { appid: 1145350, name: "Hades II", hours: 1.1 },
+    { appid: 2379780, name: "Balatro", hours: 0.6 },
   ],
 };
 
@@ -35,7 +77,7 @@ export function SteamWidget() {
           <ul className="flex flex-1 flex-col justify-center space-y-3">
             {Array.from({ length: 3 }).map((_, i) => (
               <li key={i} className="flex items-center gap-3">
-                <div className="skeleton size-7 flex-none rounded" />
+                <div className="skeleton size-11 flex-none rounded" />
                 <SkeletonLine w={`${70 - i * 12}%`} />
               </li>
             ))}
@@ -54,10 +96,10 @@ export function SteamWidget() {
                 className="flex items-center justify-between gap-3"
               >
                 <span className="flex min-w-0 items-center gap-2.5">
-                  <span className="flex size-7 flex-none items-center justify-center rounded border border-border bg-bg font-mono text-[10px] text-cyan">
-                    ▶
+                  <Cover appid={g.appid} />
+                  <span className="truncate text-sm text-fg" title={g.name}>
+                    {g.name}
                   </span>
-                  <span className="truncate text-sm text-fg">{g.name}</span>
                 </span>
                 <span className="flex-none font-mono text-xs text-muted tabular-nums">
                   {g.hours}h

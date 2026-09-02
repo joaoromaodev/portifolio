@@ -20,12 +20,15 @@ export async function GET() {
 
     return ok(
       {
-        games: games.slice(0, 3).map(
-          (g: { name: string; playtime_2weeks?: number }) => ({
-            name: g.name,
-            hours: Math.round(((g.playtime_2weeks ?? 0) / 60) * 10) / 10,
-          }),
-        ),
+        games: games
+          .slice(0, 3)
+          .map(
+            (g: { appid: number; name: string; playtime_2weeks?: number }) => ({
+              appid: g.appid,
+              name: g.name,
+              hours: Math.round(((g.playtime_2weeks ?? 0) / 60) * 10) / 10,
+            }),
+          ),
         profileUrl: `https://steamcommunity.com/profiles/${steamId}`,
       },
       revalidate,
