@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="João Romão">
+  <!-- Terminal prompt: the hero's `> whoami` reduced to one glyph pair.
+       Solid dark plate rather than a transparent background — a browser tab
+       can be light or dark, and the plate keeps the contrast identical in
+       both. Sized so the whole mark survives 16x16: thick strokes, two
+       shapes, nothing thinner than a pixel at that scale.
+
+       The cursor does not blink. Browsers render favicons as a static image
+       and ignore CSS and SMIL animation inside an SVG icon, so a blinking
+       version would just sit on whichever frame it loaded. The blink lives in
+       the hero terminal instead, where it actually runs. -->
+  <rect width="64" height="64" rx="14" fill="#0D1117" />
+  <path
+    d="M17 20 L30 32 L17 44"
+    fill="none"
+    stroke="#56D364"
+    stroke-width="7.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <rect x="40" y="21" width="11" height="22" rx="1.5" fill="#E3A857" />
+</svg>
