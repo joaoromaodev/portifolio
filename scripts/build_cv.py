@@ -1,6 +1,6 @@
-"""Build public/joao-romao-cv.pdf — the CV the hero and contact CTAs offer.
+"""Build the downloadable CVs the hero and contact CTAs offer.
 
-    python scripts/build_cv.py
+    python scripts/build_cv.py   ->  public/joao-romao-cv.pdf + -cv-pt.pdf
 
 Kept as a script rather than a hand-made file so the CV and the site never
 drift: everything below is sourced from CLAUDE.md (the editorial source of
@@ -111,183 +111,272 @@ def job(role, org, period, bullets):
     return out
 
 
-story = []
-
-# ---- header -----------------------------------------------------------------
-story += [
-    Paragraph("João Romão", NAME),
-    Spacer(1, 1.5),
-    Paragraph("Data Analyst &amp; Developer", ROLE),
-    Spacer(1, 3),
-    Paragraph(
-        'Belém, Pará, Brazil &nbsp;·&nbsp; open to remote / relocation<br/>'
-        '<a href="mailto:joaoromaodev@gmail.com" color="#1A7F37">joaoromaodev@gmail.com</a>'
-        " &nbsp;·&nbsp; "
-        '<a href="https://www.romaodev.com" color="#1A7F37">www.romaodev.com</a>'
-        " &nbsp;·&nbsp; "
-        '<a href="https://www.linkedin.com/in/joaoromao-data/" color="#1A7F37">linkedin.com/in/joaoromao-data</a>'
-        " &nbsp;·&nbsp; "
-        '<a href="https://github.com/joaoromaodev" color="#1A7F37">github.com/joaoromaodev</a>',
-        CONTACT,
-    ),
-]
-
-# ---- summary ----------------------------------------------------------------
-story += section("Profile")
-story += [
-    Paragraph(
-        "Hybrid Data + Dev profile with ~2.5 years inside the Pará State Department of "
-        "Education (SEDUC-PA), where I grew from intern to technical lead and product "
-        "owner of the platform its finance directorates run on. I build Python automation "
-        "and full-stack Next.js products that survive production: real users, real money, "
-        "real deadlines. Comfortable owning a system end to end — data ingestion, "
-        "anomaly detection, interface, deployment and the people who depend on it.",
-        BODY,
-    )
-]
-
-# ---- experience -------------------------------------------------------------
-story += section("Experience")
-story += job(
-    "Tech Lead &amp; Product Owner — SIMF",
-    "Montreal Informática · SEDUC-PA — Belém, Brazil",
-    "2024 — present",
-    [
-        "Technical decision-maker and product owner of an internal platform that monitors "
-        "budget and financial execution for the state education department. In active daily "
-        "use by two directorates.",
-        "Built with Next.js 15 (App Router), React, Tailwind and Supabase/PostgreSQL, reading "
-        "from the state financial system; covers budget execution, settlements, payments and "
-        "bank-account tracking, with role-based access control.",
-        "Own the deployment: Ubuntu 24.04 server behind Nginx with PM2, internal DNS and HTTPS "
-        "across the corporate network.",
-    ],
-)
-story += job(
-    "Developer",
-    "Kapa · SEDUC-PA — Belém, Brazil",
-    "2023 — 2024",
-    [
-        "Built and shipped the automation that tracks daily instalments paid to municipalities "
-        "under two state programmes (school transport and school meals) — from the raw financial "
-        "report through to the PDFs and messages the Secretary receives.",
-        "Replaced a two-spreadsheet Google Sheets + Apps Script process, and added anomaly "
-        "detection that surfaced duplicate payment orders the previous process silently hid.",
-        "Python, Streamlit, SQLite, Selenium and Google Sheets, with the domain logic isolated "
-        "in pure Python so it could later migrate into the main platform.",
-    ],
-)
-story += job(
-    "Intern → Developer",
-    "SEDUC-PA — Belém, Brazil",
-    "2022 — 2023",
-    [
-        "Started as an intern and grew into a developer role across data and automation work, "
-        "which is where the financial-automation systems above came from.",
-    ],
-)
-
-# ---- projects ---------------------------------------------------------------
-story += section("Selected projects")
-story += [
-    Paragraph(
-        "<b>ClickContas</b> — modular accounting SaaS, in production with real clients. "
-        "Gemini-based OCR reads handwritten timesheets; collaborative cash book; two data "
-        "stores (PostgreSQL and Google Sheets) chosen per access pattern.",
-        BULLET,
-        bulletText="•",
-    ),
-    Paragraph(
-        "<b>Sensse</b> (sensse.com.br) — my own e-commerce in Next.js, catalogue through "
-        "back-office, in production.",
-        BULLET,
-        bulletText="•",
-    ),
-    Paragraph(
-        "<b>Balcão de Atendimento</b> — scheduling and auditable proof of service for a federal "
-        "education programme. Sole developer; public demo repository.",
-        BULLET,
-        bulletText="•",
-    ),
-    Paragraph(
-        "<b>Cherry Bomb</b> — vending machine that takes no card terminal: a QR code opens a "
-        "mobile storefront mirroring the physical grid, and one Pix charge covers the basket. "
-        "FastAPI, PostgreSQL, Mercado Pago, Railway. Software in production; the hardware "
-        "release is specified but not built.",
-        BULLET,
-        bulletText="•",
-    ),
-    Paragraph(
-        "Case studies, with screenshots, at <a href='https://www.romaodev.com/projects' "
-        "color='#1A7F37'>romaodev.com/projects</a>.",
-        BODY,
-    ),
-]
-
-# ---- skills -----------------------------------------------------------------
-story += section("Technical skills")
-skills = [
-    ("Languages", "Python, TypeScript, JavaScript, SQL"),
-    ("Frontend", "React, Next.js 15, Tailwind CSS, Streamlit"),
-    ("Data &amp; automation", "Pandas, Selenium, web scraping, RPA, anomaly detection, OCR"),
-    ("Backend &amp; infra", "PostgreSQL, Supabase, SQLite, REST APIs, Ubuntu (Nginx, PM2)"),
-    ("Practices", "Git, testing with Vitest, Google Apps Script, generative AI for productivity"),
-]
-story.append(
-    Table(
-        [
-            [
-                Paragraph(f"<b>{k}</b>", BODY),
-                Paragraph(v, ParagraphStyle("s", parent=BODY, alignment=0)),
-            ]
-            for k, v in skills
-        ],
-        colWidths=[34 * mm, 146 * mm],
-        style=TableStyle(
-            [
-                ("VALIGN", (0, 0), (-1, -1), "TOP"),
-                ("LEFTPADDING", (0, 0), (-1, -1), 0),
-                ("RIGHTPADDING", (0, 0), (-1, -1), 0),
-                ("TOPPADDING", (0, 0), (-1, -1), 0.8),
-                ("BOTTOMPADDING", (0, 0), (-1, -1), 0.8),
-            ]
+# ---- content, one entry per locale -------------------------------------------
+# The Portuguese side is not a machine translation of the English one: it reuses
+# the wording the /pt pages already use for the same roles and projects, so the
+# CV and the site say the same thing in the same voice.
+CONTENT = {
+    "en": {
+        "file": "public/joao-romao-cv.pdf",
+        "role": "Data Analyst &amp; Developer",
+        "where": "Belém, Pará, Brazil &nbsp;·&nbsp; open to remote / relocation",
+        "sections": {
+            "profile": "Profile",
+            "experience": "Experience",
+            "projects": "Selected projects",
+            "skills": "Technical skills",
+            "education": "Education, languages and recognition",
+        },
+        "profile": (
+            "Hybrid Data + Dev profile with ~2.5 years inside the Pará State Department of "
+            "Education (SEDUC-PA), where I grew from intern to technical lead and product "
+            "owner of the platform its finance directorates run on. I build Python automation "
+            "and full-stack Next.js products that survive production: real users, real money, "
+            "real deadlines. Comfortable owning a system end to end — data ingestion, "
+            "anomaly detection, interface, deployment and the people who depend on it."
         ),
+        "jobs": [
+            (
+                "Tech Lead &amp; Product Owner — SIMF",
+                "Montreal Informática · SEDUC-PA — Belém, Brazil",
+                "2024 — present",
+                [
+                    "Technical decision-maker and product owner of an internal platform that monitors "
+                    "budget and financial execution for the state education department. In active daily "
+                    "use by two directorates.",
+                    "Built with Next.js 15 (App Router), React, Tailwind and Supabase/PostgreSQL, reading "
+                    "from the state financial system; covers budget execution, settlements, payments and "
+                    "bank-account tracking, with role-based access control.",
+                    "Own the deployment: Ubuntu 24.04 server behind Nginx with PM2, internal DNS and HTTPS "
+                    "across the corporate network.",
+                ],
+            ),
+            (
+                "Developer",
+                "Kapa · SEDUC-PA — Belém, Brazil",
+                "2023 — 2024",
+                [
+                    "Built and shipped the automation that tracks daily instalments paid to municipalities "
+                    "under two state programmes (school transport and school meals) — from the raw financial "
+                    "report through to the PDFs and messages the Secretary receives.",
+                    "Replaced a two-spreadsheet Google Sheets + Apps Script process, and added anomaly "
+                    "detection that surfaced duplicate payment orders the previous process silently hid.",
+                    "Python, Streamlit, SQLite, Selenium and Google Sheets, with the domain logic isolated "
+                    "in pure Python so it could later migrate into the main platform.",
+                ],
+            ),
+            (
+                "Intern → Developer",
+                "SEDUC-PA — Belém, Brazil",
+                "2022 — 2023",
+                [
+                    "Started as an intern and grew into a developer role across data and automation work, "
+                    "which is where the financial-automation systems above came from.",
+                ],
+            ),
+        ],
+        "projects": [
+            "<b>ClickContas</b> — modular accounting SaaS, in production with real clients. "
+            "Gemini-based OCR reads handwritten timesheets; collaborative cash book; two data "
+            "stores (PostgreSQL and Google Sheets) chosen per access pattern.",
+            "<b>Sensse</b> (sensse.com.br) — my own e-commerce in Next.js, catalogue through "
+            "back-office, in production.",
+            "<b>Balcão de Atendimento</b> — scheduling and auditable proof of service for a federal "
+            "education programme. Sole developer; public demo repository.",
+            "<b>Cherry Bomb</b> — vending machine that takes no card terminal: a QR code opens a "
+            "mobile storefront mirroring the physical grid, and one Pix charge covers the basket. "
+            "FastAPI, PostgreSQL, Mercado Pago, Railway. Software in production; the hardware "
+            "release is specified but not built.",
+        ],
+        "projects_note": (
+            "Case studies, with screenshots, at "
+            '<a href="https://www.romaodev.com/projects" color="#1A7F37">romaodev.com/projects</a>.'
+        ),
+        "skills": [
+            ("Languages", "Python, TypeScript, JavaScript, SQL"),
+            ("Frontend", "React, Next.js 15, Tailwind CSS, Streamlit"),
+            ("Data &amp; automation", "Pandas, Selenium, web scraping, RPA, anomaly detection, OCR"),
+            ("Backend &amp; infra", "PostgreSQL, Supabase, SQLite, REST APIs, Ubuntu (Nginx, PM2)"),
+            ("Practices", "Git, testing with Vitest, Google Apps Script, generative AI for productivity"),
+        ],
+        "education": [
+            "<b>BSc in Computer Science</b> — Universidade Cruzeiro do Sul, Brazil (Nov 2025)",
+            "<b>Languages</b> — Portuguese (native); English B2 Upper Intermediate (EF SET, 2025)",
+            "<b>Outstanding Achievement, I2A2 &ldquo;AI for Sustainable Projects — Towards COP 30&rdquo;</b> "
+            "(Dec 2025) — co-led EcoPredict, a machine-learning project on sustainability metrics for "
+            "Belém, selected among the top 7 worldwide.",
+        ],
+        "title": "João Romão — Data Analyst & Developer — CV",
+    },
+    "pt": {
+        "file": "public/joao-romao-cv-pt.pdf",
+        "role": "Analista de Dados &amp; Desenvolvedor",
+        "where": "Belém, Pará &nbsp;·&nbsp; aberto a trabalho remoto / realocação",
+        "sections": {
+            "profile": "Perfil",
+            "experience": "Experiência",
+            "projects": "Projetos selecionados",
+            "skills": "Competências técnicas",
+            "education": "Formação, idiomas e reconhecimento",
+        },
+        "profile": (
+            "Perfil híbrido de Dados + Dev, com ~2,5 anos dentro da Secretaria de Estado de "
+            "Educação do Pará (SEDUC-PA), onde fui de estagiário a responsável técnico e product "
+            "owner da plataforma que as diretorias financeiras usam todo dia. Construo automação "
+            "em Python e produtos full-stack em Next.js que aguentam produção: usuário real, "
+            "dinheiro real, prazo real. Assumo o sistema de ponta a ponta — ingestão de dados, "
+            "detecção de anomalia, interface, deploy e as pessoas que dependem dele."
+        ),
+        "jobs": [
+            (
+                "Tech Lead &amp; Product Owner — SIMF",
+                "Montreal Informática · SEDUC-PA — Belém, Pará",
+                "2024 — atual",
+                [
+                    "Responsável pelas decisões técnicas e product owner de uma plataforma interna que "
+                    "monitora a execução orçamentária e financeira da secretaria de educação do estado. "
+                    "Em uso diário por duas diretorias.",
+                    "Feita em Next.js 15 (App Router), React, Tailwind e Supabase/PostgreSQL, lendo do "
+                    "sistema financeiro do estado; cobre execução orçamentária, liquidações, pagamentos e "
+                    "acompanhamento de contas bancárias, com controle de acesso por perfil.",
+                    "Cuido também do deploy: servidor Ubuntu 24.04 atrás de Nginx com PM2, DNS interno e "
+                    "HTTPS na rede corporativa.",
+                ],
+            ),
+            (
+                "Desenvolvedor",
+                "Kapa · SEDUC-PA — Belém, Pará",
+                "2023 — 2024",
+                [
+                    "Construí e coloquei em produção a automação que acompanha diariamente as parcelas "
+                    "pagas às prefeituras em dois programas estaduais (transporte escolar e alimentação "
+                    "escolar) — do relatório financeiro bruto até os PDFs e as mensagens que chegam à "
+                    "Secretária.",
+                    "Substituí um processo de duas planilhas no Google Sheets com Apps Script, e "
+                    "acrescentei detecção de anomalia que expôs ordens bancárias duplicadas que o "
+                    "processo anterior escondia.",
+                    "Python, Streamlit, SQLite, Selenium e Google Sheets, com a regra de negócio isolada "
+                    "em Python puro para poder migrar depois para a plataforma principal.",
+                ],
+            ),
+            (
+                "Estagiário → Desenvolvedor",
+                "SEDUC-PA — Belém, Pará",
+                "2022 — 2023",
+                [
+                    "Comecei como estagiário e cresci para uma vaga de desenvolvedor, atuando em dados e "
+                    "automação — foi de onde saíram os sistemas financeiros acima.",
+                ],
+            ),
+        ],
+        "projects": [
+            "<b>ClickContas</b> — SaaS contábil modular, em produção com clientes reais. OCR com Gemini "
+            "lê folha de ponto manuscrita; livro caixa colaborativo; dois bancos de dados (PostgreSQL e "
+            "Google Sheets) escolhidos por padrão de acesso.",
+            "<b>Sensse</b> (sensse.com.br) — e-commerce próprio em Next.js, do catálogo ao back-office, "
+            "em produção.",
+            "<b>Balcão de Atendimento</b> — agendamento e prova auditável de atendimento para um programa "
+            "federal de educação. Desenvolvedor único; repositório de demonstração público.",
+            "<b>Cherry Bomb</b> — máquina de vendas sem terminal de pagamento: um QR Code abre uma vitrine "
+            "mobile que espelha a grade física, e um único Pix cobre a sacola inteira. FastAPI, "
+            "PostgreSQL, Mercado Pago, Railway. Software em produção; a liberação física está "
+            "especificada, mas não construída.",
+        ],
+        "projects_note": (
+            "Estudos de caso, com telas, em "
+            '<a href="https://www.romaodev.com/pt/projetos" color="#1A7F37">romaodev.com/pt/projetos</a>.'
+        ),
+        "skills": [
+            ("Linguagens", "Python, TypeScript, JavaScript, SQL"),
+            ("Frontend", "React, Next.js 15, Tailwind CSS, Streamlit"),
+            ("Dados &amp; automação", "Pandas, Selenium, web scraping, RPA, detecção de anomalia, OCR"),
+            ("Backend &amp; infra", "PostgreSQL, Supabase, SQLite, APIs REST, Ubuntu (Nginx, PM2)"),
+            ("Práticas", "Git, testes com Vitest, Google Apps Script, IA generativa para produtividade"),
+        ],
+        "education": [
+            "<b>Bacharelado em Ciência da Computação</b> — Universidade Cruzeiro do Sul (nov/2025)",
+            "<b>Idiomas</b> — Português (nativo); Inglês B2 Upper Intermediate (EF SET, 2025)",
+            "<b>Outstanding Achievement, I2A2 &ldquo;AI for Sustainable Projects — Towards COP 30&rdquo;</b> "
+            "(dez/2025) — co-liderei o EcoPredict, projeto de machine learning sobre métricas de "
+            "sustentabilidade para Belém, entre os 7 melhores do mundo.",
+        ],
+        "title": "João Romão — Analista de Dados & Desenvolvedor — CV",
+    },
+}
+
+
+def build(locale):
+    c = CONTENT[locale]
+    story = [
+        Paragraph("João Romão", NAME),
+        Spacer(1, 1.5),
+        Paragraph(c["role"], ROLE),
+        Spacer(1, 3),
+        Paragraph(
+            c["where"] + "<br/>"
+            '<a href="mailto:joaoromaodev@gmail.com" color="#1A7F37">joaoromaodev@gmail.com</a>'
+            " &nbsp;·&nbsp; "
+            '<a href="https://www.romaodev.com" color="#1A7F37">www.romaodev.com</a>'
+            " &nbsp;·&nbsp; "
+            '<a href="https://www.linkedin.com/in/joaoromao-data/" color="#1A7F37">linkedin.com/in/joaoromao-data</a>'
+            " &nbsp;·&nbsp; "
+            '<a href="https://github.com/joaoromaodev" color="#1A7F37">github.com/joaoromaodev</a>',
+            CONTACT,
+        ),
+    ]
+
+    story += section(c["sections"]["profile"])
+    story += [Paragraph(c["profile"], BODY)]
+
+    story += section(c["sections"]["experience"])
+    for role, org, period, bullets in c["jobs"]:
+        story += job(role, org, period, bullets)
+
+    story += section(c["sections"]["projects"])
+    story += [Paragraph(p, BULLET, bulletText="•") for p in c["projects"]]
+    story += [Paragraph(c["projects_note"], BODY)]
+
+    story += section(c["sections"]["skills"])
+    story.append(
+        Table(
+            [
+                [
+                    Paragraph("<b>%s</b>" % k, BODY),
+                    Paragraph(v, ParagraphStyle("s", parent=BODY, alignment=0)),
+                ]
+                for k, v in c["skills"]
+            ],
+            colWidths=[34 * mm, 146 * mm],
+            style=TableStyle(
+                [
+                    ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                    ("LEFTPADDING", (0, 0), (-1, -1), 0),
+                    ("RIGHTPADDING", (0, 0), (-1, -1), 0),
+                    ("TOPPADDING", (0, 0), (-1, -1), 0.8),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 0.8),
+                ]
+            ),
+        )
     )
-)
 
-# ---- education / languages / award ------------------------------------------
-story += section("Education, languages and recognition")
-story += [
-    Paragraph(
-        "<b>BSc in Computer Science</b> — Universidade Cruzeiro do Sul, Brazil (Nov 2025)",
-        BULLET,
-        bulletText="•",
-    ),
-    Paragraph(
-        "<b>Languages</b> — Portuguese (native); English B2 Upper Intermediate (EF SET, 2025)",
-        BULLET,
-        bulletText="•",
-    ),
-    Paragraph(
-        "<b>Outstanding Achievement, I2A2 &ldquo;AI for Sustainable Projects — Towards COP 30&rdquo;</b> "
-        "(Dec 2025) — co-led EcoPredict, a machine-learning project on sustainability metrics for "
-        "Belém, selected among the top 7 worldwide.",
-        BULLET,
-        bulletText="•",
-    ),
-]
+    story += section(c["sections"]["education"])
+    story += [Paragraph(e, BULLET, bulletText="•") for e in c["education"]]
 
-doc = SimpleDocTemplate(
-    "public/joao-romao-cv.pdf",
-    pagesize=A4,
-    leftMargin=15 * mm,
-    rightMargin=15 * mm,
-    topMargin=13 * mm,
-    bottomMargin=12 * mm,
-    title="João Romão — Data Analyst & Developer — CV",
-    author="João Romão",
-    subject="Curriculum vitae",
-    creator="scripts/build_cv.py",
-)
-doc.build(story)
-print("wrote public/joao-romao-cv.pdf")
+    doc = SimpleDocTemplate(
+        c["file"],
+        pagesize=A4,
+        leftMargin=15 * mm,
+        rightMargin=15 * mm,
+        topMargin=13 * mm,
+        bottomMargin=12 * mm,
+        title=c["title"],
+        author="João Romão",
+        subject="Curriculum vitae",
+        creator="scripts/build_cv.py",
+    )
+    doc.build(story)
+    print("wrote", c["file"])
+
+
+for loc in CONTENT:
+    build(loc)

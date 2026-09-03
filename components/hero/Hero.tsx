@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { profile, RESUME_PATH } from "@/lib/site";
+import { profile } from "@/lib/site";
 import { useI18n } from "@/components/i18n/LocaleProvider";
 import { EASE } from "@/lib/motion";
 import { useBelemTime } from "@/components/useBelemTime";
 import { SynthwaveGrid } from "./SynthwaveGrid";
 import { Typewriter } from "./Typewriter";
 
-export function Hero({ resume = false }: { resume?: boolean }) {
+export function Hero({ resume = null }: { resume?: string | null }) {
   const { dict } = useI18n();
   const time = useBelemTime();
   const [typed, setTyped] = useState(false);
@@ -89,7 +89,7 @@ export function Hero({ resume = false }: { resume?: boolean }) {
           </a>
           {resume ? (
             <a
-              href={RESUME_PATH}
+              href={resume}
               download
               className="rounded-lg border border-border px-5 py-2.5 text-sm text-fg transition-colors hover:border-fg/30"
             >

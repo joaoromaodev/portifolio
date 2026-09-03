@@ -6,11 +6,11 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { fadeUp } from "@/lib/motion";
 import { Panel } from "@/components/ui/Panel";
-import { profile, RESUME_PATH } from "@/lib/site";
+import { profile } from "@/lib/site";
 import { useI18n } from "@/components/i18n/LocaleProvider";
 import { LocationCard } from "@/components/location/LocationCard";
 
-export function Contact({ resume = false }: { resume?: boolean }) {
+export function Contact({ resume = null }: { resume?: string | null }) {
   const { dict } = useI18n();
   // Assemble the address at runtime so it isn't sitting in the static HTML
   // for scrapers (CLAUDE.md §8 — obfuscate email, no phone).
@@ -67,7 +67,7 @@ export function Contact({ resume = false }: { resume?: boolean }) {
             <div className="flex flex-wrap gap-3">
               {resume ? (
                 <a
-                  href={RESUME_PATH}
+                  href={resume}
                   download
                   className="rounded-lg border border-amber/40 px-4 py-2.5 font-mono text-sm text-amber transition-colors hover:bg-amber/10"
                 >

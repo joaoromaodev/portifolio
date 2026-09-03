@@ -10,16 +10,16 @@ import { Footer } from "@/components/Footer";
 import { CommandPalette } from "@/components/command-palette/CommandPalette";
 import { LocaleProvider } from "@/components/i18n/LocaleProvider";
 import { getDictionary, type Locale } from "@/lib/i18n";
-import { hasResume } from "@/lib/resume";
+import { resumeHref } from "@/lib/resume";
 
 // The whole page, once per locale. `/` and `/pt` are separate static routes
 // that render this with a different dictionary — nothing about the language is
 // decided at runtime, so both are plain prerendered HTML.
 export function SiteShell({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
-  // Resolved on the server at build time — the CV CTAs only render once the
-  // PDF actually exists in public/.
-  const resume = hasResume();
+  // Resolved on the server at build time — the CV CTAs only render once this
+  // locale's PDF actually exists in public/.
+  const resume = resumeHref(locale);
 
   return (
     <LocaleProvider locale={locale} dict={dict}>

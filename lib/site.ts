@@ -15,9 +15,13 @@ export const profile = {
   coordinates: "01°27'21\"S · 48°29'25\"W",
 } as const;
 
-// CV download. The file itself is optional — lib/resume.ts checks whether it
-// exists at build time and the CTAs only render when it does.
-export const RESUME_PATH = "/joao-romao-cv.pdf";
+// CV download, one file per language — a Brazilian recruiter reading /pt
+// should not be handed an English PDF. Both are optional: lib/resume.ts checks
+// at build time and the CTAs only render for a locale whose file exists.
+export const RESUME_PATHS = {
+  en: "/joao-romao-cv.pdf",
+  pt: "/joao-romao-cv-pt.pdf",
+} as const;
 
 // Projects live in content/projects.json and are loaded/typed by lib/projects.ts
 // (editable through the dev-only /admin panel). Re-exported here so `lib/site`
