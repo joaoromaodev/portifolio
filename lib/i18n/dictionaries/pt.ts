@@ -291,10 +291,10 @@ export const pt: Dictionary = {
         note: "IA Generativa e Agentes Inteligentes para Negócios · Ciência de Dados e Big Data Analytics · Engenharia de Software",
       },
       {
-        period: "nov/2025",
+        period: "2021 — nov/2025",
         degree: "Bacharelado em Ciência da Computação",
         org: "Universidade Cruzeiro do Sul",
-        note: "Concluído já trabalhando na SEDUC-PA.",
+        note: "Os dois últimos anos foram cursados junto com o trabalho na SEDUC-PA.",
       },
     ],
     extras: [

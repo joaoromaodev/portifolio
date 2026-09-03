@@ -203,7 +203,7 @@ CONTENT = {
             "<b>Three postgraduate specialisations (lato sensu)</b> — FAMEESP, in progress "
             "(due 2027): Generative AI and Intelligent Agents for Business; Data Science and "
             "Big Data Analytics; Software Engineering",
-            "<b>BSc in Computer Science</b> — Universidade Cruzeiro do Sul, Brazil (Nov 2025)",
+            "<b>BSc in Computer Science</b> — Universidade Cruzeiro do Sul, Brazil (2021–2025)",
             "<b>Languages</b> — Portuguese (native); English B2 Upper Intermediate (EF SET, 2025)",
             "<b>Outstanding Achievement, I2A2 &ldquo;AI for Sustainable Projects — Towards COP 30&rdquo;</b> "
             "(Dec 2025) — co-led EcoPredict, a machine-learning project on sustainability metrics for "
@@ -300,7 +300,7 @@ CONTENT = {
             "<b>Três pós-graduações lato sensu</b> — FAMEESP, em andamento (prazo 2027): "
             "IA Generativa e Agentes Inteligentes para Negócios; Ciência de Dados e Big Data "
             "Analytics; Engenharia de Software",
-            "<b>Bacharelado em Ciência da Computação</b> — Universidade Cruzeiro do Sul (nov/2025)",
+            "<b>Bacharelado em Ciência da Computação</b> — Universidade Cruzeiro do Sul (2021–2025)",
             "<b>Idiomas</b> — Português (nativo); Inglês B2 Upper Intermediate (EF SET, 2025)",
             "<b>Outstanding Achievement, I2A2 &ldquo;AI for Sustainable Projects — Towards COP 30&rdquo;</b> "
             "(dez/2025) — co-liderei o EcoPredict, projeto de machine learning sobre métricas de "

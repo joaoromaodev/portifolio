@@ -27,7 +27,8 @@ O site complementa o currículo (já pronto) e o LinkedIn — não os repete, ap
 
 - **Nome:** João Romão (completo: João Gomes Romão Neto). Usar "João Romão" no site.
 - **Local:** Belém, Pará, Brasil. Aberto a remoto / relocação.
-- **Formação:** BSc in Computer Science — Universidade Cruzeiro do Sul (Nov 2025).
+- **Formação:** BSc in Computer Science — Universidade Cruzeiro do Sul (2021 – nov/2025;
+  os dois últimos anos cursados já trabalhando na SEDUC-PA).
   Cursando **três pós-graduações lato sensu na FAMEESP** (prazo de conclusão em 2027):
   IA Generativa e Agentes Inteligentes para Negócios; Ciência de Dados e Big Data
   Analytics; Engenharia de Software. Chamar de *especialização lato sensu*, nunca de

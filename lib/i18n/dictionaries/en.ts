@@ -294,10 +294,10 @@ export const en = {
         note: "Generative AI and Intelligent Agents for Business · Data Science and Big Data Analytics · Software Engineering",
       },
       {
-        period: "Nov 2025",
+        period: "2021 — Nov 2025",
         degree: "BSc in Computer Science",
         org: "Universidade Cruzeiro do Sul",
-        note: "Finished while already working at SEDUC-PA.",
+        note: "The last two years ran alongside the job at SEDUC-PA.",
       },
     ],
     extras: [
