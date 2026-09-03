@@ -165,25 +165,25 @@ export const en = {
     slug: "experience",
     title: "From intern to tech lead",
     subtitle:
-      "~2.5 years inside the Pará State Department of Education (SEDUC-PA) — same institution, growing scope.",
+      "Inside the Pará State Department of Education (SEDUC-PA) since 2023 — same institution, growing scope.",
     items: [
       {
-        period: "2024 — present",
+        period: "2026 — present",
         role: "Tech Lead & Product Owner — SIMF",
         org: "Montreal Informática · SEDUC-PA",
         note: "Technical decision-maker and product owner of an internal financial-monitoring platform. Right hand to the DPPC director.",
       },
       {
-        period: "2023 — 2024",
+        period: "Nov 2025 — Mar 2026",
         role: "Developer",
         org: "Kapa · SEDUC-PA",
         note: "Built financial automation in production (PETE/PEAE, Diárias) — from raw SIAFE reports to reports and messaging.",
       },
       {
-        period: "2022 — 2023",
-        role: "Intern → Developer",
+        period: "2023 — 2025",
+        role: "Intern",
         org: "SEDUC-PA",
-        note: "Started as an intern at the State Department of Education of Pará; grew into a developer role across data and automation.",
+        note: "Started at the State Department of Education of Pará as an intern, working across data and automation — the ground the systems above were built on.",
       },
     ],
   },

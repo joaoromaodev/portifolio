@@ -167,25 +167,25 @@ export const pt: Dictionary = {
     slug: "experience",
     title: "De estagiário a tech lead",
     subtitle:
-      "~2,5 anos dentro da Secretaria de Estado de Educação do Pará (SEDUC-PA) — mesma instituição, escopo crescendo.",
+      "Dentro da Secretaria de Estado de Educação do Pará (SEDUC-PA) desde 2023 — mesma instituição, escopo crescendo.",
     items: [
       {
-        period: "2024 — atual",
+        period: "2026 — atual",
         role: "Tech Lead & Product Owner — SIMF",
         org: "Montreal Informática · SEDUC-PA",
         note: "Responsável pelas decisões técnicas e product owner de uma plataforma interna de monitoramento financeiro. Braço direito da diretora da DPPC.",
       },
       {
-        period: "2023 — 2024",
+        period: "nov/2025 — mar/2026",
         role: "Desenvolvedor",
         org: "Kapa · SEDUC-PA",
         note: "Construí automações financeiras em produção (PETE/PEAE, Diárias) — do relatório bruto do SIAFE até os relatórios e o envio das mensagens.",
       },
       {
-        period: "2022 — 2023",
-        role: "Estagiário → Desenvolvedor",
+        period: "2023 — 2025",
+        role: "Estagiário",
         org: "SEDUC-PA",
-        note: "Comecei como estagiário na Secretaria de Educação do Pará e cresci para uma vaga de desenvolvedor, atuando em dados e automação.",
+        note: "Entrei na Secretaria de Educação do Pará como estagiário, atuando em dados e automação — o terreno onde os sistemas acima foram construídos.",
       },
     ],
   },

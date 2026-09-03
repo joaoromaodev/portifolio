@@ -128,8 +128,8 @@ CONTENT = {
             "education": "Education, languages and recognition",
         },
         "profile": (
-            "Hybrid Data + Dev profile with ~2.5 years inside the Pará State Department of "
-            "Education (SEDUC-PA), where I grew from intern to technical lead and product "
+            "Hybrid Data + Dev profile, inside the Pará State Department of Education (SEDUC-PA) "
+            "since 2023, where I grew from intern to technical lead and product "
             "owner of the platform its finance directorates run on. I build Python automation "
             "and full-stack Next.js products that survive production: real users, real money, "
             "real deadlines. Comfortable owning a system end to end — data ingestion, "
@@ -139,7 +139,7 @@ CONTENT = {
             (
                 "Tech Lead &amp; Product Owner — SIMF",
                 "Montreal Informática · SEDUC-PA — Belém, Brazil",
-                "2024 — present",
+                "2026 — present",
                 [
                     "Technical decision-maker and product owner of an internal platform that monitors "
                     "budget and financial execution for the state education department. In active daily "
@@ -154,7 +154,7 @@ CONTENT = {
             (
                 "Developer",
                 "Kapa · SEDUC-PA — Belém, Brazil",
-                "2023 — 2024",
+                "Nov 2025 — Mar 2026",
                 [
                     "Built and shipped the automation that tracks daily instalments paid to municipalities "
                     "under two state programmes (school transport and school meals) — from the raw financial "
@@ -166,12 +166,12 @@ CONTENT = {
                 ],
             ),
             (
-                "Intern → Developer",
+                "Intern",
                 "SEDUC-PA — Belém, Brazil",
-                "2022 — 2023",
+                "2023 — 2025",
                 [
-                    "Started as an intern and grew into a developer role across data and automation work, "
-                    "which is where the financial-automation systems above came from.",
+                    "Joined the department as an intern and worked across data and automation for two "
+                    "years — the ground the systems above were built on.",
                 ],
             ),
         ],
@@ -220,8 +220,8 @@ CONTENT = {
             "education": "Formação, idiomas e reconhecimento",
         },
         "profile": (
-            "Perfil híbrido de Dados + Dev, com ~2,5 anos dentro da Secretaria de Estado de "
-            "Educação do Pará (SEDUC-PA), onde fui de estagiário a responsável técnico e product "
+            "Perfil híbrido de Dados + Dev, dentro da Secretaria de Estado de Educação do Pará "
+            "(SEDUC-PA) desde 2023, onde fui de estagiário a responsável técnico e product "
             "owner da plataforma que as diretorias financeiras usam todo dia. Construo automação "
             "em Python e produtos full-stack em Next.js que aguentam produção: usuário real, "
             "dinheiro real, prazo real. Assumo o sistema de ponta a ponta — ingestão de dados, "
@@ -231,7 +231,7 @@ CONTENT = {
             (
                 "Tech Lead &amp; Product Owner — SIMF",
                 "Montreal Informática · SEDUC-PA — Belém, Pará",
-                "2024 — atual",
+                "2026 — atual",
                 [
                     "Responsável pelas decisões técnicas e product owner de uma plataforma interna que "
                     "monitora a execução orçamentária e financeira da secretaria de educação do estado. "
@@ -246,7 +246,7 @@ CONTENT = {
             (
                 "Desenvolvedor",
                 "Kapa · SEDUC-PA — Belém, Pará",
-                "2023 — 2024",
+                "nov/2025 — mar/2026",
                 [
                     "Construí e coloquei em produção a automação que acompanha diariamente as parcelas "
                     "pagas às prefeituras em dois programas estaduais (transporte escolar e alimentação "
@@ -260,12 +260,12 @@ CONTENT = {
                 ],
             ),
             (
-                "Estagiário → Desenvolvedor",
+                "Estagiário",
                 "SEDUC-PA — Belém, Pará",
-                "2022 — 2023",
+                "2023 — 2025",
                 [
-                    "Comecei como estagiário e cresci para uma vaga de desenvolvedor, atuando em dados e "
-                    "automação — foi de onde saíram os sistemas financeiros acima.",
+                    "Entrei na secretaria como estagiário e atuei dois anos em dados e automação — o "
+                    "terreno onde os sistemas acima foram construídos.",
                 ],
             ),
         ],

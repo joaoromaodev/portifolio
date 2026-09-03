@@ -30,8 +30,11 @@ O site complementa o currículo (já pronto) e o LinkedIn — não os repete, ap
 - **Formação:** BSc in Computer Science — Universidade Cruzeiro do Sul (Nov 2025).
 - **Inglês:** B2 Upper Intermediate (EF SET, 2025).
 - **Posicionamento:** Data Analyst & Developer (Python automation + full-stack Next.js/React).
-- **Experiência:** ~2,5 anos no SEDUC-PA (Secretaria de Educação do Pará), progressão
-  estágio → Kapa → Montreal Informática (mesma instituição, contratantes diferentes).
+- **Experiência:** no SEDUC-PA (Secretaria de Educação do Pará) **desde 2023**, mesma
+  instituição, contratantes diferentes: **estágio 2023–2025 → Kapa nov/2025–mar/2026 →
+  Montreal Informática 2026–atual**. (Corrigido em 02/09/2026 com o João; a versão
+  anterior dizia "~2,5 anos" e datava tudo dois anos antes. Preferir "desde 2023" a
+  uma duração: não envelhece.)
   Hoje é **tech lead / product owner do SIMF** e braço direito da diretora da DPPC.
 - **Objetivo de vida:** construir uma vida no exterior com a esposa, com qualidade de vida e
   liberdade financeira e física.
