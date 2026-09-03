@@ -1,11 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="João Romão">
-  <!-- The hero's `> whoami` prompt on a transparent ground: a thick chevron
-       and a solid cursor block, sized to fill the canvas since there is no
-       plate to sit inside.
+  <!-- The hero's `> whoami` prompt on a transparent ground: chevron plus
+       underscore, both the same stroke weight so they read as one typed
+       token. The underscore sits below the chevron's lower tip, the way `_`
+       sits under the baseline in a monospace face — at 16px that vertical
+       separation is what keeps the two shapes from merging into a blob.
 
        The blink only runs where the browser renders the favicon live —
        Firefox does; Chrome and Safari rasterize it once and show a single
-       frame. That frame is the cursor visible: the animation starts at
+       frame. That frame is the underscore visible: the animation starts at
        opacity 1, so an engine that ignores it still draws the whole mark.
 
        Colors flip with the OS theme because a transparent icon inherits
@@ -14,21 +16,16 @@
        already uses for the light theme. -->
   <style>
     .chevron { stroke: #56D364 }
-    .cursor { fill: #E3A857; animation: caret-blink 1s steps(1) infinite }
+    .cursor { stroke: #56D364; animation: caret-blink 1s steps(1) infinite }
     @keyframes caret-blink { 0%, 45% { opacity: 1 } 55%, 100% { opacity: 0 } }
     @media (prefers-reduced-motion: reduce) { .cursor { animation: none } }
     @media (prefers-color-scheme: light) {
       .chevron { stroke: #1A7F37 }
-      .cursor { fill: #9A6700 }
+      .cursor { stroke: #1A7F37 }
     }
   </style>
-  <path
-    class="chevron"
-    d="M13 14 L31 32 L13 50"
-    fill="none"
-    stroke-width="8.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-  <rect class="cursor" x="41" y="14" width="14" height="36" rx="2" />
+  <g fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path class="chevron" d="M9 12 L23 30 L9 48" />
+    <path class="cursor" d="M34 52 L55 52" />
+  </g>
 </svg>
