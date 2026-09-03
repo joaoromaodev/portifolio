@@ -50,7 +50,7 @@ export function Nav() {
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
         <a
           href={`${home}#top`}
-          className="font-mono text-sm font-semibold text-fg transition-colors hover:text-green"
+          className="inline-flex min-h-6 items-center font-mono text-sm font-semibold text-fg transition-colors hover:text-green"
         >
           <span className="text-green">~/</span>
           {profile.name.toLowerCase().replace(" ", "-")}

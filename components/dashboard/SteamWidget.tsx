@@ -117,7 +117,7 @@ export function SteamWidget() {
               href={data.profileUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex w-fit items-center gap-1 font-mono text-sm text-green transition-colors hover:underline"
+              className="inline-flex min-h-6 w-fit items-center gap-1 font-mono text-sm text-green transition-colors hover:underline"
             >
               {dict.dashboard.viewProfile} ↗
             </a>

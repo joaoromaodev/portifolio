@@ -25,8 +25,8 @@
         "pt": "Uma plataforma web com controle de acesso por perfil que lê os dados do SIAFE em tempo real, com módulos de execução orçamentária, liquidações, pagamentos e contas bancárias — em uso ativo pela DFIN e pela DPPC."
       },
       "impact": {
-        "en": "In active production use, serving SAPF. Deployed on an Ubuntu VM (Nginx + PM2) behind internal DNS with SSL.",
-        "pt": "Em uso ativo em produção, atendendo a SAPF. Implantado em VM Ubuntu (Nginx + PM2) atrás de DNS interno com SSL."
+        "en": "Used daily by around fifty people across the finance side of the department — two directors, a deputy secretary, five coordinators and more than forty operational staff. Deployed on an Ubuntu VM (Nginx + PM2) behind internal DNS with SSL.",
+        "pt": "Usado diariamente por cerca de cinquenta pessoas na área financeira da secretaria — dois diretores, uma secretária adjunta, cinco coordenadores e mais de quarenta operacionais. Implantado em VM Ubuntu (Nginx + PM2) atrás de DNS interno com SSL."
       },
       "stack": [
         "Next.js 15",

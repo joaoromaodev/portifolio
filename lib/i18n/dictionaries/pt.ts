@@ -316,6 +316,17 @@ export const pt: Dictionary = {
     copy: "copiar",
     copied: "copiado ✓",
     cv: "curriculo.pdf",
+    working: [
+      {
+        label: "fuso",
+        value:
+          "UTC−3, sem horário de verão — dia inteiro sobreposto à Costa Leste dos EUA, manhãs sobrepostas à Europa.",
+      },
+      {
+        label: "idiomas",
+        value: "Português (nativo) · Inglês B2 Upper Intermediate (EF SET, 2025)",
+      },
+    ],
     location: {
       basedIn: "morando em",
       city: "Belém, Pará",

@@ -319,6 +319,17 @@ export const en = {
     copy: "copy",
     copied: "copied ✓",
     cv: "resume.pdf",
+    working: [
+      {
+        label: "time zone",
+        value:
+          "UTC−3, no daylight saving — a full workday overlapping the US East Coast, mornings overlapping Europe.",
+      },
+      {
+        label: "languages",
+        value: "Portuguese (native) · English B2 Upper Intermediate (EF SET, 2025)",
+      },
+    ],
     location: {
       basedIn: "based in",
       city: "Belém, Pará",

@@ -30,14 +30,14 @@ export function projectMetadata(project: Project, locale: Locale): Metadata {
       url: `${siteUrl}${path}`,
       type: "article",
       locale: dict.ogLocale,
-      // The card screenshot doubles as the social image when there is one.
-      ...(project.image ? { images: [{ url: project.image }] } : {}),
+      // No `images` here on purpose: each route's opengraph-image.tsx supplies
+      // a generated PNG card, and setting images in metadata would override
+      // the file convention and put the raw .webp screenshot back.
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      ...(project.image ? { images: [project.image] } : {}),
     },
   };
 }
