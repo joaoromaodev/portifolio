@@ -118,8 +118,8 @@ def job(role, org, period, bullets):
 CONTENT = {
     "en": {
         "file": "public/joao-romao-cv.pdf",
-        "role": "Data Analyst &amp; Developer",
-        "where": "Belém, Pará, Brazil &nbsp;·&nbsp; open to remote / relocation",
+        "role": "Full-Stack Software Engineer &nbsp;·&nbsp; TypeScript · React · Next.js · Python",
+        "where": "Belém, Pará, Brazil (UTC-3) &nbsp;·&nbsp; open to remote / relocation",
         "sections": {
             "profile": "Profile",
             "experience": "Experience",
@@ -128,12 +128,13 @@ CONTENT = {
             "education": "Education, languages and recognition",
         },
         "profile": (
-            "Hybrid Data + Dev profile, inside the Pará State Department of Education (SEDUC-PA) "
-            "since 2023, where I grew from intern to technical lead and product "
-            "owner of the platform its finance directorates run on. I build Python automation "
-            "and full-stack Next.js products that survive production: real users, real money, "
-            "real deadlines. Comfortable owning a system end to end — data ingestion, "
-            "anomaly detection, interface, deployment and the people who depend on it."
+            "Full-stack engineer inside the Pará State Department of Education (SEDUC-PA) since "
+            "2023, where I grew from intern to technical lead and product owner of the platform "
+            "its finance directorates run on — Next.js 15, React, TypeScript and PostgreSQL, used "
+            "every day by around 50 people. I own systems end to end: data model, business logic, "
+            "interface, deployment and the people who depend on them. My depth is in financial "
+            "operations software — budget execution, settlements, payments, reconciliation, and the "
+            "anomaly detection that catches what a spreadsheet quietly hides."
         ),
         "jobs": [
             (
@@ -142,8 +143,9 @@ CONTENT = {
                 "2026 — present",
                 [
                     "Technical decision-maker and product owner of an internal platform that monitors "
-                    "budget and financial execution for the state education department. In active daily "
-                    "use by two directorates.",
+                    "budget and financial execution for the state education department — in active "
+                    "daily use by around 50 people across two directorates, from operational staff to "
+                    "the deputy secretary.",
                     "Built with Next.js 15 (App Router), React, Tailwind and Supabase/PostgreSQL, reading "
                     "from the state financial system; covers budget execution, settlements, payments and "
                     "bank-account tracking, with role-based access control.",
@@ -195,8 +197,8 @@ CONTENT = {
         "skills": [
             ("Languages", "Python, TypeScript, JavaScript, SQL"),
             ("Frontend", "React, Next.js 15, Tailwind CSS, Streamlit"),
+            ("Backend &amp; infra", "Node.js, PostgreSQL, Supabase, SQLite, REST APIs, Ubuntu (Nginx, PM2)"),
             ("Data &amp; automation", "Pandas, Selenium, web scraping, RPA, anomaly detection, OCR"),
-            ("Backend &amp; infra", "PostgreSQL, Supabase, SQLite, REST APIs, Ubuntu (Nginx, PM2)"),
             ("Practices", "Git, testing with Vitest, Google Apps Script, generative AI for productivity"),
         ],
         "education": [
@@ -209,12 +211,12 @@ CONTENT = {
             "(Dec 2025) — co-led EcoPredict, a machine-learning project on sustainability metrics for "
             "Belém, selected among the top 7 worldwide.",
         ],
-        "title": "João Romão — Data Analyst & Developer — CV",
+        "title": "João Romão — Full-Stack Software Engineer — CV",
     },
     "pt": {
         "file": "public/joao-romao-cv-pt.pdf",
-        "role": "Analista de Dados &amp; Desenvolvedor",
-        "where": "Belém, Pará &nbsp;·&nbsp; aberto a trabalho remoto / realocação",
+        "role": "Desenvolvedor Full Stack &nbsp;·&nbsp; TypeScript · React · Next.js · Python",
+        "where": "Belém, Pará (UTC-3) &nbsp;·&nbsp; aberto a trabalho remoto / realocação",
         "sections": {
             "profile": "Perfil",
             "experience": "Experiência",
@@ -223,12 +225,14 @@ CONTENT = {
             "education": "Formação, idiomas e reconhecimento",
         },
         "profile": (
-            "Perfil híbrido de Dados + Dev, dentro da Secretaria de Estado de Educação do Pará "
-            "(SEDUC-PA) desde 2023, onde fui de estagiário a responsável técnico e product "
-            "owner da plataforma que as diretorias financeiras usam todo dia. Construo automação "
-            "em Python e produtos full-stack em Next.js que aguentam produção: usuário real, "
-            "dinheiro real, prazo real. Assumo o sistema de ponta a ponta — ingestão de dados, "
-            "detecção de anomalia, interface, deploy e as pessoas que dependem dele."
+            "Desenvolvedor full stack dentro da Secretaria de Estado de Educação do Pará "
+            "(SEDUC-PA) desde 2023, onde fui de estagiário a responsável técnico e product owner "
+            "da plataforma que as diretorias financeiras usam todo dia — Next.js 15, React, "
+            "TypeScript e PostgreSQL, com cerca de 50 pessoas usando diariamente. Assumo o sistema "
+            "de ponta a ponta: modelo de dados, regra de negócio, interface e deploy. Minha "
+            "profundidade está em software de operação financeira — execução orçamentária, "
+            "liquidação, pagamento, conciliação e a detecção de anomalia que pega o que a "
+            "planilha esconde."
         ),
         "jobs": [
             (
@@ -237,8 +241,9 @@ CONTENT = {
                 "2026 — atual",
                 [
                     "Responsável pelas decisões técnicas e product owner de uma plataforma interna que "
-                    "monitora a execução orçamentária e financeira da secretaria de educação do estado. "
-                    "Em uso diário por duas diretorias.",
+                    "monitora a execução orçamentária e financeira da secretaria de educação do estado "
+                    "— em uso diário por cerca de 50 pessoas em duas diretorias, do operacional à "
+                    "secretária adjunta.",
                     "Feita em Next.js 15 (App Router), React, Tailwind e Supabase/PostgreSQL, lendo do "
                     "sistema financeiro do estado; cobre execução orçamentária, liquidações, pagamentos e "
                     "acompanhamento de contas bancárias, com controle de acesso por perfil.",
@@ -292,8 +297,8 @@ CONTENT = {
         "skills": [
             ("Linguagens", "Python, TypeScript, JavaScript, SQL"),
             ("Frontend", "React, Next.js 15, Tailwind CSS, Streamlit"),
+            ("Backend &amp; infra", "Node.js, PostgreSQL, Supabase, SQLite, APIs REST, Ubuntu (Nginx, PM2)"),
             ("Dados &amp; automação", "Pandas, Selenium, web scraping, RPA, detecção de anomalia, OCR"),
-            ("Backend &amp; infra", "PostgreSQL, Supabase, SQLite, APIs REST, Ubuntu (Nginx, PM2)"),
             ("Práticas", "Git, testes com Vitest, Google Apps Script, IA generativa para produtividade"),
         ],
         "education": [
@@ -306,7 +311,7 @@ CONTENT = {
             "(dez/2025) — co-liderei o EcoPredict, projeto de machine learning sobre métricas de "
             "sustentabilidade para Belém, entre os 7 melhores do mundo.",
         ],
-        "title": "João Romão — Analista de Dados & Desenvolvedor — CV",
+        "title": "João Romão — Desenvolvedor Full Stack — CV",
     },
 }
 

@@ -1,0 +1,3 @@
+# Generated CVs. Without this, core.autocrlf rewrites LF to CRLF inside the
+# PDF bytes on a Windows checkout and hands out a corrupt file.
+*.pdf binary

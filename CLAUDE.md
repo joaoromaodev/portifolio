@@ -294,7 +294,7 @@ renderizar mockups HTML, as regras de conversão WebP e as armadilhas já pagas.
 - **Languages:** Python, JavaScript, TypeScript, SQL
 - **Frontend:** React, Next.js 15, Tailwind CSS, Streamlit
 - **Data & Automation:** Pandas, Selenium, web scraping, RPA, anomaly detection, Gspread
-- **Backend & Infra:** Supabase, PostgreSQL, SQLite, REST APIs, Ubuntu (Nginx, PM2), IndexedDB/Dexie
+- **Backend & Infra:** Node.js, Supabase, PostgreSQL, SQLite, REST APIs, Ubuntu (Nginx, PM2), IndexedDB/Dexie
 - **Practices:** TypeScript testing (Vitest), Git, Google Apps Script, Generative AI for productivity
 
 ---
