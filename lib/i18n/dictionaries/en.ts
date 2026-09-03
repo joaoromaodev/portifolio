@@ -74,7 +74,7 @@ export const en = {
     roleLine: "Data Analyst & Developer from Belém, Brazil.",
     cityLabel: "Belém",
     ctaWork: "View work",
-    ctaCv: "Download CV",
+    ctaCv: "Download résumé",
     ctaContact: "Contact",
   },
 
@@ -288,7 +288,7 @@ export const en = {
     emailLabel: "email",
     copy: "copy",
     copied: "copied ✓",
-    cv: "CV (PDF)",
+    cv: "resume.pdf",
     location: {
       basedIn: "based in",
       city: "Belém, Pará",

@@ -77,7 +77,7 @@ export const pt: Dictionary = {
     roleLine: "Analista de Dados & Desenvolvedor, de Belém do Pará.",
     cityLabel: "Belém",
     ctaWork: "Ver projetos",
-    ctaCv: "Baixar CV",
+    ctaCv: "Baixar currículo",
     ctaContact: "Contato",
   },
 
@@ -285,7 +285,7 @@ export const pt: Dictionary = {
     emailLabel: "e-mail",
     copy: "copiar",
     copied: "copiado ✓",
-    cv: "CV (PDF)",
+    cv: "curriculo.pdf",
     location: {
       basedIn: "morando em",
       city: "Belém, Pará",
