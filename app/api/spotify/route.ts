@@ -149,8 +149,12 @@ export async function GET() {
     // "nothing played recently" at the envelope level — both surface as the
     // widget's fallback. Log the upstream statuses so the difference is
     // visible in the runtime logs instead of guessable.
+    // Spotify's 403 body carries the actual reason ("the user may not be
+    // registered", a missing declared API, and so on), which the status alone
+    // never tells you.
+    const why = now.status === 403 ? await now.text().catch(() => "") : "";
     console.warn(
-      `[spotify] no track — currently-playing:${now.status} recently-played:${recent.status} top:${top.status}`,
+      `[spotify] no track — currently-playing:${now.status} recently-played:${recent.status} top:${top.status} ${why.slice(0, 200).replace(/\s+/g, " ")}`,
     );
     return fail("empty");
   } catch {
