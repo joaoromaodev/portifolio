@@ -12,7 +12,11 @@ export function localeMetadata(locale: Locale): Metadata {
 
   return {
     // `absolute` opts out of the root layout's "%s · João Romão" template —
-    // the locale title already ends with his name.
+    // the locale title already carries his name. Kept short on purpose: a
+    // browser tab truncates around 20 characters, and the long role line got
+    // cut mid-word. The full "Data Analyst & Developer" positioning still
+    // lives in the OG image, the description, the keywords and the JSON-LD
+    // jobTitle.
     title: { absolute: dict.meta.title },
     description: dict.meta.description,
     keywords: dict.meta.keywords,

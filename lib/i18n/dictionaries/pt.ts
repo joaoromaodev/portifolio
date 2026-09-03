@@ -15,7 +15,7 @@ export const pt: Dictionary = {
   shortLabel: "PT",
 
   meta: {
-    title: "João Romão — Analista de Dados & Desenvolvedor",
+    title: "João Romão · Desenvolvedor",
     description:
       "Portfólio de João Romão — perfil híbrido de Dados + Dev, de Belém, Pará. Automação em Python, dashboards em tempo real e full-stack com Next.js. Aberto a trabalho remoto e realocação.",
     ogDescription:

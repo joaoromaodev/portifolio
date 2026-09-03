@@ -10,7 +10,7 @@ export const en = {
   shortLabel: "EN",
 
   meta: {
-    title: "João Romão — Data Analyst & Developer",
+    title: "João Romão · Developer",
     description:
       "Portfolio of João Romão — a hybrid Data + Dev profile from Belém, Brazil. Python automation, real-time dashboards and full-stack Next.js. Open to remote / relocation.",
     ogDescription:
