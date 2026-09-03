@@ -144,6 +144,14 @@ export async function GET() {
       }
     }
 
+    // A 403 from Spotify (missing scope, app still in development mode with
+    // the listener not allow-listed) is indistinguishable from a genuine
+    // "nothing played recently" at the envelope level — both surface as the
+    // widget's fallback. Log the upstream statuses so the difference is
+    // visible in the runtime logs instead of guessable.
+    console.warn(
+      `[spotify] no track — currently-playing:${now.status} recently-played:${recent.status} top:${top.status}`,
+    );
     return fail("empty");
   } catch {
     return fail("error");
