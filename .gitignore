@@ -49,3 +49,8 @@ scripts/_countries-50m.json
 
 # graphify knowledge-graph output (local tooling, not site content)
 /graphify-out/
+
+# Job hunt. Private by intent: this repository is public and João is employed,
+# so the search strategy and the application log stay on his machine only.
+/docs/CACA-VAGAS.md
+/docs/CANDIDATURAS.md
