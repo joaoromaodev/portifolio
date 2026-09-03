@@ -43,16 +43,25 @@ export async function GET() {
       body: JSON.stringify({ query, variables: { login: LOGIN } }),
       next: { revalidate },
     });
-    if (!gql.ok) return fail("error");
+    if (!gql.ok) {
+      // Every upstream failure collapses into reason:"error", and the widget's
+      // fallback looks identical whether the token expired, the query broke or
+      // GitHub is down. Log which one it was — an expired GITHUB_TOKEN in the
+      // deployment env is the failure this route actually sees.
+      console.warn(
+        `[github] graphql ${gql.status} ${(await gql.text()).slice(0, 200).replace(/\s+/g, " ")}`,
+      );
+      return fail("error");
+    }
     const gjson = await gql.json();
     const cal =
       gjson?.data?.user?.contributionsCollection?.contributionCalendar;
     if (!cal) return fail("empty");
 
-    const days: number[] = cal.weeks
-      .flatMap((w: { contributionDays: { contributionCount: number }[] }) =>
+    const days: number[] = cal.weeks.flatMap(
+      (w: { contributionDays: { contributionCount: number }[] }) =>
         w.contributionDays.map((d) => d.contributionCount),
-      );
+    );
     const levels = days.slice(-84).map(level); // last 12 weeks → 84 cells
 
     // Latest pushed repo + its most recent commit message (best-effort).
