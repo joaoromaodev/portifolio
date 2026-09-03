@@ -147,7 +147,7 @@ export const pt: Dictionary = {
           text: "Think Different",
           href: "https://pt.wikipedia.org/wiki/Think_different",
         },
-        ", da Apple — aquele que diz que as pessoas loucas o bastante pra achar que podem mudar o mundo são as que mudam —, me pegou exatamente na idade certa. Ali eu soube que queria ser uma delas, usando tecnologia pra mudar alguma coisa de verdade.",
+        ", da Apple — aquele que diz que as pessoas loucas o bastante pra achar que podem mudar o mundo são as que de fato mudam —, me pegou exatamente na idade certa. Ali eu soube que queria ser uma delas, usando tecnologia pra mudar alguma coisa de verdade.",
       ],
       "Quando criança, eu fazia jogos; adolescente, migrei pro design e emendei um negócio no outro (e fui à falência em vários). Essa mesma vontade aparece em tudo até hoje: um projeto de luthieria que estou começando, um empreendimento novo sempre que enxergo uma oportunidade, e jogar com os amigos.",
       "Meu objetivo de longo prazo: construir uma vida com a minha esposa — em algum lugar com qualidade de vida de verdade, e com a liberdade financeira e física pra aproveitar.",
