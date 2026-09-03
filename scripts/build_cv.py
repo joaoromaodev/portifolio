@@ -40,8 +40,8 @@ ACCENT = HexColor("#1A7F37")
 BODY = ParagraphStyle(
     "body",
     fontName="Helvetica",
-    fontSize=8.9,
-    leading=11.6,
+    fontSize=8.8,
+    leading=11.1,
     textColor=INK,
     alignment=TA_JUSTIFY,
 )
@@ -80,7 +80,7 @@ BULLET = ParagraphStyle(
 
 def section(title):
     return [
-        Spacer(1, 7),
+        Spacer(1, 5.5),
         Paragraph(title.upper(), SECTION),
         Spacer(1, 2),
         HRFlowable(width="100%", thickness=0.7, color=ACCENT, spaceAfter=4),
@@ -107,7 +107,7 @@ def job(role, org, period, bullets):
         Spacer(1, 2),
     ]
     out += [Paragraph(b, BULLET, bulletText="•") for b in bullets]
-    out.append(Spacer(1, 5))
+    out.append(Spacer(1, 3.5))
     return out
 
 
@@ -200,6 +200,9 @@ CONTENT = {
             ("Practices", "Git, testing with Vitest, Google Apps Script, generative AI for productivity"),
         ],
         "education": [
+            "<b>Three postgraduate specialisations (lato sensu)</b> — FAMEESP, in progress "
+            "(due 2027): Generative AI and Intelligent Agents for Business; Data Science and "
+            "Big Data Analytics; Software Engineering",
             "<b>BSc in Computer Science</b> — Universidade Cruzeiro do Sul, Brazil (Nov 2025)",
             "<b>Languages</b> — Portuguese (native); English B2 Upper Intermediate (EF SET, 2025)",
             "<b>Outstanding Achievement, I2A2 &ldquo;AI for Sustainable Projects — Towards COP 30&rdquo;</b> "
@@ -294,6 +297,9 @@ CONTENT = {
             ("Práticas", "Git, testes com Vitest, Google Apps Script, IA generativa para produtividade"),
         ],
         "education": [
+            "<b>Três pós-graduações lato sensu</b> — FAMEESP, em andamento (prazo 2027): "
+            "IA Generativa e Agentes Inteligentes para Negócios; Ciência de Dados e Big Data "
+            "Analytics; Engenharia de Software",
             "<b>Bacharelado em Ciência da Computação</b> — Universidade Cruzeiro do Sul (nov/2025)",
             "<b>Idiomas</b> — Português (nativo); Inglês B2 Upper Intermediate (EF SET, 2025)",
             "<b>Outstanding Achievement, I2A2 &ldquo;AI for Sustainable Projects — Towards COP 30&rdquo;</b> "
