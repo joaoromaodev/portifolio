@@ -182,7 +182,7 @@ export const pt: Dictionary = {
         note: "Construí automações financeiras em produção (PETE/PEAE, Diárias) — do relatório bruto do SIAFE até os relatórios e o envio das mensagens.",
       },
       {
-        period: "2023 — 2025",
+        period: "set/2023 — 2025",
         role: "Estagiário",
         org: "SEDUC-PA",
         note: "Entrei na Secretaria de Educação do Pará como estagiário, atuando em dados e automação — o terreno onde os sistemas acima foram construídos.",

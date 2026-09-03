@@ -31,7 +31,7 @@ O site complementa o currículo (já pronto) e o LinkedIn — não os repete, ap
 - **Inglês:** B2 Upper Intermediate (EF SET, 2025).
 - **Posicionamento:** Data Analyst & Developer (Python automation + full-stack Next.js/React).
 - **Experiência:** no SEDUC-PA (Secretaria de Educação do Pará) **desde 2023**, mesma
-  instituição, contratantes diferentes: **estágio 2023–2025 → Kapa nov/2025–mar/2026 →
+  instituição, contratantes diferentes: **estágio set/2023–2025 → Kapa nov/2025–mar/2026 →
   Montreal Informática 2026–atual**. (Corrigido em 02/09/2026 com o João; a versão
   anterior dizia "~2,5 anos" e datava tudo dois anos antes. Preferir "desde 2023" a
   uma duração: não envelhece.)

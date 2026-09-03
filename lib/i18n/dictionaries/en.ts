@@ -180,7 +180,7 @@ export const en = {
         note: "Built financial automation in production (PETE/PEAE, Diárias) — from raw SIAFE reports to reports and messaging.",
       },
       {
-        period: "2023 — 2025",
+        period: "Sep 2023 — 2025",
         role: "Intern",
         org: "SEDUC-PA",
         note: "Started at the State Department of Education of Pará as an intern, working across data and automation — the ground the systems above were built on.",

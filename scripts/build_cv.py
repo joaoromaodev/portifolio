@@ -168,7 +168,7 @@ CONTENT = {
             (
                 "Intern",
                 "SEDUC-PA — Belém, Brazil",
-                "2023 — 2025",
+                "Sep 2023 — 2025",
                 [
                     "Joined the department as an intern and worked across data and automation for two "
                     "years — the ground the systems above were built on.",
@@ -262,7 +262,7 @@ CONTENT = {
             (
                 "Estagiário",
                 "SEDUC-PA — Belém, Pará",
-                "2023 — 2025",
+                "set/2023 — 2025",
                 [
                     "Entrei na secretaria como estagiário e atuei dois anos em dados e automação — o "
                     "terreno onde os sistemas acima foram construídos.",
