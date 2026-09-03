@@ -6,16 +6,37 @@
 //   3. Copy the Client ID and Client Secret.
 //
 // Run it:
-//   SPOTIFY_CLIENT_ID=xxx SPOTIFY_CLIENT_SECRET=yyy node scripts/get-spotify-token.mjs
+//   node scripts/get-spotify-token.mjs        (reads .env.local for you)
 //
 // It opens your browser, you click "Agree", and it prints the refresh token to
 // paste into .env.local (SPOTIFY_REFRESH_TOKEN=...). The token doesn't expire.
 
 import http from "node:http";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { exec } from "node:child_process";
 
-const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+
+// Read .env.local ourselves. Passing the credentials on the command line is
+// shell-specific (the `set -a; . ./.env.local` trick is Bash-only, and this is
+// a Windows machine), and it leaves the client secret in the shell history.
+function envLocal(key) {
+  if (process.env[key]) return process.env[key];
+  try {
+    const line = fs
+      .readFileSync(path.join(ROOT, ".env.local"), "utf8")
+      .split(/\r?\n/)
+      .find((l) => l.trim().startsWith(`${key}=`));
+    return line ? line.slice(line.indexOf("=") + 1).trim() : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+const CLIENT_ID = envLocal("SPOTIFY_CLIENT_ID");
+const CLIENT_SECRET = envLocal("SPOTIFY_CLIENT_SECRET");
 const PORT = 8888;
 const REDIRECT_URI = `http://127.0.0.1:${PORT}/callback`;
 // read-only scopes the widget needs (user-top-read powers the "top tracks"
