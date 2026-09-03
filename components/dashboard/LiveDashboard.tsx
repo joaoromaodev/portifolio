@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { stagger, inView } from "@/lib/motion";
 import { Section } from "@/components/ui/Section";
 import { SectionHeader } from "@/components/ui/SectionHeader";
+import { SectionGrid } from "@/components/ui/SectionGrid";
 import { GitHubWidget } from "./GitHubWidget";
 import { SpotifyWidget } from "./SpotifyWidget";
 import { SteamWidget } from "./SteamWidget";
@@ -14,7 +15,8 @@ export function LiveDashboard() {
   const { dict } = useI18n();
 
   return (
-    <Section id="dashboard">
+    <Section id="dashboard" className="relative">
+      <SectionGrid />
       <SectionHeader
         id={dict.dashboard.slug}
         title={dict.dashboard.title}

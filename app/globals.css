@@ -37,6 +37,12 @@
   --synth-line-alpha: 16%;
   --synth-glow-cyan: 22%;
   --synth-glow-purple: 18%;
+
+  /* The flat section grid (components/ui/SectionGrid.tsx) is drawn in the
+     border colour. Full strength here, and it is still barely there: the dark
+     border (#2a2f37 on #0d1117) is dim by design, so anything less than 100%
+     rendered as nothing at all rather than as subtle. */
+  --section-grid-alpha: 100%;
 }
 
 :root[data-theme="light"] {
@@ -62,6 +68,10 @@
   --synth-line-alpha: 20%;
   --synth-glow-cyan: 10%;
   --synth-glow-purple: 8%;
+
+  /* The light border is paler to begin with, so less of it survives — but it
+     also sits on white, where a thin line reads at lower strength. */
+  --section-grid-alpha: 75%;
 }
 
 @layer base {
