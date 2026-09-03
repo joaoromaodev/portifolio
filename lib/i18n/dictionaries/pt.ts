@@ -49,6 +49,7 @@ export const pt: Dictionary = {
       { id: "experience", label: "experiência" },
       { id: "projects", label: "projetos" },
       { id: "skills", label: "skills" },
+      { id: "education", label: "formação" },
       { id: "contact", label: "contato" },
     ],
     cta: "fale comigo",
@@ -273,6 +274,35 @@ export const pt: Dictionary = {
           "Google Apps Script",
           "IA generativa para produtividade",
         ],
+      },
+    ],
+  },
+
+  education: {
+    slug: "education",
+    title: "Formação e credenciais",
+    subtitle:
+      "A graduação está concluída; as especializações não. Listadas como estão.",
+    items: [
+      {
+        period: "em andamento · prazo 2027",
+        degree: "Três pós-graduações lato sensu",
+        org: "FAMEESP",
+        note: "IA Generativa e Agentes Inteligentes para Negócios · Ciência de Dados e Big Data Analytics · Engenharia de Software",
+      },
+      {
+        period: "nov/2025",
+        degree: "Bacharelado em Ciência da Computação",
+        org: "Universidade Cruzeiro do Sul",
+        note: "Concluído já trabalhando na SEDUC-PA.",
+      },
+    ],
+    extras: [
+      { label: "Inglês", value: "B2 Upper Intermediate — EF SET, 2025" },
+      {
+        label: "Reconhecimento",
+        value:
+          "Outstanding Achievement — I2A2 “AI for Sustainable Projects · Towards COP 30”, dez/2025. Co-liderei o EcoPredict, entre os 7 melhores do mundo.",
       },
     ],
   },

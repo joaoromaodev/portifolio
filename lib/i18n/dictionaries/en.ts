@@ -44,6 +44,7 @@ export const en = {
       { id: "experience", label: "experience" },
       { id: "projects", label: "projects" },
       { id: "skills", label: "skills" },
+      { id: "education", label: "education" },
       { id: "contact", label: "contact" },
     ],
     cta: "get in touch",
@@ -276,6 +277,35 @@ export const en = {
           "Google Apps Script",
           "Generative AI for productivity",
         ],
+      },
+    ],
+  },
+
+  education: {
+    slug: "education",
+    title: "Studies and credentials",
+    subtitle:
+      "The degree is done; the specialisations are not. Listed as they stand.",
+    items: [
+      {
+        period: "in progress · due 2027",
+        degree: "Three postgraduate specialisations (lato sensu)",
+        org: "FAMEESP",
+        note: "Generative AI and Intelligent Agents for Business · Data Science and Big Data Analytics · Software Engineering",
+      },
+      {
+        period: "Nov 2025",
+        degree: "BSc in Computer Science",
+        org: "Universidade Cruzeiro do Sul",
+        note: "Finished while already working at SEDUC-PA.",
+      },
+    ],
+    extras: [
+      { label: "English", value: "B2 Upper Intermediate — EF SET, 2025" },
+      {
+        label: "Recognition",
+        value:
+          "Outstanding Achievement — I2A2 “AI for Sustainable Projects · Towards COP 30”, Dec 2025. Co-led EcoPredict, top 7 worldwide.",
       },
     ],
   },
