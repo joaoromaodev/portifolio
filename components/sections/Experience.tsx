@@ -25,7 +25,11 @@ export function Experience() {
             variants={fadeUp}
             className="relative mb-9 last:mb-0"
           >
-            <span className="absolute -left-[1.65rem] top-1.5 size-3 rounded-full border-2 border-bg bg-green" />
+            {/* Sits on the rule, not near it: pull back the list's pl-6, then
+                half the dot (6px) and half the 1px border, so the dot's centre
+                and the rule's centre are the same x. The old hand-picked
+                -1.65rem left it 4px to the right. */}
+            <span className="absolute left-[calc(-1.5rem_-_6.5px)] top-1.5 size-3 rounded-full border-2 border-bg bg-green" />
             <p className="font-mono text-xs text-amber">{job.period}</p>
             <h3 className="mt-1 font-mono text-base font-semibold text-fg">
               {job.role}
