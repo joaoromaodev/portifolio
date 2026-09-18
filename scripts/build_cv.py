@@ -199,7 +199,7 @@ CONTENT = {
             ("Frontend", "React, Next.js 15, Tailwind CSS, Streamlit"),
             ("Backend &amp; infra", "Node.js, PostgreSQL, Supabase, SQLite, REST APIs, Ubuntu (Nginx, PM2)"),
             ("Data &amp; automation", "Pandas, Selenium, web scraping, RPA, anomaly detection, OCR"),
-            ("Practices", "Git, testing with Vitest, Google Apps Script, generative AI for productivity"),
+            ("Practices", "Git, testing with Vitest, AI-assisted development (Claude Code), Google Apps Script"),
         ],
         "education": [
             "<b>Three postgraduate specialisations (lato sensu)</b> — FAMEESP, in progress "
@@ -299,7 +299,7 @@ CONTENT = {
             ("Frontend", "React, Next.js 15, Tailwind CSS, Streamlit"),
             ("Backend &amp; infra", "Node.js, PostgreSQL, Supabase, SQLite, APIs REST, Ubuntu (Nginx, PM2)"),
             ("Dados &amp; automação", "Pandas, Selenium, web scraping, RPA, detecção de anomalia, OCR"),
-            ("Práticas", "Git, testes com Vitest, Google Apps Script, IA generativa para produtividade"),
+            ("Práticas", "Git, testes com Vitest, desenvolvimento assistido por IA (Claude Code), Google Apps Script"),
         ],
         "education": [
             "<b>Três pós-graduações lato sensu</b> — FAMEESP, em andamento (prazo 2027): "
