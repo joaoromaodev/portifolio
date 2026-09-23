@@ -70,6 +70,11 @@ que quiser ativar. Copie `.env.example` → `.env.local` e cole os valores.
 1. Chave: https://steamcommunity.com/dev/apikey → `STEAM_API_KEY=`.
 2. Seu SteamID64 (17 dígitos): https://steamid.io → `STEAM_ID=`.
 3. O perfil + "detalhes do jogo" precisam estar **públicos** (senão cai no fallback).
+   Sem jogar há mais de 14 dias, o card mostra os últimos jogados da biblioteca
+   (horas totais) em vez de sumir. Se mesmo assim `/api/steam` responder
+   `{"ok":false,"reason":"empty"}`, é a privacidade: Steam → Perfil → Editar
+   perfil → Privacidade → **Detalhes do jogo: Público** (e desmarcar "manter
+   tempo de jogo privado").
 
 ## 5. Cloudflare Turnstile — anti-bot do chatbot (opcional)
 

@@ -4,31 +4,82 @@ import { ok, fail } from "@/lib/api";
 // public profile. Falls back gracefully if private/empty. Cached ~1h.
 export const revalidate = 3600;
 
+const API = "https://api.steampowered.com/IPlayerService";
+const COUNT = 3;
+
+type RecentGame = { appid: number; name: string; playtime_2weeks?: number };
+type OwnedGame = {
+  appid: number;
+  name?: string;
+  playtime_forever?: number;
+  rtime_last_played?: number;
+};
+
+type SteamGameOut = {
+  appid: number;
+  name: string;
+  hours: number;
+  /** "recent" = hours in the last 2 weeks; "total" = lifetime hours. */
+  window: "recent" | "total";
+};
+
+const toHours = (minutes = 0) => Math.round((minutes / 60) * 10) / 10;
+
+async function steam<T>(method: string, params: string): Promise<T | null> {
+  const res = await fetch(`${API}/${method}/v1/?${params}&format=json`, {
+    next: { revalidate },
+  });
+  if (!res.ok) throw new Error(`steam ${method} ${res.status}`);
+  return (await res.json())?.response ?? null;
+}
+
 export async function GET() {
-  const key = process.env.STEAM_API_KEY;
-  const steamId = process.env.STEAM_ID;
+  const key = process.env.STEAM_API_KEY?.trim();
+  const steamId = process.env.STEAM_ID?.trim();
   if (!key || !steamId) return fail("unconfigured");
 
-  try {
-    const url = `https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key=${key}&steamid=${steamId}&count=3&format=json`;
-    const res = await fetch(url, { next: { revalidate } });
-    if (!res.ok) return fail("error");
+  const auth = `key=${encodeURIComponent(key)}&steamid=${encodeURIComponent(steamId)}`;
 
-    const json = await res.json();
-    const games = json?.response?.games;
-    if (!games || games.length === 0) return fail("empty");
+  try {
+    // GetRecentlyPlayedGames only sees the last 14 days, so it comes back
+    // empty after two weeks without playing — the tile used to die then.
+    const recent = await steam<{ games?: RecentGame[] }>(
+      "GetRecentlyPlayedGames",
+      `${auth}&count=${COUNT}`,
+    );
+    let games: SteamGameOut[] = (recent?.games ?? [])
+      .slice(0, COUNT)
+      .map((g) => ({
+        appid: g.appid,
+        name: g.name,
+        hours: toHours(g.playtime_2weeks),
+        window: "recent",
+      }));
+
+    // Fallback: the owned library, most recently played first, lifetime hours.
+    if (games.length === 0) {
+      const owned = await steam<{ games?: OwnedGame[] }>(
+        "GetOwnedGames",
+        `${auth}&include_appinfo=1&include_played_free_games=1`,
+      );
+      games = (owned?.games ?? [])
+        .filter((g) => g.name && (g.rtime_last_played ?? 0) > 0)
+        .sort((a, b) => (b.rtime_last_played ?? 0) - (a.rtime_last_played ?? 0))
+        .slice(0, COUNT)
+        .map((g) => ({
+          appid: g.appid,
+          name: g.name!,
+          hours: toHours(g.playtime_forever),
+          window: "total",
+        }));
+    }
+
+    // Both empty means "Game details" is private on the Steam profile.
+    if (games.length === 0) return fail("empty");
 
     return ok(
       {
-        games: games
-          .slice(0, 3)
-          .map(
-            (g: { appid: number; name: string; playtime_2weeks?: number }) => ({
-              appid: g.appid,
-              name: g.name,
-              hours: Math.round(((g.playtime_2weeks ?? 0) / 60) * 10) / 10,
-            }),
-          ),
+        games,
         profileUrl: `https://steamcommunity.com/profiles/${steamId}`,
       },
       revalidate,

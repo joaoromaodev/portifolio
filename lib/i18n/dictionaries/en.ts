@@ -104,6 +104,7 @@ export const en = {
       title: "Steam · recently played",
       source: "Steam Web API · public profile",
       perTwoWeeks: "/ 2wk",
+      total: "total",
     },
     spotify: {
       title: "Spotify",

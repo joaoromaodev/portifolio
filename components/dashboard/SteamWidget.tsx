@@ -4,7 +4,13 @@ import { useState } from "react";
 import { WidgetShell, SkeletonLine, useLiveWidget } from "./WidgetShell";
 import { useI18n } from "@/components/i18n/LocaleProvider";
 
-type SteamGame = { appid: number; name: string; hours: number };
+type SteamGame = {
+  appid: number;
+  name: string;
+  hours: number;
+  /** Absent in the static fallback, which reads as recent play. */
+  window?: "recent" | "total";
+};
 
 type SteamData = {
   games: SteamGame[];
@@ -105,7 +111,9 @@ export function SteamWidget() {
                   {g.hours}h
                   <span className="text-comment">
                     {" "}
-                    {dict.dashboard.steam.perTwoWeeks}
+                    {g.window === "total"
+                      ? dict.dashboard.steam.total
+                      : dict.dashboard.steam.perTwoWeeks}
                   </span>
                 </span>
               </li>

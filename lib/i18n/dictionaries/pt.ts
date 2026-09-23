@@ -106,6 +106,7 @@ export const pt: Dictionary = {
       title: "Steam · jogados recentemente",
       source: "Steam Web API · perfil público",
       perTwoWeeks: "/ 2sem",
+      total: "no total",
     },
     spotify: {
       title: "Spotify",
