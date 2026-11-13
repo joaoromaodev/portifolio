@@ -69,9 +69,10 @@ export const en = {
   hero: {
     prompt: "whoami",
     headline: {
-      lead: "I build the real-time systems that ",
-      accent: "public-sector finance",
-      tail: " runs on — turning raw data into automation and full-stack products that hold up in production.",
+      lead: "I build technology with ",
+      accent: "Amazonian roots",
+      tail:
+        " — production software for the environmental economy, cooperatives and public money, owned from the first conversation through to daily use.",
     },
     roleLine: "Full-Stack Product Engineer from Belém, Brazil.",
     cityLabel: "Belém",

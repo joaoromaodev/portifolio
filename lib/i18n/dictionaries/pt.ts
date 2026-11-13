@@ -72,9 +72,10 @@ export const pt: Dictionary = {
   hero: {
     prompt: "whoami",
     headline: {
-      lead: "Eu construo os sistemas em tempo real que sustentam as ",
-      accent: "finanças do setor público",
-      tail: " — transformando dado bruto em automação e em produtos full-stack que aguentam produção.",
+      lead: "Eu construo tecnologia com ",
+      accent: "raízes amazônicas",
+      tail:
+        " — software em produção para a economia ambiental, o cooperativismo e o dinheiro público, da primeira conversa ao uso diário.",
     },
     roleLine: "Full-Stack Product Engineer, de Belém do Pará.",
     cityLabel: "Belém",
