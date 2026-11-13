@@ -176,13 +176,13 @@ export const en = {
         note: "I lead technology at an Amazonian consultancy in sociobioeconomy and cooperativism — 250+ socio-productive organizations and 10,000+ families reached across 20 states. I own architecture, identity and permissions, data segregation (LGPD) and production readiness for the company website, the platforms we sell as management tools for cooperatives, and our internal ERP.",
       },
       {
-        period: "Mar — Oct 2026",
+        period: "Apr — Oct 2026",
         role: "Tech Lead & Product Owner — SIMF",
         org: "Montreal Informática · SEDUC-PA",
         note: "Technical decision-maker and product owner of an internal financial-monitoring platform. Right hand to the DPPC director.",
       },
       {
-        period: "Nov 2025 — Mar 2026",
+        period: "Nov 2025 — Apr 2026",
         role: "Developer",
         org: "Kapa · SEDUC-PA",
         note: "Built financial automation in production (PETE/PEAE, Diárias) — from raw SIAFE reports to reports and messaging.",

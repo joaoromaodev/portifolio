@@ -43,11 +43,11 @@ O site complementa o currículo (já pronto) e o LinkedIn — não os repete, ap
   pode e o que não pode ser publicado sobre os sistemas da Nós.)
 - **Experiência anterior:** SEDUC-PA (Secretaria de Educação do Pará) de **2023 a
   out/2026**, mesma instituição, contratantes diferentes: **estágio set/2023–2025 →
-  Kapa nov/2025–mar/2026 → Montreal Informática mar/2026–out/2026**. Foi **tech lead /
-  product owner do SIMF** e braço direito da diretora da DPPC. (Datas corrigidas em
-  02/09/2026; o fim do vínculo e o início na Montreal em 13/11/2026 — a troca Kapa →
-  Montreal foi no mesmo mês, com uma semana de diferença, por isso mar/2026 aparece
-  nas duas entradas.)
+  Kapa nov/2025–abr/2026 → Montreal Informática abr/2026–out/2026**. Foi **tech lead /
+  product owner do SIMF** e braço direito da diretora da DPPC. (Datas conferidas com o
+  João e com o LinkedIn em 13/11/2026: a troca Kapa → Montreal foi no mesmo mês, com
+  uma semana de diferença, por isso abr/2026 aparece nas duas entradas. A versão
+  anterior deste arquivo dizia mar/2026 — estava errado.)
 - **Objetivo de vida:** construir uma vida no exterior com a esposa, com qualidade de vida e
   liberdade financeira e física.
 

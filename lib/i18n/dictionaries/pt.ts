@@ -178,13 +178,13 @@ export const pt: Dictionary = {
         note: "Lidero a tecnologia de uma consultoria amazônida de sociobioeconomia e cooperativismo — mais de 250 organizações socioprodutivas e 10.000 famílias impactadas em 20 estados. Respondo por arquitetura, identidade e permissões, segregação de dados (LGPD) e prontidão para produção do site da empresa, das plataformas vendidas como ferramentas de gestão para cooperativas e do nosso ERP interno.",
       },
       {
-        period: "mar — out/2026",
+        period: "abr — out/2026",
         role: "Tech Lead & Product Owner — SIMF",
         org: "Montreal Informática · SEDUC-PA",
         note: "Responsável pelas decisões técnicas e product owner de uma plataforma interna de monitoramento financeiro. Braço direito da diretora da DPPC.",
       },
       {
-        period: "nov/2025 — mar/2026",
+        period: "nov/2025 — abr/2026",
         role: "Desenvolvedor",
         org: "Kapa · SEDUC-PA",
         note: "Construí automações financeiras em produção (PETE/PEAE, Diárias) — do relatório bruto do SIAFE até os relatórios e o envio das mensagens.",
