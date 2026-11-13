@@ -15,15 +15,16 @@ export const pt: Dictionary = {
   shortLabel: "PT",
 
   meta: {
-    title: "João Romão · Desenvolvedor",
+    title: "João Romão · Full-Stack Product Engineer",
     description:
-      "Portfólio de João Romão — perfil híbrido de Dados + Dev, de Belém, Pará. Automação em Python, dashboards em tempo real e full-stack com Next.js. Aberto a trabalho remoto e realocação.",
+      "Portfólio de João Romão — engenheiro de produto full-stack, de Belém, Pará. Da conversa sobre o problema até a produção: automação em Python, dashboards em tempo real e full-stack com Next.js. Aberto a trabalho remoto e realocação.",
     ogDescription:
       "Um dashboard vivo sobre mim: dados em tempo real, automação em Python e full-stack com Next.js. Aberto a trabalho remoto e realocação.",
     keywords: [
       "João Romão",
-      "Analista de Dados",
-      "Desenvolvedor",
+      "Full-Stack Product Engineer",
+      "Engenheiro de Produto",
+      "Desenvolvedor Full-Stack",
       "Automação Python",
       "Next.js",
       "Belém",
@@ -32,7 +33,7 @@ export const pt: Dictionary = {
   },
 
   profile: {
-    role: "Analista de Dados & Desenvolvedor",
+    role: "Full-Stack Product Engineer",
     tagline: "automação em Python · dados em tempo real · full-stack Next.js",
     location: "Belém, Pará — Brasil",
     status: "aberto a remoto / realocação",
@@ -75,7 +76,7 @@ export const pt: Dictionary = {
       accent: "finanças do setor público",
       tail: " — transformando dado bruto em automação e em produtos full-stack que aguentam produção.",
     },
-    roleLine: "Analista de Dados & Desenvolvedor, de Belém do Pará.",
+    roleLine: "Full-Stack Product Engineer, de Belém do Pará.",
     cityLabel: "Belém",
     ctaWork: "Ver projetos",
     ctaCv: "Baixar currículo",

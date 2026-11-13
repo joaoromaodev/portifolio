@@ -35,7 +35,13 @@ O site complementa o currículo (já pronto) e o LinkedIn — não os repete, ap
   mestrado — e "em andamento" enquanto não concluir. Aparecem só no CV: o site não tem
   seção de formação.
 - **Inglês:** B2 Upper Intermediate (EF SET, 2025).
-- **Posicionamento:** Data Analyst & Developer (Python automation + full-stack Next.js/React).
+- **Posicionamento: Full-Stack Product Engineer.** Escolhido com o João em 13/11/2026, para
+  alinhar site, CV e LinkedIn, que diziam três coisas diferentes. O diferencial não é a
+  stack e sim o ciclo completo: ouve a dor do cliente/setor, concebe, desenvolve, testa,
+  treina o usuário e acompanha a adoção. "Full-Stack" fica no título porque é a palavra
+  que filtro de recrutador e ATS buscam; "Product Engineer" é o que diferencia. **Não**
+  usar "Developer" (lê como júnior), "Data Analyst" (subestima) nem "Solutions Architect"
+  (sugere que outro implementa).
 - **Experiência atual: Tech Lead da Nós Soluções Sustentáveis** (Belém/PA) desde
   **out/2026** — consultoria amazônida de sociobioeconomia e cooperativismo. Lidera a
   equipe de T.I. e responde por arquitetura, identidade/permissões, LGPD, integrações e

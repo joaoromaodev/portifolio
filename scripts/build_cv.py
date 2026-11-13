@@ -118,7 +118,7 @@ def job(role, org, period, bullets):
 CONTENT = {
     "en": {
         "file": "public/joao-romao-cv.pdf",
-        "role": "Full-Stack Software Engineer &nbsp;·&nbsp; TypeScript · React · Next.js · Python",
+        "role": "Full-Stack Product Engineer &nbsp;·&nbsp; TypeScript · React · Next.js · Python",
         "where": "Belém, Pará, Brazil (UTC-3) &nbsp;·&nbsp; open to remote / relocation",
         "sections": {
             "profile": "Profile",
@@ -128,19 +128,35 @@ CONTENT = {
             "education": "Education, languages and recognition",
         },
         "profile": (
-            "Full-stack engineer inside the Pará State Department of Education (SEDUC-PA) since "
-            "2023, where I grew from intern to technical lead and product owner of the platform "
-            "its finance directorates run on — Next.js 15, React, TypeScript and PostgreSQL, used "
-            "every day by around 50 people. I own systems end to end: data model, business logic, "
-            "interface, deployment and the people who depend on them. My depth is in financial "
-            "operations software — budget execution, settlements, payments, reconciliation, and the "
-            "anomaly detection that catches what a spreadsheet quietly hides."
+            "Product engineer who takes a problem from the first conversation to a system people "
+            "actually use: I sit with the client or the department, scope the thing, build it, test "
+            "it, train the users and stay with it in production. Now Tech Lead at an Amazonian "
+            "sociobioeconomy consultancy; before that, 2023–2026 inside the Pará State Department "
+            "of Education (SEDUC-PA), growing from intern to technical lead and product owner of the "
+            "platform its finance directorates run on — Next.js 15, React, TypeScript and "
+            "PostgreSQL, used every day by around 50 people. My depth is in financial operations "
+            "software: budget execution, settlements, payments, reconciliation, and the anomaly "
+            "detection that catches what a spreadsheet quietly hides."
         ),
         "jobs": [
             (
+                "Tech Lead",
+                "Nós Soluções Sustentáveis — Belém, Brazil",
+                "Oct 2026 — present",
+                [
+                    "Lead technology at an Amazonian consultancy in sociobioeconomy and cooperativism, "
+                    "which serves 250+ socio-productive organisations and 10,000+ families across 20 "
+                    "Brazilian states.",
+                    "Own architecture, identity and permissions, data segregation under the Brazilian "
+                    "data protection law (LGPD), integrations and production readiness across the "
+                    "company website, the platforms sold as management tools for cooperatives, and "
+                    "the internal ERP.",
+                ],
+            ),
+            (
                 "Tech Lead &amp; Product Owner — SIMF",
                 "Montreal Informática · SEDUC-PA — Belém, Brazil",
-                "2026 — present",
+                "Apr — Oct 2026",
                 [
                     "Technical decision-maker and product owner of an internal platform that monitors "
                     "budget and financial execution for the state education department — in active "
@@ -156,7 +172,7 @@ CONTENT = {
             (
                 "Developer",
                 "Kapa · SEDUC-PA — Belém, Brazil",
-                "Nov 2025 — Mar 2026",
+                "Nov 2025 — Apr 2026",
                 [
                     "Built and shipped the automation that tracks daily instalments paid to municipalities "
                     "under two state programmes (school transport and school meals) — from the raw financial "
@@ -211,11 +227,11 @@ CONTENT = {
             "(Dec 2025) — co-led EcoPredict, a machine-learning project on sustainability metrics for "
             "Belém, selected among the top 7 worldwide.",
         ],
-        "title": "João Romão — Full-Stack Software Engineer — CV",
+        "title": "João Romão — Full-Stack Product Engineer — CV",
     },
     "pt": {
         "file": "public/joao-romao-cv-pt.pdf",
-        "role": "Desenvolvedor Full Stack &nbsp;·&nbsp; TypeScript · React · Next.js · Python",
+        "role": "Full-Stack Product Engineer &nbsp;·&nbsp; TypeScript · React · Next.js · Python",
         "where": "Belém, Pará (UTC-3) &nbsp;·&nbsp; aberto a trabalho remoto / realocação",
         "sections": {
             "profile": "Perfil",
@@ -225,20 +241,35 @@ CONTENT = {
             "education": "Formação, idiomas e reconhecimento",
         },
         "profile": (
-            "Desenvolvedor full stack dentro da Secretaria de Estado de Educação do Pará "
-            "(SEDUC-PA) desde 2023, onde fui de estagiário a responsável técnico e product owner "
-            "da plataforma que as diretorias financeiras usam todo dia — Next.js 15, React, "
-            "TypeScript e PostgreSQL, com cerca de 50 pessoas usando diariamente. Assumo o sistema "
-            "de ponta a ponta: modelo de dados, regra de negócio, interface e deploy. Minha "
-            "profundidade está em software de operação financeira — execução orçamentária, "
+            "Engenheiro de produto que leva o problema da primeira conversa até um sistema que as "
+            "pessoas de fato usam: sento com o cliente ou o setor, recorto o escopo, desenvolvo, "
+            "testo, treino o usuário e acompanho em produção. Hoje Tech Lead em uma consultoria "
+            "amazônida de sociobioeconomia; antes, de 2023 a 2026, dentro da Secretaria de Estado "
+            "de Educação do Pará (SEDUC-PA), onde fui de estagiário a responsável técnico e "
+            "product owner da plataforma que as diretorias financeiras usam todo dia — Next.js 15, "
+            "React, TypeScript e PostgreSQL, com cerca de 50 pessoas usando diariamente. Minha "
+            "profundidade está em software de operação financeira: execução orçamentária, "
             "liquidação, pagamento, conciliação e a detecção de anomalia que pega o que a "
             "planilha esconde."
         ),
         "jobs": [
             (
+                "Tech Lead",
+                "Nós Soluções Sustentáveis — Belém, Pará",
+                "out/2026 — atual",
+                [
+                    "Lidero a tecnologia de uma consultoria amazônida de sociobioeconomia e "
+                    "cooperativismo, que atende mais de 250 organizações socioprodutivas e 10.000 "
+                    "famílias em 20 estados.",
+                    "Respondo por arquitetura, identidade e permissões, segregação de dados (LGPD), "
+                    "integrações e prontidão para produção do site da empresa, das plataformas "
+                    "vendidas como ferramentas de gestão para cooperativas e do ERP interno.",
+                ],
+            ),
+            (
                 "Tech Lead &amp; Product Owner — SIMF",
                 "Montreal Informática · SEDUC-PA — Belém, Pará",
-                "2026 — atual",
+                "abr — out/2026",
                 [
                     "Responsável pelas decisões técnicas e product owner de uma plataforma interna que "
                     "monitora a execução orçamentária e financeira da secretaria de educação do estado "
@@ -254,7 +285,7 @@ CONTENT = {
             (
                 "Desenvolvedor",
                 "Kapa · SEDUC-PA — Belém, Pará",
-                "nov/2025 — mar/2026",
+                "nov/2025 — abr/2026",
                 [
                     "Construí e coloquei em produção a automação que acompanha diariamente as parcelas "
                     "pagas às prefeituras em dois programas estaduais (transporte escolar e alimentação "
@@ -311,7 +342,7 @@ CONTENT = {
             "(dez/2025) — co-liderei o EcoPredict, projeto de machine learning sobre métricas de "
             "sustentabilidade para Belém, entre os 7 melhores do mundo.",
         ],
-        "title": "João Romão — Desenvolvedor Full Stack — CV",
+        "title": "João Romão — Full-Stack Product Engineer — CV",
     },
 }
 

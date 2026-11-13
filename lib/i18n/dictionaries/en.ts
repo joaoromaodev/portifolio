@@ -10,15 +10,16 @@ export const en = {
   shortLabel: "EN",
 
   meta: {
-    title: "João Romão · Developer",
+    title: "João Romão · Full-Stack Product Engineer",
     description:
-      "Portfolio of João Romão — a hybrid Data + Dev profile from Belém, Brazil. Python automation, real-time dashboards and full-stack Next.js. Open to remote / relocation.",
+      "Portfolio of João Romão — a full-stack product engineer from Belém, Brazil. From the problem interview to production: Python automation, real-time dashboards and full-stack Next.js. Open to remote / relocation.",
     ogDescription:
       "A living dashboard about me: real-time data, Python automation and full-stack Next.js. Open to remote work and relocation.",
     keywords: [
       "João Romão",
-      "Data Analyst",
-      "Developer",
+      "Full-Stack Product Engineer",
+      "Product Engineer",
+      "Full-stack Developer",
       "Python automation",
       "Next.js",
       "Belém",
@@ -27,7 +28,7 @@ export const en = {
   },
 
   profile: {
-    role: "Data Analyst & Developer",
+    role: "Full-Stack Product Engineer",
     tagline: "Python automation · real-time data · full-stack Next.js",
     location: "Belém, Pará — Brazil",
     status: "open to remote / relocation",
@@ -72,7 +73,7 @@ export const en = {
       accent: "public-sector finance",
       tail: " runs on — turning raw data into automation and full-stack products that hold up in production.",
     },
-    roleLine: "Data Analyst & Developer from Belém, Brazil.",
+    roleLine: "Full-Stack Product Engineer from Belém, Brazil.",
     cityLabel: "Belém",
     ctaWork: "View work",
     ctaCv: "Download résumé",
