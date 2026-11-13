@@ -127,7 +127,7 @@ export const en = {
       unavailable: "The assistant is unavailable right now.",
       genericError: "Something went wrong.",
       suggestions: [
-        "What does João do at SEDUC?",
+        "What does João do at Nós?",
         "Show me the strongest project",
         "Is he open to remote work?",
       ],
@@ -167,10 +167,16 @@ export const en = {
     slug: "experience",
     title: "From intern to tech lead",
     subtitle:
-      "Inside the Pará State Department of Education (SEDUC-PA) since 2023 — same institution, growing scope.",
+      "From an internship at the Pará State Department of Education (SEDUC-PA) to leading technology at an Amazonian consultancy.",
     items: [
       {
-        period: "2026 — present",
+        period: "Oct 2026 — present",
+        role: "Tech Lead",
+        org: "Nós Soluções Sustentáveis · Belém, PA",
+        note: "I lead technology at an Amazonian consultancy in sociobioeconomy and cooperativism — 250+ socio-productive organizations and 10,000+ families reached across 20 states. I own architecture, identity and permissions, data segregation (LGPD) and production readiness for the company website, the platforms we sell as management tools for cooperatives, and our internal ERP.",
+      },
+      {
+        period: "Mar — Oct 2026",
         role: "Tech Lead & Product Owner — SIMF",
         org: "Montreal Informática · SEDUC-PA",
         note: "Technical decision-maker and product owner of an internal financial-monitoring platform. Right hand to the DPPC director.",

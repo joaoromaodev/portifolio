@@ -129,7 +129,7 @@ export const pt: Dictionary = {
       unavailable: "O assistente está indisponível no momento.",
       genericError: "Algo deu errado.",
       suggestions: [
-        "O que o João faz na SEDUC?",
+        "O que o João faz na Nós?",
         "Qual é o projeto mais forte dele?",
         "Ele está aberto a trabalho remoto?",
       ],
@@ -169,10 +169,16 @@ export const pt: Dictionary = {
     slug: "experience",
     title: "De estagiário a tech lead",
     subtitle:
-      "Dentro da Secretaria de Estado de Educação do Pará (SEDUC-PA) desde 2023 — mesma instituição, escopo crescendo.",
+      "Do estágio na Secretaria de Estado de Educação do Pará (SEDUC-PA) à liderança de tecnologia em uma consultoria amazônida.",
     items: [
       {
-        period: "2026 — atual",
+        period: "out/2026 — atual",
+        role: "Tech Lead",
+        org: "Nós Soluções Sustentáveis · Belém, PA",
+        note: "Lidero a tecnologia de uma consultoria amazônida de sociobioeconomia e cooperativismo — mais de 250 organizações socioprodutivas e 10.000 famílias impactadas em 20 estados. Respondo por arquitetura, identidade e permissões, segregação de dados (LGPD) e prontidão para produção do site da empresa, das plataformas vendidas como ferramentas de gestão para cooperativas e do nosso ERP interno.",
+      },
+      {
+        period: "mar — out/2026",
         role: "Tech Lead & Product Owner — SIMF",
         org: "Montreal Informática · SEDUC-PA",
         note: "Responsável pelas decisões técnicas e product owner de uma plataforma interna de monitoramento financeiro. Braço direito da diretora da DPPC.",

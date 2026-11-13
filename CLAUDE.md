@@ -36,12 +36,18 @@ O site complementa o currículo (já pronto) e o LinkedIn — não os repete, ap
   seção de formação.
 - **Inglês:** B2 Upper Intermediate (EF SET, 2025).
 - **Posicionamento:** Data Analyst & Developer (Python automation + full-stack Next.js/React).
-- **Experiência:** no SEDUC-PA (Secretaria de Educação do Pará) **desde 2023**, mesma
-  instituição, contratantes diferentes: **estágio set/2023–2025 → Kapa nov/2025–mar/2026 →
-  Montreal Informática 2026–atual**. (Corrigido em 02/09/2026 com o João; a versão
-  anterior dizia "~2,5 anos" e datava tudo dois anos antes. Preferir "desde 2023" a
-  uma duração: não envelhece.)
-  Hoje é **tech lead / product owner do SIMF** e braço direito da diretora da DPPC.
+- **Experiência atual: Tech Lead da Nós Soluções Sustentáveis** (Belém/PA) desde
+  **out/2026** — consultoria amazônida de sociobioeconomia e cooperativismo. Lidera a
+  equipe de T.I. e responde por arquitetura, identidade/permissões, LGPD, integrações e
+  prontidão para produção. (Confirmado com o João em 13/11/2026. Ver §8.5 para o que
+  pode e o que não pode ser publicado sobre os sistemas da Nós.)
+- **Experiência anterior:** SEDUC-PA (Secretaria de Educação do Pará) de **2023 a
+  out/2026**, mesma instituição, contratantes diferentes: **estágio set/2023–2025 →
+  Kapa nov/2025–mar/2026 → Montreal Informática mar/2026–out/2026**. Foi **tech lead /
+  product owner do SIMF** e braço direito da diretora da DPPC. (Datas corrigidas em
+  02/09/2026; o fim do vínculo e o início na Montreal em 13/11/2026 — a troca Kapa →
+  Montreal foi no mesmo mês, com uma semana de diferença, por isso mar/2026 aparece
+  nas duas entradas.)
 - **Objetivo de vida:** construir uma vida no exterior com a esposa, com qualidade de vida e
   liberdade financeira e física.
 
@@ -309,6 +315,16 @@ renderizar mockups HTML, as regras de conversão WebP e as armadilhas já pagas.
 3. **Honestidade do conteúdo:** RootLab = pré-MVP e co-autoral; "liderança" do João = decisão
    técnica/product ownership, **não** gestão de pessoas. Não inflar.
 4. **Privacidade:** sem telefone público; preferir formulário/email ofuscado.
+5. **Sigilo da Nós Soluções Sustentáveis:** os sistemas internos (o ERP/plataforma
+   **ELO**, as plataformas vendidas a cooperativas) estão em **beta fechado** e são
+   sigilosos. O João autorizou (13/11/2026) publicar **apenas** que lidera a
+   tecnologia da empresa e desenvolve: o **site da empresa**, **plataformas vendidas
+   como ferramentas de gestão para cooperativas** e o **ERP interno** — nessa
+   granularidade, sem nome de produto, sem módulos, sem stack, sem roadmap, sem
+   nomes de clientes-piloto, sem valores de contrato e sem tamanho de equipe. Nada de
+   card de projeto para o ELO até o João liberar. As métricas institucionais
+   (10.000+ famílias, 250+ organizações socioprodutivas, 450+ comunidades, 100+
+   municípios, 20 estados) **são públicas** em nossustentaveis.com e podem ser usadas.
 
 ---
 
