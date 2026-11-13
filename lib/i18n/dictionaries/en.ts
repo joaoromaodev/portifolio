@@ -72,7 +72,7 @@ export const en = {
       lead: "I build technology with ",
       accent: "Amazonian roots",
       tail:
-        " — production software for the environmental economy, cooperatives and public money, owned from the first conversation through to daily use.",
+        " — production software for the environmental economy and cooperatives, owned from the first conversation through to daily use.",
     },
     roleLine: "Full-Stack Product Engineer from Belém, Brazil.",
     cityLabel: "Belém",

@@ -75,7 +75,7 @@ export const pt: Dictionary = {
       lead: "Eu construo tecnologia com ",
       accent: "raízes amazônicas",
       tail:
-        " — software em produção para a economia ambiental, o cooperativismo e o dinheiro público, da primeira conversa ao uso diário.",
+        " — software em produção para a economia ambiental e o cooperativismo, da primeira conversa ao uso diário.",
     },
     roleLine: "Full-Stack Product Engineer, de Belém do Pará.",
     cityLabel: "Belém",
